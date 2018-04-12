@@ -442,15 +442,19 @@ S_m = \frac{1}{w} \sum_{k=m-w}^{m} g_{m-k} \cdot x_k,
 \end{equation} 
 kde $w$ je délka úseku a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. A vektor $\vec{S} = (S_1,S_2,..,S_n)$ je rys vektoru $\vec{X}$. 
  
-\subsection{Rozptyl}
-Rozptyl asi vynechám protože je k ničemu
-\begin{equation}
-\sigma ^2_n = \frac{1}{n} \sum_{k = 1}^{n} (x_k -E(x) )^2 = \frac{1}{n} \sum_{k = 1}^{n} (x_k - \overline{X}_n )^2
-\label{rozptyl}
-\end{equation}
+ \begin{comment}
+ 
+ \subsection{Rozptyl}
+ Rozptyl asi vynechám protože je k ničemu
+ \begin{equation}
+ \sigma ^2_n = \frac{1}{n} \sum_{k = 1}^{n} (x_k -E(x) )^2 = \frac{1}{n} \sum_{k = 1}^{n} (x_k - \overline{X}_n )^2
+ \label{rozptyl}
+ \end{equation}
+ \end{comment}
 
-\subsection{Úsekový rozptyl}
+
 \begin{comment}
+
 Nechť $X = (x_1, x_2, ..., x_n)$ je diskrétní náhodná veličina s příslušnými pravděpodobnostmi  $p_1,p_2, ...,p_n$. Pak střední hodnotu náhodné veličiny $X$ označím symbolem $E[X]$ a definuji ji jako 
 \begin{equation}
 E[X]  = \sum_{k=1}^{n} p_k \cdot x_k.
@@ -463,7 +467,8 @@ E[X] = \frac{1}{n} \sum_{k=1}^{n} x_k
 \end{equation}
 \end{comment}
 
-Ve statistice a teorii pravděpodobnosti se pod pojmem rozptyl rozumí střední hodnota kvadrátu odchylky od střední hodnoty náhodné veličiny. Bývá reprezentována symbolem $Var(X)$ nebo $\sigma^2$ a definována vzorcem 
+\subsection{Úsekový rozptyl}
+Ve statistice a teorii pravděpodobnosti se pod pojmem rozptyl rozumí střední hodnota kvadrátu odchylky od střední hodnoty náhodné veličiny. Bývá reprezentován symbolem $Var(X)$ nebo $\sigma^2$ a definován vzorcem 
 \begin{equation}
 Var(X) = E[(X-E[X])^2] %= \sum_{k=1}^{n}(x_k-E[X])^2
 \end{equation}
@@ -475,13 +480,16 @@ Var(X) = \frac{1}{n}\sum_{k=1}^{n} (x_k - \overline{X}_n)^2.
 \label{varf}
 \end{equation}
 
-Když jsem se začínal vybírat rys, které budu potom používat při klasifikaci, byl rozptyl jedna z mých prvních voleb. Naneštěstí má stejný problém jako standartní skalární součin a to ten, že s postupem času bude různým stavům přiřazovat stejnou hodnotu. 
-Proto jsem se rozhodl využít místo standartního skalárnho součinu již dříve definovaný úsekový skalární součin a výslednou veličinu jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
+Když jsem se začínal vybírat rys, které budu potom používat při klasifikaci, byl rozptyl jedna z mých prvních voleb. Naneštěstí je zde stejný problém jako s aritmetickým průměrem a to ten, že s postupem času bude různým stavům přiřazovat stejnou hodnotu. 
+Proto jsem se rozhodl využít namísto standartního aritmetického průměru již dříve definovaný úsekový aritmetický průměr a výslednou veličinu %jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
+budu dále nazývat úsekovým rozptylem a značit $D_m$.
+
+Nechť $X = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $m \in 1, 2, ..., n$ jako 
 \begin{equation}
 D_m = \frac{1}{w} \sum_{k=m-w}^{m} (x_k - \widetilde{X}_m)^2,
 \label{úsekový rozptyl}
 \end{equation}
-kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický průměr viz \eqref{úsekový průměr}.
+kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický průměr \eqref{úsekový průměr}.
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
@@ -499,7 +507,6 @@ kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický pr�
 \chapter{Způsoby vyhodnocení výsledků}
 V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) mého algoritmu.
 
-"Vždy je potřeba nějak ohodnotit kvalitu našeho výsledku."
 \section{Přesnost}
 \section{Správnost}
 \section{Recall}
