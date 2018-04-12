@@ -472,7 +472,7 @@ Ve statistice a teorii pravděpodobnosti se pod pojmem rozptyl rozumí střední
 \begin{equation}
 Var(X) = E[(X-E[X])^2] %= \sum_{k=1}^{n}(x_k-E[X])^2
 \end{equation}
-pro stejně rozdělené diskrétní náhodné veličiny $X = (x_1, x_2, ...,x_n)$
+pro stejně rozdělené diskrétní náhodné veličiny $\vec{X} = (x_1, x_2, ...,x_n)$
 můžeme tento vzorec přepsat do tvaru 
 
 \begin{equation}
@@ -484,12 +484,12 @@ Když jsem se začínal vybírat rys, které budu potom používat při klasifik
 Proto jsem se rozhodl využít namísto standartního aritmetického průměru již dříve definovaný úsekový aritmetický průměr a výslednou veličinu %jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
 budu dále nazývat úsekovým rozptylem a značit $D_m$.
 
-Nechť $X = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $m \in 1, 2, ..., n$ jako 
+Nechť $\vec{X} = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $m \in 1, 2, ..., n$ jako 
 \begin{equation}
 D_m = \frac{1}{w} \sum_{k=m-w}^{m} (x_k - \widetilde{X}_m)^2,
 \label{úsekový rozptyl}
 \end{equation}
-kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický průměr \eqref{úsekový průměr}. Pak vektor $D = (D_1, D_2, ..., D_n)$ je rys vektoru $X$.
+kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický průměr \eqref{úsekový průměr}. Pak vektor $\vec{D} = (D_1, D_2, ..., D_n)$ je rys vektoru $\vec{X}$.
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
