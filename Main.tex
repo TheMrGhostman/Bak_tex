@@ -1,0 +1,526 @@
+%% LyX 2.1.4 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[11pt,american,czech]{book}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper]{geometry}
+\geometry{verbose,tmargin=4cm,bmargin=3cm,lmargin=3cm,rmargin=2cm,headheight=0.8cm,headsep=1cm,footskip=0.5cm}
+\pagestyle{headings}
+\setcounter{secnumdepth}{3}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{comment}
+\usepackage{float}
+\restylefloat{table}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\newenvironment{lyxlist}[1]
+{\begin{list}{}
+{\settowidth{\labelwidth}{#1}
+ \setlength{\leftmargin}{\labelwidth}
+ \addtolength{\leftmargin}{\labelsep}
+ \renewcommand{\makelabel}[1]{##1\hfil}}}
+{\end{list}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%% Font setup: please leave the LyX font settings all set to 'default'
+%% if you want to use any of these packages:
+
+%% Use Times New Roman font for text and Belleek font for math
+%% Please make sure that the 'esint' package is turned off in the
+%% 'Math options' page.
+\usepackage[varg]{txfonts}
+
+%% Use Utopia text with Fourier-GUTenberg math
+%\usepackage{fourier}
+
+%% Bitstream Charter text with Math Design math
+%\usepackage[charter]{mathdesign}
+
+%%---------------------------------------------------------------------
+
+%% Make the multiline figure/table captions indent so that the second
+%% line "hangs" right below the first one.
+%\usepackage[format=hang]{caption}
+
+%% Indent even the first paragraph in each section
+\usepackage{indentfirst}
+
+%%---------------------------------------------------------------------
+
+%% Disable page numbers in the TOC. LOF, LOT (TOC automatically
+%% adds \thispagestyle{chapter} if not overriden
+%\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\addtocontents{lof}{\protect\thispagestyle{empty}}
+%\addtocontents{lot}{\protect\thispagestyle{empty}}
+
+%% Shifts the top line of the TOC (not the title) 1cm upwards 
+%% so that the whole TOC fits on 1 page. Additional page size
+%% adjustment is performed at the point where the TOC
+%% is inserted.
+%\addtocontents{toc}{\protect\vspace{-1cm}}
+
+%%---------------------------------------------------------------------
+
+% completely avoid orphans (first lines of a new paragraph on the bottom of a page)
+\clubpenalty=9500
+
+% completely avoid widows (last lines of paragraph on a new page)
+\widowpenalty=9500
+
+% disable hyphenation of acronyms
+\hyphenation{CDFA HARDI HiPPIES IKEM InterTrack MEGIDDO MIMD MPFA DICOM ASCLEPIOS MedInria}
+
+%%---------------------------------------------------------------------
+
+%% Print out all vectors in bold type instead of printing an arrow above them
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+% Replace standard \cite by the parenthetical variant \citep
+%\renewcommand{\cite}{\citep}
+
+\makeatother
+
+\usepackage{babel}
+\begin{document}
+\def\documentdate{2. \v{c}ervence 2018}
+
+%%\def\documentdate{\today}
+
+\pagestyle{empty}
+{\centering
+
+\noindent %
+\begin{minipage}[c]{3cm}%
+\noindent \begin{center}
+\includegraphics[width=3cm,height=3cm,keepaspectratio]{Images/TITLE/cvut}
+\par\end{center}%
+\end{minipage}%
+\begin{minipage}[c]{0.6\linewidth}%
+\begin{center}
+\textsc{\large{}České vysoké učení technické v Praze}{\large{}}\\
+{\large{}Fakulta jaderná a fyzikálně inženýrská}
+\par\end{center}%
+\end{minipage}%
+\begin{minipage}[c]{3cm}%
+\noindent \begin{center}
+\includegraphics[width=3cm,height=3cm,keepaspectratio]{Images/TITLE/fjfi}
+\par\end{center}%
+\end{minipage}
+
+\vspace{3cm}
+
+
+\textbf{\huge{}Těžba dat z experimentů na tokamaku COMPASS}{\huge \par}
+
+\vspace{1cm}
+
+
+\selectlanguage{american}%
+\textbf{\huge{}Data mining on the COMPASS tokamak experiments}{\huge \par}
+
+\selectlanguage{czech}%
+\vspace{2cm}
+
+
+{\large{}Bakalářská práce}{\large \par}
+
+}
+
+\vfill{}
+
+\begin{lyxlist}{MMMMMMMMM}
+\begin{singlespace}
+\item [{Autor:}] \textbf{Matěj Zorek}
+\item [{Vedoucí~práce:}] \textbf{Ing. Vít Škvára}
+\item [{Konzultant:}] \textbf{Ing. Jakub Urban, PhD}
+\item [{Akademický~rok:}] 2017/2018\end{singlespace}
+
+\end{lyxlist}
+\newpage{}
+
+~\newpage{}
+
+~
+
+\vfill{}
+
+
+\begin{center}
+- Zadání práce -
+\par\end{center}
+
+\vfill{}
+
+
+~\newpage{}
+
+~
+
+\vfill{}
+
+
+\begin{center}
+- Zadání práce (zadní strana) -
+\par\end{center}
+
+\vfill{}
+
+
+~\newpage{}
+
+\noindent \emph{\Large{}Poděkování:}{\Large \par}
+
+\noindent Chtěl bych zde poděkovat především svému školiteli ...................
+za pečlivost, ochotu, vstřícnost a odborné i lidské zázemí při vedení
+mé diplomové práce. Dále děkuji svému konzultantovi ................
+za ................
+
+\vfill
+
+\noindent \emph{\Large{}Čestné prohlášení:}{\Large \par}
+
+\noindent Prohlašuji, že jsem tuto práci vypracoval samostatně a uvedl
+jsem všechnu použitou literaturu.
+
+\bigskip{}
+
+
+\noindent V Praze dne \documentdate\hfill{}Matěj Zorek
+
+\vspace{2cm}
+
+
+\newpage{}
+
+~\newpage{}
+
+\begin{onehalfspace}
+\noindent \emph{Název práce:}
+
+\noindent \textbf{Těžba dat z experimentů na tokamaku COMPASS}
+\end{onehalfspace}
+
+\bigskip{}
+
+
+\noindent \emph{Autor:} Matěj Zorek
+
+\bigskip{}
+
+
+\noindent \emph{Obor:} Matematické inženýrstvý\bigskip{}
+
+
+\noindent \emph{Zaměření:} Aplikované matematicko-stochastické metody
+
+\bigskip{}
+
+
+\noindent \emph{Druh práce:} Bakalářská práce
+
+\bigskip{}
+
+
+\noindent \emph{Vedoucí práce:} Ing. Vít Škvára, Ústav fyziky plazmatu, AV ČR
+Za Slovankou 1782/3
+182 00 Praha 8
+
+\bigskip{}
+
+
+\noindent \emph{Konzultant:} Ing. Jakub Urban, PhD., Ústav fyziky plazmatu, AV ČR, Za Slovankou 1782/3, 182 00 Praha 8
+
+\bigskip{}
+
+
+\noindent \emph{Abstrakt:} Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků.
+Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max.
+na 10 řádků. Abstrakt max. na 10 řádků. Abstrakt max. na 10 řádků. 
+
+\bigskip{}
+
+
+\noindent \emph{Klíčová slova:} klíčová slova (nebo výrazy) seřazená
+podle abecedy a oddělená čárkou
+
+\vfill{}
+~
+
+\selectlanguage{american}%
+\begin{onehalfspace}
+\noindent \emph{Title:}
+
+\noindent \textbf{Data mining on the COMPASS tokamak experiments}
+\end{onehalfspace}
+
+\bigskip{}
+
+
+\noindent \emph{Author:} Matěj Zorek
+
+\bigskip{}
+
+
+\noindent \emph{Abstract:} Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text. Max. 10 lines of English
+abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+of English abstract text. Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text. Max. 10 lines of English
+abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+of English abstract text. Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text. Max. 10 lines of English
+abstract text. Max. 10 lines of English abstract text. Max. 10 lines
+of English abstract text. Max. 10 lines of English abstract text.
+Max. 10 lines of English abstract text. Max. 10 lines of English abstract
+text. Max. 10 lines of English abstract text.
+
+\bigskip{}
+
+
+\noindent \emph{Key words:} keywords in alphabetical order separated
+by commas
+
+\selectlanguage{czech}%
+\newpage{}
+
+~\newpage{}
+
+\pagestyle{plain}
+
+\tableofcontents{}
+
+\newpage{}
+
+
+\chapter*{Úvod}
+
+\addcontentsline{toc}{chapter}{Úvod}
+
+Text úvodu....
+
+
+\chapter{Teoretická část}
+
+\section{HMM}
+
+\section{K-means}
+
+\section{Autoregresní model}
+
+\section{Specifické rysy (Features)}
+
+Ve strojovém učení a rozpoznávání vzorů se pod pojmem "rys" \ (feature) rozumí individuální měřitelná vlastnost nebo charakteristika pozorovaného jevu. Výběr těchto rysů je %jedním z nejdůležitějších kroků v řešení daného problému a  
+naprosto zásadní pro efektivní rozpoznávací, regresní a klasifikační algoritmy. 
+Čím relevantnější  a charakterističtější rys, tím lépe jsme schopni docílít větší přesnosti modelu. Na druhou stranu vynechání zbytečných, případně méně důležitých rysů zase snižuje složitost modelu a urychluje jeho trénink.
+Nejčastější forma rysu je číselná hodnota, avšak při rozpoznávání syntetických vzorků se hojně používají i písmena, slova nebo grafy.
+
+Selekci těchto rysů je možné demonstrovat na následujícím příkladu. Předpokládejme, že bychom chtěli předvídat typ domácího mazlíčka, jež si někdo koupí.
+ 
+Do rysů můžeme zahrnout například věk osoby, pohlaví, jméno, bydlení (byt, dům, ...), rodinný příjem, vzdělání a počet dětí. Je zřejmě, že většina těchto rysů nám může při předvidání pomoci, ale některé jako třeba vzdělání nebo jméno jsou zjevně méně důležité.%nedůležité. 
+
+\begin{table}[H]
+	\centering
+	%\renewcommand{\arraystretch}{1}
+	%\renewcommand{\tablename}{Tab.}
+	
+	\begin{tabular}{c|c|c|c|c|c|c}
+		
+		jméno & věk &	pohlaví	&	bydlení &  příjem & počet dětí & vzdělání	\\
+		\hline
+		Karel & 25 & muž & byt & 30.000 & 0 & středoškolské \\
+		\hline
+		Petr & 30 & muž & dům & 45.000 & 2 & vysokoškolské \\
+		\hline
+		Jana & 42 & žena & byt & 23.000 & 1 & základoškolské \\
+		\hline
+		Miloš & 51 & muž & dům & 29.000 & 1 & středoškolské\\
+		\hline
+		 \multicolumn{7}{c}{...}  \\
+	\end{tabular}
+\caption{Vzorová tabulka rysů k demonstračnímu příkaldu}
+\end{table}
+
+
+\begin{comment}
+
+Například pokud se snažíte předvídat typ zvířete, který si někdo zvolí, vaše vstupní funkce mohou zahrnovat věk, domácí region, rodinný příjem atd. Označení je konečnou volbou, jako je pes, ryba, iguana, rock, atd.
+
+ve strojovém učení a rozpoznávání vzoru je rysem individuální měřitelná vlastnost nebo charakteristika pozorovaného jevu. [1] Výběr informačních, diskriminačních a nezávislých prvků je zásadním krokem pro efektivní algoritmy v rozpoznávání, klasifikaci a regresi. 
+
+Rysy jsou nejčastěji číselné avšak při rozpoznávání syntetických vzorů se navíc používají například řetězce a grafy.  
+
+Features are a column of data given as the input. They are also called as attributes or might sometimes be referred as dimensions.
+
+A particular problem data set can have several features tagging to them. It is important to select the features that are more relevant to our problem so that the accuracy of the model improves. It also reduces the complexity of the model as we avoid the least significant / unnecessary feature data. The simpler model is simpler to understand and explain.
+
+This Process is called feature engineering / selection and is one of the crucial step of pre-processing. Different algorithms can be used to implement it.
+
+The Features can be of different types.
+
+Simple Supervised selection where they are simple values like numbers and characters.
+Eg: Size of the house (number) .
+
+In unsupervised learning, the model is itself trained to recognize the features and work on it.
+
+Eg: In character recognition, features may include histograms counting the number of black pixels along horizontal and vertical directions, number of internal holes, stroke detection and many others.
+\end{comment}
+
+\newpage
+\subsection{První a druhá derivace}
+ Jedním ze dvou rysů, jež jsem převzal z již existujícího kódu, je první derivace. 
+ Jelikož mám pouze jednotlivé body nemohu používat analytický vzorec na derivace, tedy konkrétně
+ \begin{equation}
+ 	\frac{d f(x)}{dx}=f'(x) = \lim\limits_{h->0} \frac{f(x+h)-f(x)}{h}.
+ \label{derivace}
+ \end{equation}
+ Namísto toho ji musím počítat numericky, a to za použití centrální diference druhého řádu pomocí \eqref{vnitřní diference} a v krajních bodech pomocí jednostranných diferencí prvního nebo druhého řádu \eqref{vnější diference}.
+\begin{equation}
+\hat{f}'_k = \frac{f(x_{k+1})-f(x_{k-1})}{2h} 
+\label{vnitřní diference}
+\end{equation}
+\begin{equation}
+\hat{f}'_0 = \frac{f(x_1)-f(x_0)}{h} \ \ \text{a} \ \ \hat{f}'_n = \frac{f(x_n)-f(x_{n-1})}{h}
+\label{vnější diference}
+\end{equation}
+
+Druhým převzatým rysem je druhá derivace, kterou získáme použitím vzorců pro první derivaci na již jednou zderivovaná data. 
+
+\subsection{Úsekový aritmetický průměr}
+Prvním mnou vybraným rysem je úsekový aritmetický průměr naměřených dat, který budu nadále značit jako $\widetilde{X}_m $. Nechť máme  vektor naměřených hodnot $\vec{X}=(x_1, x_2,...,x_n)$, pak definuji úskový aritmetický průměr pro $m \ \in \ 1,2,...,n$ jako
+\begin{equation}
+\widetilde{X}_m = \frac{1}{w} \sum_{k=m-w }^{m} x_k , 
+\label{úsekový průměr}
+\end{equation}  
+kde $w$ je délka úseku. A vektor $\vec{\widetilde{X}} = (\widetilde{X}_1,\widetilde{X}_2,..,\widetilde{X}_n)$ je rys vektoru $\vec{X}$.
+
+Ve skutečnosti se jedná o standartní aritmetický průměr \eqref{aritmetický průměr}, jež je aplikovaný pouze na úsek dat konečné délky.
+\begin{equation}
+\overline{X}_n = \frac{1}{n} \sum_{k=1}^{n} x_k,
+\label{aritmetický průměr}
+\end{equation}
+
+Mezi rysy jsem ho vybral, protože předpokládám, že okamžitá hodnota je závislá na %bezprostředně 
+předchozích datech. Důvod proč využívám jen konečně dlouhý úsek předcházejících hodnot je ten, že ze zákona velkých čísel (standartní) aritmetický průměr konverguje ke střední hodnotě, a tedy ke konstantě. To znamená, že postupem času budou mít rozdílná data v odlišných stavech stejnou hodnotu rysu. Z čehož plyne, že takovýto rys by jen zkresloval a znepřesňoval výsledek, viz Obr. \ref{obr1}. 
+
+ 
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.7]{obr2}
+	\caption{Rozdíl mezi úsekovým a standartním aritmerickým průměrem aplikovaným na syntetická data (pro větší přehlednost je každá krivka zobrazena zvlášť)}
+	\label{obr1}
+\end{figure}
+
+
+
+\subsection{Váhový součet zleva}
+Jak jsem se zmínil již dříve, předpoládám závislost na předchozích hodnotách. "Není však překvapením", že hodnoty naměřené s velkým časovým rozestupem %vzdálenější hodnoty 
+na sebe mají mnohem menší vliv, než ty jež jsou naměřeny bezprostředně zasebou. Proto dalším mnou vybraným rysem je tedy váhový součet zleva $S_m$. 
+
+Nechť $\vec{X}=(x_1, x_2,...,x_n)$ je vektor naměřených hodnot, pak definuji váhový součet zleva pro $m \ \in \ 1,2,...,n$ jako
+\begin{equation}
+S_m = \frac{1}{w} \sum_{k=m-w}^{m} g_{m-k} \cdot x_k, 
+\label{váhový součet zleva}
+\end{equation} 
+kde $w$ je délka úseku a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. A vektor $\vec{S} = (S_1,S_2,..,S_n)$ je rys vektoru $\vec{X}$. 
+ 
+\subsection{Rozptyl}
+Rozptyl asi vynechám protože je k ničemu
+\begin{equation}
+\sigma ^2_n = \frac{1}{n} \sum_{k = 1}^{n} (x_k -E(x) )^2 = \frac{1}{n} \sum_{k = 1}^{n} (x_k - \overline{X}_n )^2
+\label{rozptyl}
+\end{equation}
+
+\subsection{Úsekový rozptyl}
+\begin{comment}
+Nechť $X = (x_1, x_2, ..., x_n)$ je diskrétní náhodná veličina s příslušnými pravděpodobnostmi  $p_1,p_2, ...,p_n$. Pak střední hodnotu náhodné veličiny $X$ označím symbolem $E[X]$ a definuji ji jako 
+\begin{equation}
+E[X]  = \sum_{k=1}^{n} p_k \cdot x_k.
+\label{etření hodnota}
+\end{equation}
+Pokud jsou $x_1, x_2, ..., x_n$ stejně rozdělené tzn. $p_1 = p_2 = ... = p_n$ pak stření hodnota nabývá tvaru 
+\begin{equation}
+E[X] = \frac{1}{n} \sum_{k=1}^{n} x_k
+\label{mean}
+\end{equation}
+\end{comment}
+
+Ve statistice a teorii pravděpodobnosti se pod pojmem rozptyl rozumí střední hodnota kvadrátu odchylky od střední hodnoty náhodné veličiny. Bývá reprezentována symbolem $Var(X)$ nebo $\sigma^2$ a definována vzorcem 
+\begin{equation}
+Var(X) = E[(X-E[X])^2] %= \sum_{k=1}^{n}(x_k-E[X])^2
+\end{equation}
+pro stejně rozdělené diskrétní náhodné veličiny $X = (x_1, x_2, ...,x_n)$
+můžeme tento vzorec přepsat do tvaru 
+
+\begin{equation}
+Var(X) = \frac{1}{n}\sum_{k=1}^{n} (x_k - \overline{X}_n)^2.
+\label{varf}
+\end{equation}
+
+Když jsem se začínal vybírat rys, které budu potom používat při klasifikaci, byl rozptyl jedna z mých prvních voleb. Naneštěstí má stejný problém jako standartní skalární součin a to ten, že s postupem času bude různým stavům přiřazovat stejnou hodnotu. 
+Proto jsem se rozhodl využít místo standartního skalárnho součinu již dříve definovaný úsekový skalární součin a výslednou veličinu jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
+\begin{equation}
+D_m = \frac{1}{w} \sum_{k=m-w}^{m} (x_k - \widetilde{X}_m)^2,
+\label{úsekový rozptyl}
+\end{equation}
+kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický průměr viz \eqref{úsekový průměr}.
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.7]{obr3}
+	\caption{Rozdíl mezi úsekovým a normálním rozptylem aplikovaným na syntetická data}
+	\label{obr3}
+\end{figure}
+
+
+
+\pagestyle{headings}
+
+
+\chapter{Způsoby vyhodnocení výsledků}
+V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) mého algoritmu.
+
+"Vždy je potřeba nějak ohodnotit kvalitu našeho výsledku."
+\section{Přesnost}
+\section{Správnost}
+\section{Recall}
+\section{F míra}
+
+
+\pagestyle{headings}
+
+\chapter*{Závěr}
+
+\pagestyle{plain}
+
+\addcontentsline{toc}{chapter}{Závěr}
+
+Text závěru....
+\begin{thebibliography}{1}
+\bibitem{Bishop}C. M. Bishop, Pattern recognition and machine learning. Springer, New York, 2013.
+
+\bibitem{Kikuchi}M. Kikuchi,  K. Lackner, M. Q. Tran, Fusion physics. International Atomic Energy Agency, Vienna, 2012.
+
+\bibitem{Rabiner}L. R. Rabiner, A tutorial on hidden Markov models and selected applications in speech recognition. Proceedings of the IEEE 77(2), 1989, 257-286.
+\end{thebibliography}
+
+\end{document}
