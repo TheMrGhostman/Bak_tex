@@ -16,6 +16,7 @@
 \usepackage{comment}
 \usepackage{float}
 \restylefloat{table}
+\usepackage{amssymb}
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -316,14 +317,12 @@ by commas
 
 Text úvodu....
 
+\chapter{Motivace}
+\pagestyle{headings}
 
-\chapter{Teoretická část}
+\section{Strojové učení}
 
-\section{HMM}
-
-\section{K-means}
-
-\section{Autoregresní model}
+\section{Klasifikace}
 
 \section{Rysy (Features)}
 
@@ -333,7 +332,7 @@ naprosto zásadní pro efektivní rozpoznávací, regresní a klasifikační alg
 Nejčastější forma rysu je číselná hodnota, avšak při rozpoznávání syntetických vzorků se hojně používají i písmena, slova nebo grafy.
 
 Selekci těchto rysů je možné demonstrovat na následujícím příkladu. Předpokládejme, že bychom chtěli předvídat typ domácího mazlíčka, jež si někdo koupí.
- 
+
 Do rysů můžeme zahrnout například věk osoby, pohlaví, jméno, bydlení (byt, dům, ...), rodinný příjem, vzdělání a počet dětí. Je zřejmě, že většina těchto rysů nám může při předvidání pomoci, ale některé jako třeba vzdělání nebo jméno jsou zjevně méně důležité.%nedůležité. 
 
 \begin{table}[H]
@@ -349,13 +348,13 @@ Do rysů můžeme zahrnout například věk osoby, pohlaví, jméno, bydlení (b
 		\hline
 		Petr & 30 & muž & dům & 45.000 & 2 & vysokoškolské \\
 		\hline
-		Jana & 42 & žena & byt & 23.000 & 1 & základoškolské \\
+		Jana & 42 & žena & byt & 23.000 & 1 & základní \\
 		\hline
 		Miloš & 51 & muž & dům & 29.000 & 1 & středoškolské\\
 		\hline
-		 \multicolumn{7}{c}{...}  \\
+		\multicolumn{7}{c}{...}  \\
 	\end{tabular}
-\caption{Vzorová tabulka rysů k demonstračnímu příkaldu}
+	\caption{Vzorová tabulka rysů k demonstračnímu příkaldu}
 \end{table}
 
 
@@ -383,15 +382,15 @@ In unsupervised learning, the model is itself trained to recognize the features 
 Eg: In character recognition, features may include histograms counting the number of black pixels along horizontal and vertical directions, number of internal holes, stroke detection and many others.
 \end{comment}
 
-\newpage
 \subsection{První a druhá derivace}
- Jedním ze dvou rysů, jež jsem převzal z již existujícího kódu, je první derivace. 
- Jelikož mám pouze jednotlivé body nemohu používat analytický vzorec na derivace, tedy konkrétně
- \begin{equation}
- 	\frac{d f(x)}{dx}=f'(x) = \lim\limits_{h->0} \frac{f(x+h)-f(x)}{h}.
- \label{derivace}
- \end{equation}
- Namísto toho ji musím počítat numericky, a to za použití centrální diference druhého řádu pomocí \eqref{vnitřní diference} a v krajních bodech pomocí jednostranných diferencí prvního nebo druhého řádu \eqref{vnější diference}.
+Prvním rysem použitým při  klasifikaci je první derivace.
+Jelikož jsou k dispozici pouze jednotlivé body, nelze použít analytický vzorec pro derivace funkce $f(x):R \longrightarrow R$, tedy konkrétně
+\begin{equation}
+\frac{d f(x)}{dx}=f'(x) = \lim\limits_{h->0} \frac{f(x+h)-f(x)}{h}.
+\label{derivace}
+\end{equation}
+Namísto toho se musím počítat numericky, a to za použití centrální diference druhého řádu pomocí \eqref{vnitřní diference} a v krajních bodech pomocí jednostranných diferencí prvního nebo druhého řádu \eqref{vnější diference}.
+\newpage
 \begin{equation}
 \hat{f}'_k = \frac{f(x_{k+1})-f(x_{k-1})}{2h} 
 \label{vnitřní diference}
@@ -401,15 +400,16 @@ Eg: In character recognition, features may include histograms counting the numbe
 \label{vnější diference}
 \end{equation}
 
-Druhým převzatým rysem je druhá derivace, kterou získáme použitím vzorců pro první derivaci na již jednou zderivovaná data. 
+Dalším použitým rysem je druhá derivace, kterou lze jesnáze získat použitím víše zmíněncým vzoruců \eqref{vnitřní diference} a \eqref{vnější diference} na již jednou zderivovaný signál.
 
-\subsection{Úsekový aritmetický průměr}
-Prvním mnou vybraným rysem je úsekový aritmetický průměr naměřených dat, který budu nadále značit jako $\widetilde{X}_m $. Nechť máme  vektor naměřených hodnot $\vec{X}=(x_1, x_2,...,x_n)$, pak definuji úskový aritmetický průměr pro $m \ \in \ 1,2,...,n$ jako
+
+\subsection{Klouzavý průměr}
+Dalším vybraným rysem je klouzavý průměr. Klouzavý průměr je diskrétní lineární filtr s konečnou dobou odezvy, který slouží k vyhlazení signálu. Nadále ho budeme značit jako $\widetilde{X}_t $. Nechť máme  vektor naměřených hodnot $\vec{X}=(x_1, x_2,...,x_n)$, pak definuji klouzavý průměr pro $t \ \in \ 1,2,...,n$ jako
 \begin{equation}
-\widetilde{X}_m = \frac{1}{w} \sum_{k=m-w }^{m} x_k , 
-\label{úsekový průměr}
+\widetilde{X}_t = \frac{1}{\tilde{\omega}} \sum_{k = t-\tilde{\omega} }^{t} x_k , 
+\label{klouzavý průměr}
 \end{equation}  
-kde $w$ je délka úseku. Pak vektor $\vec{\widetilde{X}} = (\widetilde{X}_1,\widetilde{X}_2,..,\widetilde{X}_n)$ je rys vektoru $\vec{X}$.
+kde $\tilde{ \omega } = min\{ \omega, t \} $, přičemž $\omega$ je délka úseku. Pak vektor $\vec{\widetilde{X}} = (\widetilde{X}_1,\widetilde{X}_2,..,\widetilde{X}_n)$ je rys vektoru $\vec{X}$.
 
 Ve skutečnosti se jedná o standartní aritmetický průměr \eqref{aritmetický průměr}, jež je aplikovaný pouze na úsek dat konečné délky.
 \begin{equation}
@@ -417,40 +417,43 @@ Ve skutečnosti se jedná o standartní aritmetický průměr \eqref{aritmetick�
 \label{aritmetický průměr}
 \end{equation}
 
-Mezi rysy jsem ho vybral, protože předpokládám, že okamžitá hodnota je závislá na %bezprostředně 
-předchozích datech. Důvod proč využívám jen konečně dlouhý úsek předcházejících hodnot je ten, že ze zákona velkých čísel (standartní) aritmetický průměr konverguje ke střední hodnotě, a tedy ke konstantě. To znamená, že postupem času budou mít rozdílná data v odlišných stavech stejnou hodnotu rysu. Z čehož plyne, že takovýto rys by jen zkresloval a znepřesňoval výsledek, viz Obr. \ref{obr1}. 
+Mezi rysy byl vybrán, protože předpokládáme, že okamžitá hodnota je závislá na %bezprostředně 
+předchozích datech. Důvod, proč využíváme jen konečně dlouhý úsek předcházejících hodnot je ten, že ze zákona velkých čísel aritmetický průměr konverguje ke střední hodnotě, a tedy ke konstantě. To znamená, že postupem času budou mít rozdílná data v odlišných stavech stejnou hodnotu rysu. Z čehož plyne, že takovýto rys by jen zkresloval a znepřesňoval výsledek, viz Obr. \ref{obr1}. 
 
- 
+
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
 	\includegraphics[scale=0.7]{obr2}
-	\caption{Rozdíl mezi úsekovým a standartním aritmerickým průměrem aplikovaným na syntetická data (pro větší přehlednost je každá krivka zobrazena zvlášť)}
+	\caption{Rozdíl mezi klouzavým a aritmerickým průměrem aplikovaným na syntetická data}
 	\label{obr1}
 \end{figure}
 
 
 
-\subsection{Váhový součet zleva}
-Jak jsem se zmínil již dříve, předpoládám závislost na předchozích hodnotách. "Není však překvapením", že hodnoty naměřené s velkým časovým rozestupem %vzdálenější hodnoty 
-na sebe mají mnohem menší vliv, než ty jež jsou naměřeny bezprostředně zasebou. Proto dalším mnou vybraným rysem je tedy váhový součet zleva $S_m$. 
+\subsection{Exponenciální klouzavý průměr}
+Jíž dříve jsme se zmínili, že předpokládáme závislost na předchozích hodnotách. Nicméně je zřejmé, 
+%"Jak jsem se zmínil již dříve, předpoládám závislost na předchozích hodnotách. "Není však překvapením"
+ že hodnoty naměřené s velkým časovým rozestupem %vzdálenější hodnoty 
+na sebe mají mnohem menší vliv, než ty jež jsou naměřeny bezprostředně zasebou. Proto dalším vybraným rysem je tedy exponenciální klouzavý průměr $S_t$. 
 
-Nechť $\vec{X}=(x_1, x_2,...,x_n)$ je vektor naměřených hodnot, pak definuji váhový součet zleva pro $m \ \in \ 1,2,...,n$ jako
+Nechť $\vec{X}=(x_1, x_2,...,x_n)$ je vektor naměřených hodnot, pak definuji váhový součet zleva pro $t \ \in \ 1,2,...,n$ jako
 \begin{equation}
-S_m = \frac{1}{w} \sum_{k=m-w}^{m} g_{m-k} \cdot x_k, 
-\label{váhový součet zleva}
+S_t = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} g_{t-k} \cdot x_k, 
+\label{exponenciální klouzavý průměr}
 \end{equation} 
-kde $w$ je délka úseku a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. Pak vektor $\vec{S} = (S_1,S_2,..,S_n)$ je rys vektoru $\vec{X}$. 
- 
- \begin{comment}
- 
- \subsection{Rozptyl}
- Rozptyl asi vynechám protože je k ničemu
- \begin{equation}
- \sigma ^2_n = \frac{1}{n} \sum_{k = 1}^{n} (x_k -E(x) )^2 = \frac{1}{n} \sum_{k = 1}^{n} (x_k - \overline{X}_n )^2
- \label{rozptyl}
- \end{equation}
- \end{comment}
+kde $\tilde{ \omega } = min\{ \omega, t \} $, $\omega$ je délka úseku a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. Pak vektor $\vec{S} = (S_1,S_2,..,S_n)$ je rys vektoru $\vec{X}$. 
+Díky exponenciální váhové funkci $g_m$, jsme tedy schopni snížit důležitost více vzdálených dat, což byl náš záměr.  
+
+\begin{comment}
+
+\subsection{Rozptyl}
+Rozptyl asi vynechám protože je k ničemu
+\begin{equation}
+\sigma ^2_n = \frac{1}{n} \sum_{k = 1}^{n} (x_k -E(x) )^2 = \frac{1}{n} \sum_{k = 1}^{n} (x_k - \overline{X}_n )^2
+\label{rozptyl}
+\end{equation}
+\end{comment}
 
 
 \begin{comment}
@@ -467,7 +470,7 @@ E[X] = \frac{1}{n} \sum_{k=1}^{n} x_k
 \end{equation}
 \end{comment}
 
-\subsection{Úsekový rozptyl}
+\subsection{Klouzavý rozptyl}
 Ve statistice a teorii pravděpodobnosti se pod pojmem rozptyl rozumí střední hodnota kvadrátu odchylky od střední hodnoty náhodné veličiny. Bývá reprezentován symbolem $Var(X)$ nebo $\sigma^2$ a definován vzorcem 
 \begin{equation}
 Var(X) = E[(X-E[X])^2] %= \sum_{k=1}^{n}(x_k-E[X])^2
@@ -480,16 +483,16 @@ Var(X) = \frac{1}{n}\sum_{k=1}^{n} (x_k - \overline{X}_n)^2.
 \label{varf}
 \end{equation}
 
-Když jsem se začínal vybírat rys, které budu potom používat při klasifikaci, byl rozptyl jedna z mých prvních voleb. Naneštěstí je zde stejný problém jako s aritmetickým průměrem a to ten, že s postupem času bude různým stavům přiřazovat stejnou hodnotu. 
-Proto jsem se rozhodl využít namísto standartního aritmetického průměru již dříve definovaný úsekový aritmetický průměr a výslednou veličinu %jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
-budu dále nazývat úsekovým rozptylem a značit $D_m$.
+Bohužel, rozptyl nemůžeme jako rys použít ze stejného důvodu jako aritmetický průměr, protože s postupem času bude různým stavům přiřazovat stejnou hodnotu. 
+Proto zed využijeme místo aritmetického průměru již dříve definovaný klouzavý průměr a výslednou veličinu %jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
+budu dále nazývat klouzavým rozptylem a značit $D_t$.
 
-Nechť $\vec{X} = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $m \in 1, 2, ..., n$ jako 
+Nechť $\vec{X} = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $t \in 1, 2, ..., n$ jako 
 \begin{equation}
-D_m = \frac{1}{w} \sum_{k=m-w}^{m} (x_k - \widetilde{X}_m)^2,
-\label{úsekový rozptyl}
+D_m = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} (x_k - \widetilde{X}_t)^2,
+\label{klouzavý rozptyl}
 \end{equation}
-kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický průměr \eqref{úsekový průměr}. Pak vektor $\vec{D} = (D_1, D_2, ..., D_n)$ je rys vektoru $\vec{X}$.
+kde $\tilde{ \omega } = min\{ \omega, t \}$, $w$ je opět délka úseku a $\widetilde{X}_t$ je klouzavý průměr \eqref{klouzavý průměr}. Pak vektor $\vec{D} = (D_1, D_2, ..., D_n)$ je rys vektoru $\vec{X}$.
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
@@ -504,16 +507,152 @@ kde $w$ je opět délka úseku a $\widetilde{X}_m$ je úsekový aritmetický pr�
 \pagestyle{headings}
 
 
-\chapter{Způsoby vyhodnocení výsledků}
-V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) mého algoritmu.
-
-\section{Přesnost}
-\section{Správnost}
-\section{Recall}
-\section{F míra}
-
-
+\chapter{Teoretická část}
 \pagestyle{headings}
+
+\section{Skrytý Markovův model}
+
+Skrytý Markovův model známý spíše pod svým anglickým názvem "Hidden Markov model" $ \ $je statistický model, který slouží k modelování Markovských procesů se skrytýmy stavy.
+Přesněji se jedná o dvojnásobně zapuštěný stochastický proces podložený dalším stochstickým procesem, který není pozorován, je tedy skrytý. Nicméně tento skrytý porces může být pozorován skrze jiné stochastické procesy, jež poskytují posloupnost pozorování. 
+
+Skrytý Markovův model je široce používán v rozpoznávání řeči (speech recognition), modelovéní přirozeného jazyka, rozpoznávání ručněpsaného písma a analýza biologických sekvencí jako například DNA a protejnů.
+
+%Pro lepší představu uvažujme systém uren a míčků vyobrazený na  "obrázek".
+Pro lepší představu si tento model ukážeme na příkladě uren a míčků. "Předpokládejme, že v místnosti je $N$ velkých skleněných uren. V každé urně je velký počet barevných míčků. Předpokládejme, že máme $M$ odlišných barev míčků. Fyzikální proces pro získání pozorování je následující. Džin je v místnosti a on (nebo ona) podle nějakého náhodného procesu vybírá počáteční urnu. Z této urny vybere náhodně míček a jeho barva je nahrána jako pozorování. Míček je pak nahrazen v urně, z níž byl vybrán. Další urna je vybrána porocesem náhodného výběru spojeného se současnou urnou a výběr míčku je opakován. Celý proces generuje konečný počet pozorování posloupnosti barev, který bychom rádi modelovaly jako pozorovaný výstup skrytého markovského modelu." \cite{Rabiner}
+
+Dále se na tento model můžeme dívat
+%Na tento model se můžeme také dívat
+ jako na specifický případ stavového prostorového modelu, ve kterém jsou skryté proměnné diskrétní. 
+Nicméně když prozkoumáme "jednorázový" řez modelu, vidíme že odpovídá Mixture distribution \cite{Bishop} s hustotou pravděpodobnosti danou  $\mathbb{P}(\vec{x}|\vec{z})$.
+Proto ho můžeme interpretovat jako rozšíření Mixture modelu, kde výběr složky směsi, pro každé pozorování, není nezávislý, ale závisí na volbě složek z předchozího pozorování.
+
+Jako v případě standartního Mixture modelu, skryté proměnné jsou diskrétní multinomické proměnné $\vec{z}_n$ popisující složku směsi jež je zodpovědná za generování příslušného pozorování $\vec{x}_n$. 
+Od této chvíle budeme předpokládat, že skrytý proces je Markovův, tzn. splňuje Markovu vlastnost (Markov property)\cite{Markov Chain}. Z tohoto předpokladu nyní plyne, že budoucí stav skryté proměnné $\vec{z}_n$ závisí pouze na předchozím stavu $\vec{z}_{n-1}$ skrze podmíněnou pravděpodobnost $\mathbb{P}(\vec{z}_n|\vec{z}_{n-1})$.  Pak zavedeme matici přechodů $\mathbb{T}$ danou předpisem  $T_{i,j} \equiv \mathbb{P}(\vec{z}_{n,j}|\vec{z}_{n-1,i} = 1)$, navíc matice splňuje, že $T_{i,j} \in (0,1)$ a skoupce jsou normovány na $1$, tzn $\sum_j T_{i,j} \ =1$. Dále můžeme tedy explicitně napsat podmíněné rozdělení pro $K$ skrytých stavů ve tvaru
+
+\begin{equation}
+\mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{T}) = \prod_{i=1}^{K} \prod_{j=1}^{K}
+T^{\vec{z}_{n-1,i} \vec{z}_n,j}_{i,j}.
+\label{podmíněná pravděpodobnost explicitní}
+\end{equation}
+
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.3]{obr4}
+	\caption{Diagram přechodů, kde skryté proměnné mají tři možné stavy odpovídající třem boxům. Šipky označují prvky matice přechodů $T_{i,j}$. \cite{Bishop}}
+	\label{tří stavý diagram}
+\end{figure}
+
+Tímto vzorcem můžeme vyjádřit všechny skryté stavy až na počáteční $\vec{z}_1$. Tento stav má pouze marginální rozdělení $\mathbb{P}(\vec{z}_1)$ reprezentované vektorem pravděpodobností $\pi$, kterýž má tvar $\pi \equiv \mathbb{P}(\vec{z}_{1,j} = 1)$ a tedy 
+
+\begin{equation}
+	\mathbb{P}(\vec{z}_1|\pi) = \prod_{j=1}^{K} \pi^{\vec{z}_{1,j}}_j,
+	\label{marginální pravděpodobnost}
+\end{equation} 
+kde $\sum_j \pi_j = 1$.
+Kdybychom chtěli matici $\mathbb{T}$ vysvětlit i jinak, mohli bychom toho docílit graficky pomocí diagramu na Obr. \ref{tří stavý diagram}. Když tento diagram dále rozvyneme s průběhem času, získáme takzvaný mřížový diagram, který nám poskytuje alternativní reprezentaci přechodů mezi jednotlivými skrytými stavy. Pro případ Skritého Markovského modelu pak tento diagram nabývá tvaru Obr. \ref{HMM diagram}. 
+
+Abychom měli pravděpodobnostní model kompletní, je třeba ještě zavést %podmíněné rozdělení pozorovaných proměnných
+emisní pravděpodobnosti (emission probabilities) $\mathbb{P}(\vec{x}_n|\vec{z}_n, \Theta)$, kde $\Theta$ představuje soubor parametrů řídícího rozdělení. 
+%Tyto pravděpodobnosti jsou známé jako emisní pravděpodobnosti (emission probabilities). 
+Pro pozorované proměnné $\vec{x}_n$ se 
+%Vzhledem k tomu, že $\vec{x}_n$ jsou pozorované,  tak se 
+rozdělení $\mathbb{P}(\vec{x}_n|\vec{z}_n, \Theta)$ skládá z $K$-dimenzionálního vekoru odpovídajícího $K$ potenciálním stavům $\vec{z}_n$. %, pro dané hodnoty $\Theta$. 
+Emisní pravděpodobnosti můžeme pak zapsat jako 
+
+\begin{equation}
+\mathbb{P}(\vec{x}_n|\vec{z}_n,\Theta) = \prod_{j=1}^{K} \mathbb{P}(\vec{x}_n|\Theta_j) ^{\vec{z}_n,j},
+\end{equation}
+
+přičemž mohou mít například tvar Gaussova ($R$-rozměrného) rozdělení
+\begin{equation}
+\mathbb{P}(\vec{x}_n|\vec{z}_n) = \prod_{j=1}^{K} \mathcal{N}(\vec{x}_n|\vec{\mu}_j,\Sigma_j) ^{\vec{z}_{n,j}} = \prod_{j=1}^{K}
+\left( \frac{1}{(2\pi)^{R/2}}\frac{1}{|\Sigma_j|^{1/2}} exp \Bigg\{ -\frac{1}{2}(\vec{x}_n - \vec{\mu}_j)^T \Sigma_j^{-1}(\vec{x}_n - \vec{\mu}_j) \Bigg\} \right)^{\vec{z}_{n,j}}
+\end{equation}
+pakud prvky $\vec{x}_n$ jsou spojité.
+
+Nyní se zaměříme na homogenní modely, pro které všechna podmíněná rozdělení řídící skryté proměnné sdílí stejné parametry $\mathbb{T}$ a podobně všechna emisní rozdělení sdílí stejné parametry $\Theta$.
+
+Sdružené pravděpodobnostní rozdělení přes skryté i pozorované proměnné jsou pak dány vzorcem
+
+\begin{equation}
+\mathbb{P}(\vec{X},\vec{Z}|\widetilde{\vec{\Theta}}) = \mathbb{P}(\vec{z}_1|\pi) \prod_{n=2}^{N} \mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{T}) \prod_{m =1 }^{N} \mathbb{P}(\vec{x}_m|\vec{z}_m,\Theta),
+\end{equation}
+kde $\vec{X} = (\vec{x}_1,...,\vec{x}_N)$, $\vec{Z} = (\vec{z}_1,...,\vec{z}_N)$ a $\widetilde{\vec{\Theta}} =(\pi, \mathbb{T},\Theta)$ jsou parametry řídícího modelu.
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.4]{obr5}
+	\caption{Stavový diagram Obr. \ref{tří stavý diagram} rozvynutý s časem. Každý sloupec diagramu odpovídá jedné skryté proměnné $\vec{z}_n$. \cite{Bishop}}
+	\label{HMM diagram}
+\end{figure}
+
+\subsection{Viterbiho algoritmus}
+
+\section{K-means Clustering}
+K-means clustering je typ strojového učení bez učitele, který se používá v případě, že chceme zpracovat neoznačená data, tzn. nemáme předem definované skupiny či kategorie. Právě hlavním cílem algoritmu je najít tyto skupiny.
+
+Předpokládejme, že máme $N$ pozorování $(\vec{x}_1, ... ,\vec{x}_N)$ náhodné $R$ rozměrné veličiny $\vec{X}$ a chceme je rozdělit do nějákých $K$ shluků.  Pod pojmem shluk budeme rozumět skupinu bodů, jejichž vzájemné vzdálenosti jsou mnohem menší v porovnání se vzdálenostmi k bodům vně skupiny. Dále je pak potřeba zavést si vektory $\vec{\phi}_j$, kde $j \in 1,..,K$. Tyto vektory představují středy našich shluků a naším cílem se nyní stává nalezení množiny $\{\vec{\phi}_j \}$, tak aby bylo splněno, že součet čtverců vzdáleností každého bodu shluku k nejbližšímu vektoru $\vec{\phi}_j$ je minimální. Jinými slovy, potřebujeme minimalizovat objektovou funkci $\rho$ definovanou jako
+\begin{equation}
+\rho = \sum_{n=1}^{N}\sum_{j=1}^{K} b_{n,j} \ ||\vec{x}_n - \vec{\phi}_j \ ||^2,
+\label{J}
+\end{equation}
+kde proměnné $b_{n,j} \in \{0,1\}$ příslušící každému bodu $\vec{x}_n$ indikují, zda tento bod patří $j$-tého shluku nebo nikoli. Pokud ano, $b_{n,j}$ je rovno $1$, v opačném případě nabývá $b_{n,j}$ hodnoty $0$. 
+Minimálního $\rho$ lze dosáhnout pomocí dvoufázového iteračního procesu. Nejprve vybereme, nejlépe náhodně, počáteční vektory $\vec{\phi}_j$. V první fázy bereme $\vec{\phi}_j$ jako fixní a minimalizovat budeme s ohledem na $b_{n,j}$. Jelikož $\rho$ je vůči $b_{n,j}$ lineární a pro rozdílná $n$ jsou $b_{n,j}$ nezávislé, můžeme je minimalizovat pro každé $n$ zvlášť. Jednoduše bereme $b_{n,j}$ následně
+\begin{equation}
+ b_{n,j}  = \left\{ \begin{array}{ll}
+1 &\mbox{pokud $argmin_m ||\vec{x}_n - \vec{\phi}_m||^2 = j$}\\
+0 & \mbox{jinde}.\end{array} \right. 
+\end{equation}
+V druhé fázi je naopak $b_{n,j}$ pevné a minimalizujeme s ohledem na $\vec{\phi}_j$. Proto zderivujeme funkci $\rho$ podle $\vec{\phi}_j$ a tuto derivací položíme rovnu $0$, tzn.
+\begin{equation}
+2\sum_{n=1}^{N} b_{n,j}(\vec{x}_n - \vec{\phi}_j) = 0.
+\label{minrho}
+\end{equation}
+Načež po osamostatnění $\vec{\phi}_j$. získáváme konečný tvar
+\begin{equation}
+\vec{\phi}_j = \frac{\sum_{n=1}^{N} b_{n,j} \vec{x}_n}{\sum_{n=1}^{N} b_{n,j}},
+\label{k-mean}
+\end{equation}
+kde jmenovatel představuje celkový počet bodů patřících do $j$-tého shluku.
+Vzorec \eqref{k-mean} lze ovšem interpretovat teké jako střední hodnotu (anglicky: mean) všech bodů příslušících do shluku $j$, odtud plyne i název "K-means".
+
+přidat demonstrační obrázek
+
+\begin{comment}
+K-means clustering is a type of unsupervised learning, which is used when you have unlabeled data (i.e., data without defined categories or groups). The goal of this algorithm is to find groups in the data, with the number of groups represented by the variable K. The algorithm works iteratively to assign each data point to one of K groups based on the features that are provided. Data points are clustered based on feature similarity. The results of the K-means clustering algorithm are:
+
+The centroids of the K clusters, which can be used to label new data
+Labels for the training data (each data point is assigned to a single cluster)
+Rather than defining groups before looking at the data, clustering allows you to find and analyze the groups that have formed organically. The "Choosing K" section below describes how the number of groups can be determined.  
+
+Each centroid of a cluster is a collection of feature values which define the resulting groups. Examining the centroid feature weights can be used to qualitatively interpret what kind of group each cluster represents.  
+
+This introduction to the K-means clustering algorithm covers:
+
+Common business cases where K-means is used
+The steps involved in running the algorithm
+A Python example using delivery fleet data
+\end{comment}
+
+
+\section{kNN}
+
+\section{Autoregresní model}
+
+
+\chapter{Postup práce a výsledky}
+\pagestyle{headings}
+\section{Způsoby vyhodnocení výsledků}
+V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) mého algoritmu.
+\subsection{Přesnost}
+\subsection{Správnost}
+\subsection{Recall}
+\subsection{F míra}
+
+
 
 \chapter*{Závěr}
 
@@ -528,6 +667,13 @@ Text závěru....
 \bibitem{Kikuchi}M. Kikuchi,  K. Lackner, M. Q. Tran, Fusion physics. International Atomic Energy Agency, Vienna, 2012.
 
 \bibitem{Rabiner}L. R. Rabiner, A tutorial on hidden Markov models and selected applications in speech recognition. Proceedings of the IEEE 77(2), 1989, 257-286.
+
+\bibitem{Markov Chain}N. Privault, Understanding Markov Chains: Examples and Applications. Springer, 2013.
+
+\bibitem{Viterbi}G. D. Forney, The Viterbi Algorithm. Proceedings of the IEEE 61(3) 1973, 268-278.
+
+\bibitem{Machine learning in action}P. Harrington, Machine Learning in Action. Minning Publications Co. Greenwich, 2012.
+
 \end{thebibliography}
 
 \end{document}
