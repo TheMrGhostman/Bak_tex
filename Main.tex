@@ -17,6 +17,7 @@
 \usepackage{float}
 \restylefloat{table}
 \usepackage{amssymb}
+\usepackage{booktabs}
 
 \makeatletter
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
@@ -389,7 +390,7 @@ Jelikož jsou k dispozici pouze jednotlivé body, nelze použít analytický vzo
 \frac{d f(x)}{dx}=f'(x) = \lim\limits_{h->0} \frac{f(x+h)-f(x)}{h}.
 \label{derivace}
 \end{equation}
-Namísto toho se musím počítat numericky, a to za použití centrální diference druhého řádu pomocí \eqref{vnitřní diference} a v krajních bodech pomocí jednostranných diferencí prvního nebo druhého řádu \eqref{vnější diference}.
+Namísto toho se musí počítat numericky, a to za použití centrální diference druhého řádu pomocí \eqref{vnitřní diference} a v krajních bodech pomocí jednostranných diferencí prvního nebo druhého řádu \eqref{vnější diference}.
 \begin{equation}
 \hat{f}'_k = \frac{f(x_{k+1})-f(x_{k-1})}{2h} 
 \label{vnitřní diference}
@@ -423,7 +424,7 @@ předchozích datech. Důvod, proč využíváme jen konečně dlouhý úsek př
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.7]{obr2}
+	\includegraphics[scale=0.7]{Obr/obr2}
 	\caption{Rozdíl mezi klouzavým a aritmerickým průměrem aplikovaným na syntetická data}
 	\label{obr1}
 \end{figure}
@@ -496,7 +497,7 @@ kde $\tilde{ \omega } = min\{ \omega, t \}$, $w$ je opět délka úseku a $\wide
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.7]{obr3}
+	\includegraphics[scale=0.7]{Obr/obr3}
 	\caption{Rozdíl mezi úsekovým a normálním rozptylem aplikovaným na syntetická data}
 	\label{obr3}
 \end{figure}
@@ -517,20 +518,20 @@ Přesněji se jedná o dvojnásobně zapuštěný stochastický proces podložen
 Skrytý Markovův model je široce používán v rozpoznávání řeči (speech recognition), modelovéní přirozeného jazyka, rozpoznávání ručněpsaného písma a analýza biologických sekvencí jako například DNA a protejnů.
 
 %Pro lepší představu uvažujme systém uren a míčků vyobrazený na  "obrázek".
-Pro lepší představu si tento model ukážeme na příkladě uren a míčků. "Předpokládejme, že v místnosti je $N$ velkých skleněných uren. V každé urně je velký počet barevných míčků. Předpokládejme, že máme $M$ odlišných barev míčků. Fyzikální proces pro získání pozorování je následující. Džin je v místnosti a on (nebo ona) podle nějakého náhodného procesu vybírá počáteční urnu. Z této urny vybere náhodně míček a jeho barva je nahrána jako pozorování. Míček je pak nahrazen v urně, z níž byl vybrán. Další urna je vybrána porocesem náhodného výběru spojeného se současnou urnou a výběr míčku je opakován. Celý proces generuje konečný počet pozorování posloupnosti barev, který bychom rádi modelovaly jako pozorovaný výstup skrytého markovského modelu." \cite{Rabiner}
+Pro lepší představu si tento model ukážeme na příkladě uren a míčků. Předpokládejme, že v místnosti je $N$ velkých skleněných uren. V každé urně je velký počet barevných míčků. Předpokládejme, že máme $M$ odlišných barev míčků. Fyzikální proces pro získání pozorování je následující. Džin je v místnosti a on (nebo ona) podle nějakého náhodného procesu vybírá počáteční urnu. Z této urny vybere náhodně míček a jeho barva je nahrána jako pozorování. Míček je pak nahrazen v urně, z níž byl vybrán. Další urna je vybrána porocesem náhodného výběru spojeného se současnou urnou a výběr míčku je opakován. Celý proces generuje konečný počet pozorování posloupnosti barev, který bychom rádi modelovaly jako pozorovaný výstup skrytého markovského modelu. (příklad převzat z \cite{Rabiner})
 
 Dále se na tento model můžeme dívat
 %Na tento model se můžeme také dívat
  jako na specifický případ stavového prostorového modelu, ve kterém jsou skryté proměnné diskrétní. 
-Nicméně když prozkoumáme "jednorázový" řez modelu, vidíme že odpovídá Mixture distribution \cite{Bishop} s hustotou pravděpodobnosti danou  $\mathbb{P}(\vec{x}|\vec{z})$.
+Nicméně když prozkoumáme "jednorázový" řez modelu, vidíme že odpovídá Mixture distribution (viz kapitola $9$ v \cite{Bishop}) s hustotou pravděpodobnosti danou  $\mathbb{P}(\vec{x}|\vec{z})$.
 Proto ho můžeme interpretovat jako rozšíření Mixture modelu, kde výběr složky směsi, pro každé pozorování, není nezávislý, ale závisí na volbě složek z předchozího pozorování.
 
 Jako v případě standartního Mixture modelu, skryté proměnné jsou diskrétní multinomické proměnné $\vec{z}_n$ popisující složku směsi jež je zodpovědná za generování příslušného pozorování $\vec{x}_n$. 
-Od této chvíle budeme předpokládat, že skrytý proces je Markovův, tzn. splňuje Markovu vlastnost (Markov property)\cite{Markov Chain}. Z tohoto předpokladu nyní plyne, že budoucí stav skryté proměnné $\vec{z}_n$ závisí pouze na předchozím stavu $\vec{z}_{n-1}$ skrze podmíněnou pravděpodobnost $\mathbb{P}(\vec{z}_n|\vec{z}_{n-1})$.  Pak zavedeme matici přechodů $\mathbb{T}$ danou předpisem  $T_{i,j} \equiv \mathbb{P}(\vec{z}_{n,j}|\vec{z}_{n-1,i} = 1)$, navíc matice splňuje, že $T_{i,j} \in (0,1)$ a skoupce jsou normovány na $1$, tzn $\sum_j T_{i,j} \ =1$. Dále můžeme tedy explicitně napsat podmíněné rozdělení pro $K$ skrytých stavů ve tvaru
+Od této chvíle budeme předpokládat, že skrytý proces je Markovův, tzn. splňuje Markovu vlastnost (Markov property)\cite{Markov Chain}. Z tohoto předpokladu nyní plyne, že budoucí stav skryté proměnné $\vec{z}_n$ závisí pouze na předchozím stavu $\vec{z}_{n-1}$ skrze podmíněnou pravděpodobnost $\mathbb{P}(\vec{z}_n|\vec{z}_{n-1})$.  Pak zavedeme matici přechodů $\mathbb{A}$ danou předpisem  $A_{i,j} \equiv \mathbb{P}(\vec{z}_{n,j}|\vec{z}_{n-1,i} = 1)$, navíc matice splňuje, že $A_{i,j} \in (0,1)$ a skoupce jsou normovány na $1$, tzn $\sum_j A_{i,j} \ =1$. Dále můžeme tedy explicitně napsat podmíněné rozdělení pro $K$ skrytých stavů ve tvaru
 
 \begin{equation}
-\mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{T}) = \prod_{i=1}^{K} \prod_{j=1}^{K}
-T^{\vec{z}_{n-1,i} \vec{z}_n,j}_{i,j}.
+\mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{A}) = \prod_{i=1}^{K} \prod_{j=1}^{K}
+A^{\vec{z}_{n-1,i} \vec{z}_n,j}_{i,j}.
 \label{podmíněná pravděpodobnost explicitní}
 \end{equation}
 
@@ -538,8 +539,8 @@ T^{\vec{z}_{n-1,i} \vec{z}_n,j}_{i,j}.
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.3]{obr4}
-	\caption{Diagram přechodů, kde skryté proměnné mají tři možné stavy odpovídající třem boxům. Šipky označují prvky matice přechodů $T_{i,j}$. \cite{Bishop}}
+	\includegraphics[scale=0.3]{Obr/obr4}
+	\caption{Diagram přechodů, kde skryté proměnné mají tři možné stavy odpovídající třem boxům. Šipky označují prvky matice přechodů $A_{i,j}$. \cite{Bishop}}
 	\label{tří stavý diagram}
 \end{figure}
 
@@ -550,7 +551,7 @@ Tímto vzorcem můžeme vyjádřit všechny skryté stavy až na počáteční $
 	\label{marginální pravděpodobnost}
 \end{equation} 
 kde $\sum_j \pi_j = 1$.
-Kdybychom chtěli matici $\mathbb{T}$ vysvětlit i jinak, mohli bychom toho docílit graficky pomocí diagramu na Obr. \ref{tří stavý diagram}. Když tento diagram dále rozvyneme s průběhem času, získáme takzvaný mřížový diagram, který nám poskytuje alternativní reprezentaci přechodů mezi jednotlivými skrytými stavy. Pro případ Skritého Markovského modelu pak tento diagram nabývá tvaru Obr. \ref{HMM diagram}. 
+Kdybychom chtěli matici $\mathbb{A}$ vysvětlit i jinak, mohli bychom toho docílit graficky pomocí diagramu na Obr. \ref{tří stavý diagram}. Když tento diagram dále rozvyneme s průběhem času, získáme takzvaný mřížový diagram, který nám poskytuje alternativní reprezentaci přechodů mezi jednotlivými skrytými stavy. Pro případ Skritého Markovského modelu pak tento diagram nabývá tvaru Obr. \ref{HMM diagram}. 
 
 Abychom měli pravděpodobnostní model kompletní, je třeba ještě zavést %podmíněné rozdělení pozorovaných proměnných
 emisní pravděpodobnosti (emission probabilities) $\mathbb{P}(\vec{x}_n|\vec{z}_n, \Theta)$, kde $\Theta$ představuje soubor parametrů řídícího rozdělení. 
@@ -571,24 +572,54 @@ přičemž mohou mít například tvar Gaussova ($R$-rozměrného) rozdělení
 \end{equation}
 pakud prvky $\vec{x}_n$ jsou spojité.
 
-Nyní se zaměříme na homogenní modely, pro které všechna podmíněná rozdělení řídící skryté proměnné sdílí stejné parametry $\mathbb{T}$ a podobně všechna emisní rozdělení sdílí stejné parametry $\Theta$.
+Nyní se zaměříme na homogenní modely, pro které všechna podmíněná rozdělení řídící skryté proměnné sdílí stejné parametry $\mathbb{A}$ a podobně všechna emisní rozdělení sdílí stejné parametry $\Theta$.
 
 Sdružené pravděpodobnostní rozdělení přes skryté i pozorované proměnné jsou pak dány vzorcem
 
 \begin{equation}
-\mathbb{P}(\vec{X},\vec{Z}|\widetilde{\vec{\Theta}}) = \mathbb{P}(\vec{z}_1|\pi) \prod_{n=2}^{N} \mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{T}) \prod_{m =1 }^{N} \mathbb{P}(\vec{x}_m|\vec{z}_m,\Theta),
+\mathbb{P}(\vec{X},\vec{Z}|\widetilde{\vec{\Theta}}) = \mathbb{P}(\vec{z}_1|\pi) \prod_{n=2}^{N} \mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{A}) \prod_{m =1 }^{N} \mathbb{P}(\vec{x}_m|\vec{z}_m,\Theta),
 \end{equation}
-kde $\vec{X} = (\vec{x}_1,...,\vec{x}_N)$, $\vec{Z} = (\vec{z}_1,...,\vec{z}_N)$ a $\widetilde{\vec{\Theta}} =(\pi, \mathbb{T},\Theta)$ jsou parametry řídícího modelu.
+kde $\vec{X} = (\vec{x}_1,...,\vec{x}_N)$, $\vec{Z} = (\vec{z}_1,...,\vec{z}_N)$ a $\widetilde{\vec{\Theta}} =(\pi, \mathbb{A},\Theta)$ jsou parametry řídícího modelu.
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.4]{obr5}
+	\includegraphics[scale=0.3]{Obr/obr5}
 	\caption{Stavový diagram Obr. \ref{tří stavý diagram} rozvynutý s časem. Každý sloupec diagramu odpovídá jedné skryté proměnné $\vec{z}_n$. \cite{Bishop}}
 	\label{HMM diagram}
 \end{figure}
 
 \subsection{Viterbiho algoritmus}
+
+Tento algoritmus navrhl Andrew Viterbi, již v roce 1967, za účelem dekódování konvolučních kódů, jež se používají nejen v mobilních sítích, ale také ke komunikaci se satelity a sondami ve vesmíru. V současnosti se používá k rozpoznávání a syntéze řeči, vyhledávání klíčových slov, v bioinformatice nebo, což je pro nás nejdůležitější, k hledání nejpravděpodobnějších poslopností stavů. 
+
+V nejobecnější podobě se na Viterbiho alogritmus můžeme dívat jako na řešení problému maximálního aposteriorního pravděpodobnostního odhadu posloupnosti skrytých stavů konečného diskrétního Morkova procesu. Tento problém je formálně identický s problémem hledání nějkratší cesty grafem. Posloupnost pozorování $\vec{X}$ každé cesty může byt určena jako délka úměrná $-\ln{\mathbb{P}(\vec{Z},\vec{X})}$, kde $\vec{Z}$ je seqvence stavů spojená s příslušnou cestou. Tento poznatek nám dovoluje řešit problém hledání posloupnosti stavů pro, které je $\mathbb{P}(\vec{Z},\vec{X}) = \mathbb{P}(\vec{Z}|\vec{X}) \mathbb{P}(\vec{X})$ maximální, jako problém hledání cesty jejíž délka $-\ln{\mathbb{P}(\vec{Z},\vec{X})}$ je minimální, poněvadž $\ln{\mathbb{P}(\vec{Z},\vec{X})}$ je monotoní funkcí $\mathbb{P}(\vec{Z},\vec{X})$ a každá cesta odpovídá právě jedné posloupnosti stavů. Následně díky platnosti Markovy vlastnosti můžeme přepsat $\mathbb{P}(\vec{Z},\vec{X})$ jako 
+
+\begin{equation}
+\mathbb{P}(\vec{Z},\vec{X})  = \mathbb{P}(\vec{X}|\vec{Z}) \mathbb{P}(\vec{Z}) = \mathbb{P}(\vec{z}_1) \left[\prod_{n = 2}^{N} \mathbb{P}(\vec{z}_{n}|\vec{z}_{n-1}) \right] \prod_{n=1}^{N} \mathbb{P}(\vec{x}_n|\vec{z}_n).
+\label{produkt viterbi}
+\end{equation}
+
+Po zlogaritmování \eqref{produkt viterbi} můžeme vidět, že celková délka cesty odpovídající libovolného $\vec{Z}$ je 
+
+\begin{equation}
+-\ln{\mathbb{P}(\vec{Z},\vec{X})} = \left[\sum_{n=2}^{N} -\ln{\mathbb{P}(\vec{z}_{n}|\vec{z}_{n-1})} - \ln{\mathbb{P}(\vec{x}_n|\vec{z}_n)}\right]  -\ln{\mathbb{P}(\vec{z}_1)} - \ln{\mathbb{P}(\vec{x}_1|\vec{z}_1)}, 
+\label{ln cesta}
+\end{equation}
+kde $-\ln{\mathbb{P}(\vec{z}_{n}|\vec{z}_{n-1})} - \ln{\mathbb{P}(\vec{x}_n|\vec{z}_n)}$ je délka přechodu ze $\vec{z}_{n-1}$ do $\vec{z}_n$.
+
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.6]{Obr/Vi}
+	\caption{(a) Mřížový diagram s délkami přechodů. M = 4, K = 5. (b) Rekurzivní hledání nejkratší cesty pomocí Viterbiho algoritmu.}
+	\label{Viterbi}
+\end{figure}
+
+Ve chvíli, kdy jsme našli nejpravděpodobnější cestu a tím pádem i združené rozdělení $\mathbb{P}(\vec{Z}, \vec{X})$, potřebujeme už jen nalézt posloupnost stavů odpovídající této cestě pomocí rekurze.
+
+Jednou z největších předností Viterbiho algoritmu je jeho efektivita. Jelikož počet možných cest roste exponenciálně s délkou řetěžce je pro většínu algouritm výpočt velice náročný a v některých případech i nemožný. To ovšem neplatí pro tento algoritmus, neboť výpočetní náročnost Viterbiho algoritmu roste pouze lineárně s délkou řetězce.
 
 \section{K-means Clustering}
 K-means clustering je typ strojového učení bez učitele, který se používá v případě, že chceme zpracovat neoznačená data, tzn. nemáme předem definované skupiny či kategorie. Právě hlavním cílem algoritmu je najít tyto skupiny.
@@ -618,9 +649,21 @@ Načež po osamostatnění $\vec{\phi}_j$. získáváme konečný tvar
 kde jmenovatel představuje celkový počet bodů patřících do $j$-tého shluku.
 Vzorec \eqref{k-mean} lze ovšem interpretovat teké jako střední hodnotu (anglicky: mean) všech bodů příslušících do shluku $j$, odtud plyne i název "K-means".
 
-přidat demonstrační obrázek
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale = 1.1]{Obr/kmeansViz}
+	\caption{Vizualizace algoritmu K-means. Tréninková data jsou vyobrazena jako tečky a středy shluků jako křížky. Na obrázku $(a)$ jsou vykreslena původní data. V $(b)$ je možné vidět náhodně vybrané počáteční středy a $(c)-(d)$ ilustrují úvodní dvě iterace algoritmu. \cite{kmeansviz}}
+	\label{K-means}
+\end{figure}
+
+
+
 
 \begin{comment}
+
+ K-means algorithm. Training examples are shown as dots, and cluster centroids are shown as crosses. (a) Original dataset. (b) Random initial cluster centroids. (c-f) Illustration of running two iterations of k-means. In each iteration, we assign each training example to the closest cluster centroid (shown by "painting" the training examples the same color as the cluster centroid to which is assigned); then we move each cluster centroid to the mean of the points assigned to it.
+
 K-means clustering is a type of unsupervised learning, which is used when you have unlabeled data (i.e., data without defined categories or groups). The goal of this algorithm is to find groups in the data, with the number of groups represented by the variable K. The algorithm works iteratively to assign each data point to one of K groups based on the features that are provided. Data points are clustered based on feature similarity. The results of the K-means clustering algorithm are:
 
 The centroids of the K clusters, which can be used to label new data
@@ -637,9 +680,8 @@ A Python example using delivery fleet data
 \end{comment}
 
 
-\section{kNN}
 
-\section{Autoregresní model}
+\section{kNN}
 
 
 \chapter{Postup práce a výsledky}
@@ -651,7 +693,58 @@ V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) m�
 \subsection{Recall}
 \subsection{F míra}
 
+\begin{table}
+	\scriptsize
+	\begin{tabular}{lcrrrrrrrrrrrr}
+		\toprule 
+		Kombinace rysů &  délka úseku &  Accuracy &  Chyby &  F míra stavu 0 &  F míra stavu 1 &  F míra stavu 2 &  F míra průměrná &  Precision stavu 0 &  Precision stavu 1 &  Precision stavu 2 &  Recall stavu 0 &  Recall stavu 1 &  Recall stavu 2 \\
+		\midrule   
+		(0, 0, 1, 0, 1) &           16 &  0.866000 &    402 &        0.938991 &        0.750916 &        0.760369 &         0.816758 &           0.939512 &           0.613772 &           0.933962 &        0.938470 &        0.966981 &        0.641192 \\
+		
+		 (0, 0, 1, 0, 1) &           15 &  0.867333 &    398 &        0.942991 &        0.754786 &        0.748428 &         0.815401 &           0.937055 &           0.615156 &           0.952000 &        0.949002 &        0.976415 &        0.616580 \\
+		 
+		(0, 0, 0, 1, 1) &           18 &  0.856333 &    431 &        0.924212 &        0.734222 &        0.781065 &         0.813167 &           0.947062 &           0.589158 &           0.910345 &        0.902439 &        0.974057 &        0.683938 \\
+		
+		(0, 0, 1, 0, 1) &           17 &  0.862000 &    414 &        0.936087 &        0.739574 &        0.762332 &         0.812664 &           0.942664 &           0.609160 &           0.901060 &        0.929601 &        0.941038 &        0.660622 \\
+		
+		(0, 0, 0, 1, 1) &           16 &  0.861333 &    416 &        0.935159 &        0.736842 &        0.765565 &         0.812522 &           0.943067 &           0.592539 &           0.941399 &        0.927384 &        0.974057 &        0.645078 \\
+		
+		(0, 0, 0, 1, 1) &           17 &  0.858000 &    426 &        0.928632 &        0.732919 &        0.775602 &         0.812385 &           0.945434 &           0.587482 &           0.926259 &        0.912417 &        0.974057 &        0.667098 \\
+		
+		(0, 0, 1, 0, 1) &           14 &  0.866333 &    401 &        0.943777 &        0.760770 &        0.730924 &         0.811824 &           0.929570 &           0.622189 &           0.961945 &        0.958426 &        0.978774 &        0.589378 \\
+		
+		(0, 0, 0, 1, 1) &           19 &  0.853667 &    439 &        0.921670 &        0.728738 &        0.782671 &         0.811026 &           0.951594 &           0.587302 &           0.884176 &        0.893570 &        0.959906 &        0.702073 \\
+		
+		(0, 0, 1, 0, 1) &           18 &  0.859000 &    423 &        0.932884 &        0.735675 &        0.763449 &         0.810669 &           0.945361 &           0.604863 &           0.885470 &        0.920732 &        0.938679 &        0.670984 \\
+		
+		(0, 0, 0, 1, 1) &           15 &  0.859333 &    422 &        0.937743 &        0.732270 &        0.750392 &         0.806802 &           0.940357 &           0.586648 &           0.952191 &        0.935144 &        0.974057 &        0.619171 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
+\begin{table}
+	\scriptsize
+	\begin{tabular}{lllllllllll}
+		\toprule 
+		&                0 &                1 &                2 &                3 &                4 &                5 &                6 &                7 &                8 &                9 \\
+		\midrule
+		Kombinace rysů    &  (0, 0, 1, 0, 1) &  (0, 0, 1, 0, 1) &  (0, 0, 0, 1, 1) &  (0, 0, 1, 0, 1) &  (0, 0, 0, 1, 1) &  (0, 0, 0, 1, 1) &  (0, 0, 1, 0, 1) &  (0, 0, 0, 1, 1) &  (0, 0, 1, 0, 1) &  (0, 0, 0, 1, 1) \\
+		délka úseku       &               16 &               15 &               18 &               17 &               16 &               17 &               14 &               19 &               18 &               15 \\
+		Accuracy          &            0.866 &         0.867333 &         0.856333 &            0.862 &         0.861333 &            0.858 &         0.866333 &         0.853667 &            0.859 &         0.859333 \\
+		Chyby             &              402 &              398 &              431 &              414 &              416 &              426 &              401 &              439 &              423 &              422 \\
+		F míra stavu 0    &         0.938991 &         0.942991 &         0.924212 &         0.936087 &         0.935159 &         0.928632 &         0.943777 &          0.92167 &         0.932884 &         0.937743 \\
+		F míra stavu 1    &         0.750916 &         0.754786 &         0.734222 &         0.739574 &         0.736842 &         0.732919 &          0.76077 &         0.728738 &         0.735675 &          0.73227 \\
+		F míra stavu 2    &         0.760369 &         0.748428 &         0.781065 &         0.762332 &         0.765565 &         0.775602 &         0.730924 &         0.782671 &         0.763449 &         0.750392 \\
+		F míra průměrná   &         0.816758 &         0.815401 &         0.813167 &         0.812664 &         0.812522 &         0.812385 &         0.811824 &         0.811026 &         0.810669 &         0.806802 \\
+		Precision stavu 0 &         0.939512 &         0.937055 &         0.947062 &         0.942664 &         0.943067 &         0.945434 &          0.92957 &         0.951594 &         0.945361 &         0.940357 \\
+		Precision stavu 1 &         0.613772 &         0.615156 &         0.589158 &          0.60916 &         0.592539 &         0.587482 &         0.622189 &         0.587302 &         0.604863 &         0.586648 \\
+		Precision stavu 2 &         0.933962 &            0.952 &         0.910345 &          0.90106 &         0.941399 &         0.926259 &         0.961945 &         0.884176 &          0.88547 &         0.952191 \\
+		Recall stavu 0    &          0.93847 &         0.949002 &         0.902439 &         0.929601 &         0.927384 &         0.912417 &         0.958426 &          0.89357 &         0.920732 &         0.935144 \\
+		Recall stavu 1    &         0.966981 &         0.976415 &         0.974057 &         0.941038 &         0.974057 &         0.974057 &         0.978774 &         0.959906 &         0.938679 &         0.974057 \\
+		Recall stavu 2    &         0.641192 &          0.61658 &         0.683938 &         0.660622 &         0.645078 &         0.667098 &         0.589378 &         0.702073 &         0.670984 &         0.619171 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
 
 \chapter*{Závěr}
 
@@ -672,6 +765,8 @@ Text závěru....
 \bibitem{Viterbi}G. D. Forney, The Viterbi Algorithm. Proceedings of the IEEE 61(3) 1973, 268-278.
 
 \bibitem{Machine learning in action}P. Harrington, Machine Learning in Action. Minning Publications Co. Greenwich, 2012.
+
+\bibitem{kmeansviz}{http://stanford.edu/~cpiech/cs221/img/kmeansViz.png}
 
 \end{thebibliography}
 
