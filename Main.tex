@@ -321,190 +321,14 @@ Text úvodu....
 \chapter{Motivace}
 \pagestyle{headings}
 
+%V posledních desetiletích se rozšiřuje fenomén čisté fúzní energie, jež bude zísána slučováním.
+%\section{"Co a proč to dělám"}
+
+\section{Plazma a tokamaky}
+
 \section{Strojové učení}
 
-\section{Klasifikace}
-
-\section{Rysy (Features)}
-
-Ve strojovém učení a rozpoznávání vzorů se pod pojmem "rys" \ (feature) rozumí individuální měřitelná vlastnost nebo charakteristika pozorovaného jevu. Výběr těchto rysů je %jedním z nejdůležitějších kroků v řešení daného problému a  
-naprosto zásadní pro efektivní rozpoznávací, regresní a klasifikační algoritmy. 
-Čím relevantnější  a charakterističtější rys, tím lépe jsme schopni docílít větší přesnosti modelu. Na druhou stranu vynechání zbytečných, případně méně důležitých rysů zase snižuje složitost modelu a urychluje jeho trénink.
-Nejčastější forma rysu je číselná hodnota, avšak při rozpoznávání syntetických vzorků se hojně používají i písmena, slova nebo grafy.
-
-Selekci těchto rysů je možné demonstrovat na následujícím příkladu. Předpokládejme, že bychom chtěli předvídat typ domácího mazlíčka, jež si někdo koupí.
-
-Do rysů můžeme zahrnout například věk osoby, pohlaví, jméno, bydlení (byt, dům, ...), rodinný příjem, vzdělání a počet dětí. Je zřejmě, že většina těchto rysů nám může při předvidání pomoci, ale některé jako třeba vzdělání nebo jméno jsou zjevně méně důležité.%nedůležité. 
-
-\begin{table}[H]
-	\centering
-	%\renewcommand{\arraystretch}{1}
-	%\renewcommand{\tablename}{Tab.}
-	
-	\begin{tabular}{c|c|c|c|c|c|c}
-		
-		jméno & věk &	pohlaví	&	bydlení &  příjem & počet dětí & vzdělání	\\
-		\hline
-		Karel & 25 & muž & byt & 30.000 & 0 & středoškolské \\
-		\hline
-		Petr & 30 & muž & dům & 45.000 & 2 & vysokoškolské \\
-		\hline
-		Jana & 42 & žena & byt & 23.000 & 1 & základní \\
-		\hline
-		Miloš & 51 & muž & dům & 29.000 & 1 & středoškolské\\
-		\hline
-		\multicolumn{7}{c}{...}  \\
-	\end{tabular}
-	\caption{Vzorová tabulka rysů k demonstračnímu příkaldu}
-\end{table}
-
-
-\begin{comment}
-
-Například pokud se snažíte předvídat typ zvířete, který si někdo zvolí, vaše vstupní funkce mohou zahrnovat věk, domácí region, rodinný příjem atd. Označení je konečnou volbou, jako je pes, ryba, iguana, rock, atd.
-
-ve strojovém učení a rozpoznávání vzoru je rysem individuální měřitelná vlastnost nebo charakteristika pozorovaného jevu. [1] Výběr informačních, diskriminačních a nezávislých prvků je zásadním krokem pro efektivní algoritmy v rozpoznávání, klasifikaci a regresi. 
-
-Rysy jsou nejčastěji číselné avšak při rozpoznávání syntetických vzorů se navíc používají například řetězce a grafy.  
-
-Features are a column of data given as the input. They are also called as attributes or might sometimes be referred as dimensions.
-
-A particular problem data set can have several features tagging to them. It is important to select the features that are more relevant to our problem so that the accuracy of the model improves. It also reduces the complexity of the model as we avoid the least significant / unnecessary feature data. The simpler model is simpler to understand and explain.
-
-This Process is called feature engineering / selection and is one of the crucial step of pre-processing. Different algorithms can be used to implement it.
-
-The Features can be of different types.
-
-Simple Supervised selection where they are simple values like numbers and characters.
-Eg: Size of the house (number) .
-
-In unsupervised learning, the model is itself trained to recognize the features and work on it.
-
-Eg: In character recognition, features may include histograms counting the number of black pixels along horizontal and vertical directions, number of internal holes, stroke detection and many others.
-\end{comment}
-
-\subsection{První a druhá derivace}
-Prvním rysem použitým při  klasifikaci je první derivace.
-Jelikož jsou k dispozici pouze jednotlivé body, nelze použít analytický vzorec pro derivace funkce $f(x):R \longrightarrow R$, tedy konkrétně
-\begin{equation}
-\frac{d f(x)}{dx}=f'(x) = \lim\limits_{h->0} \frac{f(x+h)-f(x)}{h}.
-\label{derivace}
-\end{equation}
-Namísto toho se musí počítat numericky, a to za použití centrální diference druhého řádu pomocí \eqref{vnitřní diference} a v krajních bodech pomocí jednostranných diferencí prvního nebo druhého řádu \eqref{vnější diference}.
-\begin{equation}
-\hat{f}'_k = \frac{f(x_{k+1})-f(x_{k-1})}{2h} 
-\label{vnitřní diference}
-\end{equation}
-\begin{equation}
-\hat{f}'_0 = \frac{f(x_1)-f(x_0)}{h} \ \ \text{a} \ \ \hat{f}'_n = \frac{f(x_n)-f(x_{n-1})}{h}
-\label{vnější diference}
-\end{equation}
-
-Dalším použitým rysem je druhá derivace, kterou lze jesnáze získat použitím víše zmíněncým vzoruců \eqref{vnitřní diference} a \eqref{vnější diference} na již jednou zderivovaný signál.
-
-
-\subsection{Klouzavý průměr}
-Dalším vybraným rysem je klouzavý průměr. Klouzavý průměr je diskrétní lineární filtr s konečnou dobou odezvy, který slouží k vyhlazení signálu. Nadále ho budeme značit jako $\widetilde{X}_t $. Nechť máme  vektor naměřených hodnot $\vec{X}=(x_1, x_2,...,x_n)$, pak definuji klouzavý průměr pro $t \ \in \ 1,2,...,n$ jako
-\begin{equation}
-\widetilde{X}_t = \frac{1}{\tilde{\omega}} \sum_{k = t-\tilde{\omega} }^{t} x_k , 
-\label{klouzavý průměr}
-\end{equation}  
-kde $\tilde{ \omega } = min\{ \omega, t \} $, přičemž $\omega$ je délka úseku. Pak vektor $\vec{\widetilde{X}} = (\widetilde{X}_1,\widetilde{X}_2,..,\widetilde{X}_n)$ je rys vektoru $\vec{X}$.
-
-Ve skutečnosti se jedná o standartní aritmetický průměr \eqref{aritmetický průměr}, jež je aplikovaný pouze na úsek dat konečné délky.
-\begin{equation}
-\overline{X}_n = \frac{1}{n} \sum_{k=1}^{n} x_k,
-\label{aritmetický průměr}
-\end{equation}
-
-Mezi rysy byl vybrán, protože předpokládáme, že okamžitá hodnota je závislá na %bezprostředně 
-předchozích datech. Důvod, proč využíváme jen konečně dlouhý úsek předcházejících hodnot je ten, že ze zákona velkých čísel aritmetický průměr konverguje ke střední hodnotě, a tedy ke konstantě. To znamená, že postupem času budou mít rozdílná data v odlišných stavech stejnou hodnotu rysu. Z čehož plyne, že takovýto rys by jen zkresloval a znepřesňoval výsledek, viz Obr. \ref{obr1}. 
-
-
-\begin{figure} [H] 
-	\renewcommand{\figurename}{Obr.}
-	\centering
-	\includegraphics[scale=0.7]{Obr/obr2}
-	\caption{Rozdíl mezi klouzavým a aritmerickým průměrem aplikovaným na syntetická data}
-	\label{obr1}
-\end{figure}
-
-
-
-\subsection{Exponenciální klouzavý průměr}
-Jíž dříve jsme se zmínili, že předpokládáme závislost na předchozích hodnotách. Nicméně je zřejmé, 
-%"Jak jsem se zmínil již dříve, předpoládám závislost na předchozích hodnotách. "Není však překvapením"
- že hodnoty naměřené s velkým časovým rozestupem %vzdálenější hodnoty 
-na sebe mají mnohem menší vliv, než ty jež jsou naměřeny bezprostředně zasebou. Proto dalším vybraným rysem je tedy exponenciální klouzavý průměr $S_t$. 
-
-Nechť $\vec{X}=(x_1, x_2,...,x_n)$ je vektor naměřených hodnot, pak definuji váhový součet zleva pro $t \ \in \ 1,2,...,n$ jako
-\begin{equation}
-S_t = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} g_{t-k} \cdot x_k, 
-\label{exponenciální klouzavý průměr}
-\end{equation} 
-kde $\tilde{ \omega } = min\{ \omega, t \} $, $\omega$ je délka úseku a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. Pak vektor $\vec{S} = (S_1,S_2,..,S_n)$ je rys vektoru $\vec{X}$. 
-Díky exponenciální váhové funkci $g_m$, jsme tedy schopni snížit důležitost více vzdálených dat, což byl náš záměr.  
-
-\begin{comment}
-
-\subsection{Rozptyl}
-Rozptyl asi vynechám protože je k ničemu
-\begin{equation}
-\sigma ^2_n = \frac{1}{n} \sum_{k = 1}^{n} (x_k -E(x) )^2 = \frac{1}{n} \sum_{k = 1}^{n} (x_k - \overline{X}_n )^2
-\label{rozptyl}
-\end{equation}
-\end{comment}
-
-
-\begin{comment}
-
-Nechť $X = (x_1, x_2, ..., x_n)$ je diskrétní náhodná veličina s příslušnými pravděpodobnostmi  $p_1,p_2, ...,p_n$. Pak střední hodnotu náhodné veličiny $X$ označím symbolem $E[X]$ a definuji ji jako 
-\begin{equation}
-E[X]  = \sum_{k=1}^{n} p_k \cdot x_k.
-\label{etření hodnota}
-\end{equation}
-Pokud jsou $x_1, x_2, ..., x_n$ stejně rozdělené tzn. $p_1 = p_2 = ... = p_n$ pak stření hodnota nabývá tvaru 
-\begin{equation}
-E[X] = \frac{1}{n} \sum_{k=1}^{n} x_k
-\label{mean}
-\end{equation}
-\end{comment}
-
-\subsection{Klouzavý rozptyl}
-Ve statistice a teorii pravděpodobnosti se pod pojmem rozptyl rozumí střední hodnota kvadrátu odchylky od střední hodnoty náhodné veličiny. Bývá reprezentován symbolem $Var(X)$ nebo $\sigma^2$ a definován vzorcem 
-\begin{equation}
-Var(X) = E[(X-E[X])^2] %= \sum_{k=1}^{n}(x_k-E[X])^2
-\end{equation}
-pro stejně rozdělené diskrétní náhodné veličiny $\vec{X} = (x_1, x_2, ...,x_n)$
-můžeme tento vzorec přepsat do tvaru 
-
-\begin{equation}
-Var(X) = \frac{1}{n}\sum_{k=1}^{n} (x_k - \overline{X}_n)^2.
-\label{varf}
-\end{equation}
-
-Bohužel, rozptyl nemůžeme jako rys použít ze stejného důvodu jako aritmetický průměr, protože s postupem času bude různým stavům přiřazovat stejnou hodnotu. 
-Proto zed využijeme místo aritmetického průměru již dříve definovaný klouzavý průměr a výslednou veličinu %jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
-budu dále nazývat klouzavým rozptylem a značit $D_t$.
-
-Nechť $\vec{X} = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $t \in 1, 2, ..., n$ jako 
-\begin{equation}
-D_m = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} (x_k - \widetilde{X}_t)^2,
-\label{klouzavý rozptyl}
-\end{equation}
-kde $\tilde{ \omega } = min\{ \omega, t \}$, $w$ je opět délka úseku a $\widetilde{X}_t$ je klouzavý průměr \eqref{klouzavý průměr}. Pak vektor $\vec{D} = (D_1, D_2, ..., D_n)$ je rys vektoru $\vec{X}$.
-
-\begin{figure} [H] 
-	\renewcommand{\figurename}{Obr.}
-	\centering
-	\includegraphics[scale=0.7]{Obr/obr3}
-	\caption{Rozdíl mezi úsekovým a normálním rozptylem aplikovaným na syntetická data}
-	\label{obr3}
-\end{figure}
-
-
-
-\pagestyle{headings}
+\section{Klasifikace vs clustering}
 
 
 \chapter{Teoretická část}
@@ -681,18 +505,236 @@ A Python example using delivery fleet data
 
 
 
-\section{kNN}
+%\section{kNN}
 
 
 \chapter{Postup práce a výsledky}
 \pagestyle{headings}
+
+\section{Rysy (Features)}
+
+Ve strojovém učení a rozpoznávání vzorů se pod pojmem "rys" \ (feature) rozumí individuální měřitelná vlastnost nebo charakteristika pozorovaného jevu. Výběr těchto rysů je %jedním z nejdůležitějších kroků v řešení daného problému a  
+naprosto zásadní pro efektivní rozpoznávací, regresní a klasifikační algoritmy. 
+Čím relevantnější  a charakterističtější rys, tím lépe jsme schopni docílít větší přesnosti modelu. Na druhou stranu vynechání zbytečných, případně méně důležitých rysů zase snižuje složitost modelu a urychluje jeho trénink.
+Nejčastější forma rysu je číselná hodnota, avšak při rozpoznávání syntetických vzorků se hojně používají i písmena, slova nebo grafy.
+
+Selekci těchto rysů je možné demonstrovat na následujícím příkladu. Předpokládejme, že bychom chtěli předvídat typ domácího mazlíčka, jež si někdo koupí.
+
+Do rysů můžeme zahrnout například věk osoby, pohlaví, jméno, bydlení (byt, dům, ...), rodinný příjem, vzdělání a počet dětí. Je zřejmě, že většina těchto rysů nám může při předvidání pomoci, ale některé jako třeba vzdělání nebo jméno jsou zjevně méně důležité.%nedůležité. 
+
+\begin{table}[H]
+	\centering
+	%\renewcommand{\arraystretch}{1}
+	%\renewcommand{\tablename}{Tab.}
+	
+	\begin{tabular}{c|c|c|c|c|c|c}
+		
+		jméno & věk &	pohlaví	&	bydlení &  příjem & počet dětí & vzdělání	\\
+		\hline
+		Karel & 25 & muž & byt & 30.000 & 0 & středoškolské \\
+		\hline
+		Petr & 30 & muž & dům & 45.000 & 2 & vysokoškolské \\
+		\hline
+		Jana & 42 & žena & byt & 23.000 & 1 & základní \\
+		\hline
+		Miloš & 51 & muž & dům & 29.000 & 1 & středoškolské\\
+		\hline
+		\multicolumn{7}{c}{...}  \\
+	\end{tabular}
+	\caption{Vzorová tabulka rysů k demonstračnímu příkaldu}
+\end{table}
+
+
+\begin{comment}
+
+Například pokud se snažíte předvídat typ zvířete, který si někdo zvolí, vaše vstupní funkce mohou zahrnovat věk, domácí region, rodinný příjem atd. Označení je konečnou volbou, jako je pes, ryba, iguana, rock, atd.
+
+ve strojovém učení a rozpoznávání vzoru je rysem individuální měřitelná vlastnost nebo charakteristika pozorovaného jevu. [1] Výběr informačních, diskriminačních a nezávislých prvků je zásadním krokem pro efektivní algoritmy v rozpoznávání, klasifikaci a regresi. 
+
+Rysy jsou nejčastěji číselné avšak při rozpoznávání syntetických vzorů se navíc používají například řetězce a grafy.  
+
+Features are a column of data given as the input. They are also called as attributes or might sometimes be referred as dimensions.
+
+A particular problem data set can have several features tagging to them. It is important to select the features that are more relevant to our problem so that the accuracy of the model improves. It also reduces the complexity of the model as we avoid the least significant / unnecessary feature data. The simpler model is simpler to understand and explain.
+
+This Process is called feature engineering / selection and is one of the crucial step of pre-processing. Different algorithms can be used to implement it.
+
+The Features can be of different types.
+
+Simple Supervised selection where they are simple values like numbers and characters.
+Eg: Size of the house (number) .
+
+In unsupervised learning, the model is itself trained to recognize the features and work on it.
+
+Eg: In character recognition, features may include histograms counting the number of black pixels along horizontal and vertical directions, number of internal holes, stroke detection and many others.
+\end{comment}
+
+\subsection{První a druhá derivace}
+Prvním rysem použitým při  klasifikaci je první derivace.
+Jelikož jsou k dispozici pouze jednotlivé body, nelze použít analytický vzorec pro derivace funkce $f(x):R \longrightarrow R$, tedy konkrétně
+\begin{equation}
+\frac{d f(x)}{dx}=f'(x) = \lim\limits_{h->0} \frac{f(x+h)-f(x)}{h}.
+\label{derivace}
+\end{equation}
+Namísto toho se musí počítat numericky, a to za použití centrální diference druhého řádu pomocí \eqref{vnitřní diference} a v krajních bodech pomocí jednostranných diferencí prvního nebo druhého řádu \eqref{vnější diference}.
+\begin{equation}
+\hat{f}'_k = \frac{f(x_{k+1})-f(x_{k-1})}{2h} 
+\label{vnitřní diference}
+\end{equation}
+\begin{equation}
+\hat{f}'_0 = \frac{f(x_1)-f(x_0)}{h} \ \ \text{a} \ \ \hat{f}'_n = \frac{f(x_n)-f(x_{n-1})}{h}
+\label{vnější diference}
+\end{equation}
+
+Dalším použitým rysem je druhá derivace, kterou lze jesnáze získat použitím víše zmíněncým vzoruců \eqref{vnitřní diference} a \eqref{vnější diference} na již jednou zderivovaný signál.
+
+\subsection{Savitzky-Golay filtr}
+Na obrázku \ref{example1} v první kapitole bylo možné vidět, že naše data, získaná z detektoru, jsou zatížena velikým šumem. Proto není od věci pokusit se tento signál nějak vyhladit. Za tímto učelem byl mezi rysy vybrán Savitzky-Golay filtr, jež je digitálním filtrem dobře přizpůsobeným pro vyhlazování dat. S-G filtry byly zpočátku použity k zobrazení relatívních šířek a výšky spektrálních čar v zašuměných spektrometrických datech.
+
+Digitální filtr aplikovaný na stejnoměrně rozložená data tzn. $f_i = f(t_i)$, kde $t_i = t_0 \cdot \Delta$,  $i \in \mathbb{Z}$ a $\Delta$ je konstanta, nahrazuje každou hodotu $f_i$ lineární kombinací $g_i$ nebo sama sebou a určitým počtem nejbližších sousedů,
+\begin{equation}
+g_i = \sum_{n = -n_L}^{n_R} c_n f_{i+n} = (\vec{c}\otimes \vec{f})_j,
+\label{Digital filter}
+\end{equation} 
+kde $\vec{c}$ jsou tzv. konvoluční koeficienty, $n_L$ je počet použitých bodů vlevo a $n_R$ vpravo. Konkrétně S-G filtr používá konfiguraci $n_L=n_R$.
+
+Hlavní myšlenou S-G filtru je nalezení koeficientů $c_n$ tak, aby se zachovávaly momenty vyššních řádů a aproximace funkce uvnitř pohybujíího se okna pomocí polynomu namísto konstanty. Pro každou hodnotu $f_i$ proložíme všech $n_L+n_R+1$ bodů, uvnitř pohyblivého okna, polynomem pomocí metody nejmenších čtverců a nastavíme $g_i$ na hodnotu polynomu na i-té pozici. Jelikož nevyužíváme hodnoty polynomu v jiných bodech, měli bychom tedy pro $f_{i+1}$ udělat celou procedůru znovu. Naštěstí, díky tomu, že metoda nejmenších čtverců pro výpočet využíva pouze lineární maticovou inverzi a koeficienty proloženého polynomu jsou sami o sobě také lineární, můžeme vešeré prokládání vypočítat dopředu a pomocí binárního vektoru lze pak vše dopočítat linerání kombinací.
+
+Potřebujume tedy proložit polynom řádu $M$ kontrétně $a_0 + a_1 i + ... + a_M i^M$ hodnotamy $f_{-n_L}, ..., f_{n_R}$. Matice pro nejmenší čtverce má tvar 
+\begin{equation}
+A_{ij} = i^j \ \ \ \ \ i = -n_L ,..., n_R \ \ \ a \ \ \ j = 0,...,M
+\end{equation} 
+koeficienty polynomu $\vec{a}$ lze pak vypočítat jako 
+\begin{equation}
+\vec{a} = (\mathbb{A}^T \cdot \mathbb{A})^{-1} \cdot (\mathbb{A}^{T} \cdot \vec{f}).
+\end{equation}
+
+Nakonec vypočítáme i koeficienty $\vec{c}$ pomocí
+\begin{equation}
+\vec{c} = (\mathbb{A}^T \cdot \mathbb{A})^{-1} \cdot \mathbb{A}^{T}
+\end{equation}
+a po dosazení zpět do \eqref{Digital filter} získáváme konečně vyhlazenou funkci $g_i$. 
+
+S-G filtr je pro řešení našeho problému výhodný také z důvodu, že po mírné úravě lze takoto počítat i vyhlazené derivace  signálu.
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.65]{Obr/obr6}
+	\includegraphics[scale=0.65]{Obr/obr7}
+	\caption{Savitzky-Golay filtr. Na horním obrázku jsou syntetická data s bílým gaussovským šumem. Na spodním je již vyhlazený set získaný aplikací S-G filtru s parametry $n_L =16, n_R = 16$ a stupeň polynomu $M =4$. \cite{NumRec}}
+	\label{S-G example}
+\end{figure}
+
+\subsection{Klouzavý průměr}
+Dalším vybraným rysem je klouzavý průměr. Klouzavý průměr je diskrétní lineární filtr s konečnou dobou odezvy, který slouží k vyhlazení signálu. Nadále ho budeme značit jako $\widetilde{X}_t $. Nechť máme  vektor naměřených hodnot $\vec{X}=(x_1, x_2,...,x_n)$, pak definuji klouzavý průměr pro $t \ \in \ 1,2,...,n$ jako
+\begin{equation}
+\widetilde{X}_t = \frac{1}{\tilde{\omega}} \sum_{k = t-\tilde{\omega} }^{t} x_k , 
+\label{klouzavý průměr}
+\end{equation}  
+kde $\tilde{ \omega } = min\{ \omega, t \} $, přičemž $\omega$ je délka úseku. Pak vektor $\vec{\widetilde{X}} = (\widetilde{X}_1,\widetilde{X}_2,..,\widetilde{X}_n)$ je rys vektoru $\vec{X}$.
+
+Ve skutečnosti se jedná o standartní aritmetický průměr \eqref{aritmetický průměr}, jež je aplikovaný pouze na úsek dat konečné délky.
+\begin{equation}
+\overline{X}_n = \frac{1}{n} \sum_{k=1}^{n} x_k,
+\label{aritmetický průměr}
+\end{equation}
+
+Mezi rysy byl vybrán, protože předpokládáme, že okamžitá hodnota je závislá na %bezprostředně 
+předchozích datech. Důvod, proč využíváme jen konečně dlouhý úsek předcházejících hodnot je ten, že ze zákona velkých čísel aritmetický průměr konverguje ke střední hodnotě, a tedy ke konstantě. To znamená, že postupem času budou mít rozdílná data v odlišných stavech stejnou hodnotu rysu. Z čehož plyne, že takovýto rys by jen zkresloval a znepřesňoval výsledek, viz Obr. \ref{obr1}. 
+
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.7]{Obr/obr2}
+	\caption{Rozdíl mezi klouzavým a aritmerickým průměrem aplikovaným na syntetická data}
+	\label{obr1}
+\end{figure}
+
+
+
+\subsection{Exponenciální klouzavý průměr}
+Jíž dříve jsme se zmínili, že předpokládáme závislost na předchozích hodnotách. Nicméně je zřejmé, 
+%"Jak jsem se zmínil již dříve, předpoládám závislost na předchozích hodnotách. "Není však překvapením"
+že hodnoty naměřené s velkým časovým rozestupem %vzdálenější hodnoty 
+na sebe mají mnohem menší vliv, než ty jež jsou naměřeny bezprostředně zasebou. Proto dalším vybraným rysem je tedy exponenciální klouzavý průměr $S_t$. 
+
+Nechť $\vec{X}=(x_1, x_2,...,x_n)$ je vektor naměřených hodnot, pak definuji váhový součet zleva pro $t \ \in \ 1,2,...,n$ jako
+\begin{equation}
+S_t = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} g_{t-k} \cdot x_k, 
+\label{exponenciální klouzavý průměr}
+\end{equation} 
+kde $\tilde{ \omega } = min\{ \omega, t \} $, $\omega$ je délka úseku a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. Pak vektor $\vec{S} = (S_1,S_2,..,S_n)$ je rys vektoru $\vec{X}$. 
+Díky exponenciální váhové funkci $g_m$, jsme tedy schopni snížit důležitost více vzdálených dat, což byl náš záměr.  
+
+\begin{comment}
+
+\subsection{Rozptyl}
+Rozptyl asi vynechám protože je k ničemu
+\begin{equation}
+\sigma ^2_n = \frac{1}{n} \sum_{k = 1}^{n} (x_k -E(x) )^2 = \frac{1}{n} \sum_{k = 1}^{n} (x_k - \overline{X}_n )^2
+\label{rozptyl}
+\end{equation}
+\end{comment}
+
+
+\begin{comment}
+
+Nechť $X = (x_1, x_2, ..., x_n)$ je diskrétní náhodná veličina s příslušnými pravděpodobnostmi  $p_1,p_2, ...,p_n$. Pak střední hodnotu náhodné veličiny $X$ označím symbolem $E[X]$ a definuji ji jako 
+\begin{equation}
+E[X]  = \sum_{k=1}^{n} p_k \cdot x_k.
+\label{etření hodnota}
+\end{equation}
+Pokud jsou $x_1, x_2, ..., x_n$ stejně rozdělené tzn. $p_1 = p_2 = ... = p_n$ pak stření hodnota nabývá tvaru 
+\begin{equation}
+E[X] = \frac{1}{n} \sum_{k=1}^{n} x_k
+\label{mean}
+\end{equation}
+\end{comment}
+
+\subsection{Klouzavý rozptyl}
+Ve statistice a teorii pravděpodobnosti se pod pojmem rozptyl rozumí střední hodnota kvadrátu odchylky od střední hodnoty náhodné veličiny. Bývá reprezentován symbolem $Var(X)$ nebo $\sigma^2$ a definován vzorcem 
+\begin{equation}
+Var(X) = E[(X-E[X])^2] %= \sum_{k=1}^{n}(x_k-E[X])^2
+\end{equation}
+pro stejně rozdělené diskrétní náhodné veličiny $\vec{X} = (x_1, x_2, ...,x_n)$
+můžeme tento vzorec přepsat do tvaru 
+
+\begin{equation}
+Var(X) = \frac{1}{n}\sum_{k=1}^{n} (x_k - \overline{X}_n)^2.
+\label{varf}
+\end{equation}
+
+Bohužel, rozptyl nemůžeme jako rys použít ze stejného důvodu jako aritmetický průměr, protože s postupem času bude různým stavům přiřazovat stejnou hodnotu. 
+Proto zde využijeme místo aritmetického průměru již dříve definovaný klouzavý průměr a výslednou veličinu %jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
+budu dále nazývat klouzavým rozptylem a značit $D_t$.
+
+Nechť $\vec{X} = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $t \in 1, 2, ..., n$ jako 
+\begin{equation}
+D_m = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} (x_k - \widetilde{X}_t)^2,
+\label{klouzavý rozptyl}
+\end{equation}
+kde $\tilde{ \omega } = min\{ \omega, t \}$, $w$ je opět délka úseku a $\widetilde{X}_t$ je klouzavý průměr \eqref{klouzavý průměr}. Pak vektor $\vec{D} = (D_1, D_2, ..., D_n)$ je rys vektoru $\vec{X}$.
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.7]{Obr/obr3}
+	\caption{Rozdíl mezi úsekovým a normálním rozptylem aplikovaným na syntetická data}
+	\label{obr3}
+\end{figure}
+
+\pagestyle{headings}
+
 \section{Způsoby vyhodnocení výsledků}
-V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) mého algoritmu.
+%V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) mého algoritmu.
 \subsection{Přesnost}
 \subsection{Správnost}
 \subsection{Recall}
 \subsection{F míra}
 
+\begin{comment}
 \begin{table}
 	\scriptsize
 	\begin{tabular}{lcrrrrrrrrrrrr}
@@ -745,6 +787,7 @@ V této kapitole se budu věnovat způsobům jak ohodnotit kvalitu (přsnost) m�
 		\bottomrule
 	\end{tabular}
 \end{table}
+\end{comment}
 
 \chapter*{Závěr}
 
@@ -766,7 +809,10 @@ Text závěru....
 
 \bibitem{Machine learning in action}P. Harrington, Machine Learning in Action. Minning Publications Co. Greenwich, 2012.
 
+\bibitem{NumRec}W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.F. Flannery, Numerical Recepies in C: The Art of Scientific Computing (Second Edition).  New York: Cambridge University Press. IBSN 0-521-43108-5, 1992.
+
 \bibitem{kmeansviz}{http://stanford.edu/~cpiech/cs221/img/kmeansViz.png}
+
 
 \end{thebibliography}
 
