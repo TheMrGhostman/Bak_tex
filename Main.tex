@@ -178,10 +178,7 @@
 
 \noindent \emph{\Large{}Poděkování:}{\Large \par}
 
-\noindent Chtěl bych zde poděkovat především svému školiteli ...................
-za pečlivost, ochotu, vstřícnost a odborné i lidské zázemí při vedení
-mé diplomové práce. Dále děkuji svému konzultantovi ................
-za ................
+\noindent Chtěl bych zde poděkovat především svému školiteli Ing. Vítovi Škvárovi za pečlivost, ochotu, vstřícnost a odborné i lidské zázemí při vedení mé bakalářské práce. Dále děkuji svému konzultantovi Ing. Jakubu Urbanovi, PhD., za pomoc nejden v začátcích řešení problému, jímž se tato práce zabívá. V neposlední řadě bych chtěl poděkovat Ing. Ondřeji Groverovi za pomoc s fyzikální složkou věci.
 
 \vfill
 
@@ -315,42 +312,123 @@ by commas
 \chapter*{Úvod}
 
 \addcontentsline{toc}{chapter}{Úvod}
+V dnešní moderní společnosti funguje téměř vše na elektřinu a nároky stále rostou. Řešením by mohlo být ovládnutí termojaderné reakce. Abychom tento potenciál mohly naplno využít, potřebujeme tuto reakci pořádně pochopit. Jedním z nepokročilejších zařízení sloužících k jejímu výzkumu jsou tokamaky. Znalost okamžitého stavu plazmatu uvnitř tokamaku je tedy poměrně důležitá. Právě tímto problémem se bude tato práce zabývat.
 
-Text úvodu....
+Cílem práce je nalézt způsob, jak určit tyto stavy v reálném čase za použití strojového učení. Nejdříve je potřeba seznámit se se základní fyzikální podstatou jevů, vyvstávajících při výbojích na tokamaku. 
+Následně je třeba prostudovat metody strojového učení schopné řešit tento problém. Poté budu tyto algoritmy natrénovány na skutečných datech z tokamaku COMPASS a aplikovány na testovací vzorek dat. Posledním úkolem je vyhodnotit výsledky a porovnat metody mezi sebou.
 
-\chapter{Motivace}
+V první kapitole je stručně zodpovězeno, co je to plazma. Následuje popis základní problematiky tokamaků. Dále je zde podrobněji představen problém, který tato práce řeší. Na konci kapitoly je vysvětleno strojové učení.
+
+V druhé kapitole jsou uvedeny dvě metody strojového učení. Nejprve je podrobně popsán Skrytý Markovův model. Poté je vysvětlen Viterbiho algoritmus sloužící právě při výpočtu dříve jmenovaného modelu. Na konci této kapitoly představena clusteringová metoda K-means.
+
+Ve třetí a poslední kapitole jsou postupně popsány rysy používané při aplikaci obou metod. Následuje seznam metrik, sloužících k vyhodnocení úspěšnosti výsledků. Dále je zde uveden postup práce a řešení dílčích problémů. Tato kapitola je zakončena porovnáním výsledků použitých metod.
+
+
+\chapter{Úvodní terminologie}
 \pagestyle{headings}
+
+V této kapitole si nejdříve zodpovíme, co je to plazma. Dále se seznámíme se základní problematikou tokamaků, zejména tokamaku COMPASS. Poté si podrobněji představíme problém, kterým se bude tato práce zabývat. Nakonec bude uvedeno strojové učení a jeho dvě hlavní skupiny.
 
 %V posledních desetiletích se rozšiřuje fenomén čisté fúzní energie, jež bude zísána slučováním.
 %\section{"Co a proč to dělám"}
 
-\section{Plazma a tokamaky}
+\section{Plazma}
+Plazma je jedním ze čtyř základních skupenství. Jedná se o ionizovaný plyn, jehož atomy jsou rozděleny na pozitivní ionty a naegativní elektrony. %Je tvořená ionizovaným plynem s atomy rozděleným na pozitivní ionty a negativné elektrony. 
+Na rozdíl od zbylých tří skupenství se volně, za normálních podmínek, na zemském povrchu nevyskytuje. Paradoxně však $99\% $ veškeré hmoty ve vesmíru tvoří právě plazma. 
+
+V laboratoři se získává typicky zahříváním a ionizováním malého množství plynu pomocí elektrického proudu nebo radiových vln. Obykle tyto prostředky dodávají energii přímo volným elektronům uvnitř. Poté se během srážek těchto nabytých elektronů s atomy uvolňují další elektrony a tento kaskádový proces postupuje, dokud plyn nedosáhne požadovaného stupně ionizace.
+
+Rozdíl mezi velmi slabě ionizovaným plynem a plazmatem je do značné míry záležitostí terminologie a způsobu interpretace. V závislosti na okolní teplotě prostředí a hustotě, dělíme plazmata na částečně ionizované a plně ionizované. Příkladem částečně ionizovaného plazmatu je třeba blesk nebo neonové světlo. Naproti tomu plně ionizované plazma lze nalézt uvnitř slunce nebo právě v tokamaku. 
+
+\section{Tokamak COMPASS}
+Název tokamak je zkratkou půvoního ruského názvu toroidalnaja kamera s magnitnymi katuškami (toroidní komora s magnetickými cívkami). V podstatě se jedná o experimentální zařízení využívné k tvorbě vysokoteplotního plazmatu a jeho následné kontrole pomocí magnetického pole. V současnosti jsou tokamaky považovány za jednu z nejnadějnějších cest k dosažení kontrolované jaderné fůze. Pokud by se podařilo fůzy efektivně a trvale udržet, mohlo by se pak přebytečné teplo převést, po vzoru tepelných elektráren, na elektřinu. Tímto způsobem bychom získali téměř nevyčerpatelný zdroj energie, který by byl současně šetrný k životnímu prostředí.
+
+Na rozdíl od jaderných reaktorů, kde probíhá štěpení těžkých jader uranu $^{235}U$ na lehčí jádra, v tokamacích dochází ke slučování lehkých jader za účelem vzniku těžších jader. Při této termojaderné reakci se nejčastěji slučují jádra deuteria a tricia. Výsledkem reakce je hélium a nositel energie neutron.
+Problém však tkví v tom, že pro udržení termojaderné fůze je zapotřebí velmi vysokých teplot a dostatečné doby trvání. Abychom toho docílili, musíme držet částice uprostřed toroidní komory, protože při vychýlení nebo kontaktu se stěnou, dochází k velice rychlému ochlazování. Proto se využívá silné magnetické pole, produkované cívkami, k manipulaci s nabytými částicemi plazmatu. 
+
+Tokamak COMPASS je umístěn v Praze Ládví na Ústavu fyziky plazmatu Akademie věd České republiky již od roku 2004. %Je hlavním experimentálním zařízením tamějšího oddělení tokamaků. 
+Původně byl umístěn a provozován ve Velké Británii pod UKAEA (UK Atomic Energy Autority) do roku 2002, kdy byl nahrazen tokamakem MAST. Díky svým rozměrům je řazen do kategorie menších tokamaků. I přes svou malou velikost umožňuje dosáhnout vysokoudržitelného stavu plazmatu neboli H-módu (High-confinement mode) %. Zároveň však 
+a zároveň odpovídá desetině velikosti tokuamaku ITER, v současnosti budovanému ve Francii. Právě díky těmto dvěma vlasnostem je nyní využíván ke studiu specifických jevů, které jsou třeba k pochopení plazmatu a jeho následného udržení v rovnováze.
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.5]{Obr/compass1}
+	\caption{Na levém obrázku je vyobrazen průřez tokamakem COMPASS a na pravém obrázku je jeho toroidní vakuová komora.  \cite{comp_foto1}}
+	\label{obr_comp1}
+\end{figure}
+
+
+\section{Podrobnější popis problematiky}
+V předchozí podkapitole bylo zmíněno, že tokamak COMPASS slouží v současnosti ke studiu chování plazmatu a jeho udržení.
+Plazma se může uvnitř tokamaku nacházet ve čtyřech základních stavech. 
+Prvním z nich je nízkoudržitelný L-mód (Low-confinement mode). V tomto stavu se plazma nachází bezprostředně po zažehnutí nebo případně po skončení H-módu. Pokud se plazma nachází v L-módu, je velice náročné udržet reakci na delší dobu a téměř nemožné udržet jí dlouhodoběji. 
+
+Druhým stavem je již dříve zmínění H-mód. V toto stavu je možné lépe kontrolovat chování plazmy a především jí držet v rovnováze po delší dobu. 
+Tento stav je také standartním referenčním režimem budoucího tokamaku ITER. 
+
+Třetím v řadě je ELM (edge-localized mode). ELMy jsou v podstatě narušující nestability, k nímž dochází na okraji plazmy. ELMy se navíc mohou vyskytovat pouze během H-módu.
+Posledním stavem je disrupce. 
+Disrupce představuje fyzikální jev, během něhož dochází k přetržení nebo náhlé zrátě udžení plazmatu.
+
+Aby bylo možné správně porozumět těmto jevům je zapotřebí velkého množství informací. Příkladem může být teplota během jednotlivých stavů atd. Bohužel většina detektorů a měřících přístrojů je limitovaná svou snímkovací frekvencí. Proto by bylo třeba vědět, v jakém stavu se zrovna plazma nachází, aby bylo možno měřit ve správnou chvíli. 
+
+V této práci se budeme snažit najít způsob/y, jak klasifikovat první tři výše zmíněné stavy plazmatu v reálném čase. Využívat k tomu budeme data naměřených hodnot záření $H_\alpha$\footnote[1]{$H_\alpha$ je specifická červená spektrální čára vyzařovaná vodíkem s vlnovou délkou $656,28 nm$} a metody strojového učení. 
+Náhled ideálně vypadajícího signálu je možné vidět na Obr. \ref{example1}. Na tomto obrázku je možné přesně sledovat všechny tři stavy. Signál začíná v L-módu. Asi po $10$ milisekundách přechází do H-módu. Jelikož H-mód  je lépe udržitelný, nevyzařuje plazma tolik vodíku jako v L-módu. Jednotlivé peaky jsou pak ELMy. Ve vákuu, jako je uvnitř tokamaku, se všechny částice rozprostřou po stěnách komory. Když se pak vlivem nějakých nestabilit utrhne kus plazmatu a dotkne se stěny, částice, jež se na stěně nacházejí, se rozzáří a my vidíme pěkný ELM.
+V praxi však signály vypadají spíše jako na Obr. \ref{example2}, kde už některé stavy nejsou jednoznačně viditelné.
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale = 0.6]{Obr/ideal}
+	\caption{Ukázka ideálně vypadajícího záření $H_\alpha$ zaznamenaného detektrorem. (číslo výstřelu: 15364)}
+	%Ukázka tří základních stavů plazmatu v tokamaku na naměřených datech z detektrou zaznamenávajícho záření $H_\alpha$. 
+	\label{example1}
+\end{figure}
 
 \section{Strojové učení}
+Strojové učení se zabývá počítačovými technikami a algoritmy, často za pomoci statistických metod, dávajícími počítačům schopnost se učit.  Schopnost učit se, nelze v tomto kontextu brát úplně doslovně, spíše je to schopnost postupně zlepšovat svou výkonnost či přesnost při řešení specifického problému. % bez potřeby expicitního programování. 
+Strojové učení je velmi úzce spjato s oblastmi výpočetní statistiky a matematickou optimalizací. Zatímco první z nich se zaměřnuje na tvorbu předpovědí nebo rozhodování s pomocí počítačů, druhá oblast poskytuje teorii, metody a v neposlední řadě aplikaci. 
 
-\section{Klasifikace vs clustering}
+Strojové učení dělíme do dvou hlavních skupin. První z nich je známo jako učení bez učitele (unsupervised learning), které úzce souvisí s těžbou dat. Vyznačuje se tím, že algoritmus nebo metoda pracuje zásadně s neoznačenými daty tzn. neznáme výsledky. 
 
+Druhou skupinou je učení s učitelem (supervised learning) lišící se předběžnou znalostí rozdělení dat. Tuto dodatečnou znalost lze pak využít k přesnějším a kvalitnějším výsledkům. Obě tyto skupiny mají svá jedinečná uplatnění, jako jsou například: regrese, klasifikace, clustering atd.
+
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.5]{Obr/hruza}
+	\includegraphics[scale=0.5]{Obr/hruza1}
+	\caption{Záření $H_\alpha$ častější případy. (horní obrázek  č.v.: 7880, spodní obrázek č.v.: 13484)}
+	\label{example2}
+\end{figure}
+
+%a na základě jejich vlastností, podobností nebo nějakého vzoru je následně rozdělí do skupi
+\subsection{Klasifikace vs clustering}
+Klasifikace a clustering jsou dvě strany jedné mince. Obě metody slouží k rozdělování pozorovaných dat do různých skupin. Toto členění probíhá na základě analýzy vlastností, podobností nebo nějakého skrytého vzoru.
+Zatímco klasifikace je jednoznačnou ukázkou učení s učitelem, při kterém algoritmus analyzuje jednotlivé jedince každé skupiny, aby odhalil, proč jsou právě v dané skupině. Clustering je naopak příkladem učení bez učitele, při kterém jsou zkoumána všechna data za účelem nalezení vztahů mezi některými z nich. Pokud jsou nějaké takové vztahy nalezeny, jsou pak tyto data rozdělena do příslušných clusterů (shluků).
 
 \chapter{Teoretická část}
 \pagestyle{headings}
+V této kapitole se budeme zabývat teorií ohledně dvou námi použitých metod strojového učení. Nejprve se seznámíme se základními principy Skrytého Markovova modelu. Poté si přiblížíme Viterbiho algoritmus, který slouží k výpočtům již zmíněného modelu a nakonec si představíme ryze clusteringovou metodu K-means.
 
 \section{Skrytý Markovův model}
 
 Skrytý Markovův model známý spíše pod svým anglickým názvem "Hidden Markov model" $ \ $je statistický model, který slouží k modelování Markovských procesů se skrytýmy stavy.
-Přesněji se jedná o dvojnásobně zapuštěný stochastický proces podložený dalším stochstickým procesem, který není pozorován, je tedy skrytý. Nicméně tento skrytý porces může být pozorován skrze jiné stochastické procesy, jež poskytují posloupnost pozorování. 
+Přesněji se jedná o dvojnásobně zapuštěný stochastický proces podložený dalším stochastickým procesem, který není pozorován, je tedy skrytý. Nicméně tento skrytý proces může být pozorován skrze jiné stochastické procesy, jež poskytují posloupnost pozorování. 
 
-Skrytý Markovův model je široce používán v rozpoznávání řeči (speech recognition), modelovéní přirozeného jazyka, rozpoznávání ručněpsaného písma a analýza biologických sekvencí jako například DNA a protejnů.
+Skrytý Markovův model je široce používán v rozpoznávání řeči (speech recognition), modelování přirozeného jazyka, rozpoznávání ručně psaného písma a analýza biologických sekvencí, jako například DNA a proteinů.
 
 %Pro lepší představu uvažujme systém uren a míčků vyobrazený na  "obrázek".
-Pro lepší představu si tento model ukážeme na příkladě uren a míčků. Předpokládejme, že v místnosti je $N$ velkých skleněných uren. V každé urně je velký počet barevných míčků. Předpokládejme, že máme $M$ odlišných barev míčků. Fyzikální proces pro získání pozorování je následující. Džin je v místnosti a on (nebo ona) podle nějakého náhodného procesu vybírá počáteční urnu. Z této urny vybere náhodně míček a jeho barva je nahrána jako pozorování. Míček je pak nahrazen v urně, z níž byl vybrán. Další urna je vybrána porocesem náhodného výběru spojeného se současnou urnou a výběr míčku je opakován. Celý proces generuje konečný počet pozorování posloupnosti barev, který bychom rádi modelovaly jako pozorovaný výstup skrytého markovského modelu. (příklad převzat z \cite{Rabiner})
+Pro lepší představu si tento model ukážeme na příkladě uren a míčků. Předpokládejme, že v místnosti je $N$ velkých skleněných uren. V každé urně je velký počet barevných míčků. Předpokládejme, že máme $M$ odlišných barev míčků. Fyzikální proces pro získání pozorování je následující. Džin je v místnosti a on (nebo ona) podle nějakého náhodného procesu vybírá počáteční urnu. Z této urny vybere náhodně míček a jeho barva je nahrána jako pozorování. Míček je pak nahrazen v urně, z níž byl vybrán. Další urna je vybrána procesem náhodného výběru spojeného se současnou urnou a výběr míčku je opakován. Celý proces generuje konečný počet pozorování posloupnosti barev, který bychom rádi modelovali jako pozorovaný výstup skrytého markovského modelu. (příklad převzat z \cite{Rabiner})
 
 Dále se na tento model můžeme dívat
 %Na tento model se můžeme také dívat
  jako na specifický případ stavového prostorového modelu, ve kterém jsou skryté proměnné diskrétní. 
-Nicméně když prozkoumáme "jednorázový" řez modelu, vidíme že odpovídá Mixture distribution (viz kapitola $9$ v \cite{Bishop}) s hustotou pravděpodobnosti danou  $\mathbb{P}(\vec{x}|\vec{z})$.
+Nicméně, když prozkoumáme jednorázový řez modelu, vidíme že odpovídá Mixture distribution (viz kapitola $9$ v \cite{Bishop}) s hustotou pravděpodobnosti danou  $\mathbb{P}(\vec{x}|\vec{z})$.
 Proto ho můžeme interpretovat jako rozšíření Mixture modelu, kde výběr složky směsi, pro každé pozorování, není nezávislý, ale závisí na volbě složek z předchozího pozorování.
 
-Jako v případě standartního Mixture modelu, skryté proměnné jsou diskrétní multinomické proměnné $\vec{z}_n$ popisující složku směsi jež je zodpovědná za generování příslušného pozorování $\vec{x}_n$. 
+Jako v případě standartního Mixture modelu, skryté proměnné jsou diskrétní multinomické proměnné $\vec{z}_n$ popisující složku směsi, jež je zodpovědná za generování příslušného pozorování $\vec{x}_n$. 
 Od této chvíle budeme předpokládat, že skrytý proces je Markovův, tzn. splňuje Markovu vlastnost (Markov property)\cite{Markov Chain}. Z tohoto předpokladu nyní plyne, že budoucí stav skryté proměnné $\vec{z}_n$ závisí pouze na předchozím stavu $\vec{z}_{n-1}$ skrze podmíněnou pravděpodobnost $\mathbb{P}(\vec{z}_n|\vec{z}_{n-1})$.  Pak zavedeme matici přechodů $\mathbb{A}$ danou předpisem  $A_{i,j} \equiv \mathbb{P}(\vec{z}_{n,j}|\vec{z}_{n-1,i} = 1)$, navíc matice splňuje, že $A_{i,j} \in (0,1)$ a skoupce jsou normovány na $1$, tzn $\sum_j A_{i,j} \ =1$. Dále můžeme tedy explicitně napsat podmíněné rozdělení pro $K$ skrytých stavů ve tvaru
 
 \begin{equation}
@@ -368,14 +446,14 @@ A^{\vec{z}_{n-1,i} \vec{z}_n,j}_{i,j}.
 	\label{tří stavý diagram}
 \end{figure}
 
-Tímto vzorcem můžeme vyjádřit všechny skryté stavy až na počáteční $\vec{z}_1$. Tento stav má pouze marginální rozdělení $\mathbb{P}(\vec{z}_1)$ reprezentované vektorem pravděpodobností $\pi$, kterýž má tvar $\pi \equiv \mathbb{P}(\vec{z}_{1,j} = 1)$ a tedy 
+Tímto vzorcem můžeme vyjádřit všechny skryté stavy až na počáteční $\vec{z}_1$. Tento stav má pouze marginální rozdělení $\mathbb{P}(\vec{z}_1)$ reprezentované vektorem pravděpodobností $\pi$, který má tvar $\pi \equiv \mathbb{P}(\vec{z}_{1,j} = 1)$ a tedy 
 
 \begin{equation}
 	\mathbb{P}(\vec{z}_1|\pi) = \prod_{j=1}^{K} \pi^{\vec{z}_{1,j}}_j,
 	\label{marginální pravděpodobnost}
 \end{equation} 
 kde $\sum_j \pi_j = 1$.
-Kdybychom chtěli matici $\mathbb{A}$ vysvětlit i jinak, mohli bychom toho docílit graficky pomocí diagramu na Obr. \ref{tří stavý diagram}. Když tento diagram dále rozvyneme s průběhem času, získáme takzvaný mřížový diagram, který nám poskytuje alternativní reprezentaci přechodů mezi jednotlivými skrytými stavy. Pro případ Skritého Markovského modelu pak tento diagram nabývá tvaru Obr. \ref{HMM diagram}. 
+Kdybychom chtěli matici $\mathbb{A}$ vysvětlit i jinak, mohli bychom toho docílit graficky pomocí diagramu na Obr. \ref{tří stavý diagram}. Když tento diagram dále rozvineme s průběhem času, získáme takzvaný mřížový diagram, který nám poskytuje alternativní reprezentaci přechodů mezi jednotlivými skrytými stavy. Pro případ Skrytého Markovova modelu tento diagram nabývá tvaru Obr. \ref{HMM diagram}. 
 
 Abychom měli pravděpodobnostní model kompletní, je třeba ještě zavést %podmíněné rozdělení pozorovaných proměnných
 emisní pravděpodobnosti (emission probabilities) $\mathbb{P}(\vec{x}_n|\vec{z}_n, \Theta)$, kde $\Theta$ představuje soubor parametrů řídícího rozdělení. 
@@ -394,7 +472,7 @@ přičemž mohou mít například tvar Gaussova ($R$-rozměrného) rozdělení
 \mathbb{P}(\vec{x}_n|\vec{z}_n) = \prod_{j=1}^{K} \mathcal{N}(\vec{x}_n|\vec{\mu}_j,\Sigma_j) ^{\vec{z}_{n,j}} = \prod_{j=1}^{K}
 \left( \frac{1}{(2\pi)^{R/2}}\frac{1}{|\Sigma_j|^{1/2}} exp \Bigg\{ -\frac{1}{2}(\vec{x}_n - \vec{\mu}_j)^T \Sigma_j^{-1}(\vec{x}_n - \vec{\mu}_j) \Bigg\} \right)^{\vec{z}_{n,j}}
 \end{equation}
-pakud prvky $\vec{x}_n$ jsou spojité.
+pokud prvky $\vec{x}_n$ jsou spojité.
 
 Nyní se zaměříme na homogenní modely, pro které všechna podmíněná rozdělení řídící skryté proměnné sdílí stejné parametry $\mathbb{A}$ a podobně všechna emisní rozdělení sdílí stejné parametry $\Theta$.
 
@@ -409,22 +487,22 @@ kde $\vec{X} = (\vec{x}_1,...,\vec{x}_N)$, $\vec{Z} = (\vec{z}_1,...,\vec{z}_N)$
 	\renewcommand{\figurename}{Obr.}
 	\centering
 	\includegraphics[scale=0.3]{Obr/obr5}
-	\caption{Stavový diagram Obr. \ref{tří stavý diagram} rozvynutý s časem. Každý sloupec diagramu odpovídá jedné skryté proměnné $\vec{z}_n$. \cite{Bishop}}
+	\caption{Stavový diagram Obr. \ref{tří stavý diagram} rozvinutý s časem. Každý sloupec diagramu odpovídá jedné skryté proměnné $\vec{z}_n$. \cite{Bishop}}
 	\label{HMM diagram}
 \end{figure}
 
 \subsection{Viterbiho algoritmus}
 
-Tento algoritmus navrhl Andrew Viterbi, již v roce 1967, za účelem dekódování konvolučních kódů, jež se používají nejen v mobilních sítích, ale také ke komunikaci se satelity a sondami ve vesmíru. V současnosti se používá k rozpoznávání a syntéze řeči, vyhledávání klíčových slov, v bioinformatice nebo, což je pro nás nejdůležitější, k hledání nejpravděpodobnějších poslopností stavů. 
+Tento algoritmus navrhl Andrew Viterbi, již v roce 1967, za účelem dekódování konvolučních kódů, jež se používají nejen v mobilních sítích, ale také ke komunikaci se satelity a sondami ve vesmíru. V současnosti se používá k rozpoznávání a syntéze řeči, vyhledávání klíčových slov, v bioinformatice nebo, což je pro nás nejdůležitější, k hledání nejpravděpodobnějších posloupností stavů. 
 
-V nejobecnější podobě se na Viterbiho alogritmus můžeme dívat jako na řešení problému maximálního aposteriorního pravděpodobnostního odhadu posloupnosti skrytých stavů konečného diskrétního Morkova procesu. Tento problém je formálně identický s problémem hledání nějkratší cesty grafem. Posloupnost pozorování $\vec{X}$ každé cesty může byt určena jako délka úměrná $-\ln{\mathbb{P}(\vec{Z},\vec{X})}$, kde $\vec{Z}$ je seqvence stavů spojená s příslušnou cestou. Tento poznatek nám dovoluje řešit problém hledání posloupnosti stavů pro, které je $\mathbb{P}(\vec{Z},\vec{X}) = \mathbb{P}(\vec{Z}|\vec{X}) \mathbb{P}(\vec{X})$ maximální, jako problém hledání cesty jejíž délka $-\ln{\mathbb{P}(\vec{Z},\vec{X})}$ je minimální, poněvadž $\ln{\mathbb{P}(\vec{Z},\vec{X})}$ je monotoní funkcí $\mathbb{P}(\vec{Z},\vec{X})$ a každá cesta odpovídá právě jedné posloupnosti stavů. Následně díky platnosti Markovy vlastnosti můžeme přepsat $\mathbb{P}(\vec{Z},\vec{X})$ jako 
+V nejobecnější podobě se na Viterbiho alogritmus můžeme dívat jako na řešení problému maximálního aposteriorního pravděpodobnostního odhadu posloupnosti skrytých stavů konečného diskrétního Markova procesu. Tento problém je formálně identický s problémem hledání nejkratší cesty grafem. Posloupnost pozorování $\vec{X}$ každé cesty může byt určena jako délka úměrná $-\ln{\mathbb{P}(\vec{Z},\vec{X})}$, kde $\vec{Z}$ je seqvence stavů spojená s příslušnou cestou. Tento poznatek nám dovoluje řešit problém hledání posloupnosti stavů, pro které je $\mathbb{P}(\vec{Z},\vec{X}) = \mathbb{P}(\vec{Z}|\vec{X}) \mathbb{P}(\vec{X})$ maximální, jako problém hledání cesty jejíž délka $-\ln{\mathbb{P}(\vec{Z},\vec{X})}$ je minimální. Poněvadž $\ln{\mathbb{P}(\vec{Z},\vec{X})}$ je monotonní funkcí $\mathbb{P}(\vec{Z},\vec{X})$ a každá cesta odpovídá právě jedné posloupnosti stavů. Následně díky platnosti Markovy vlastnosti můžeme přepsat $\mathbb{P}(\vec{Z},\vec{X})$ jako 
 
 \begin{equation}
 \mathbb{P}(\vec{Z},\vec{X})  = \mathbb{P}(\vec{X}|\vec{Z}) \mathbb{P}(\vec{Z}) = \mathbb{P}(\vec{z}_1) \left[\prod_{n = 2}^{N} \mathbb{P}(\vec{z}_{n}|\vec{z}_{n-1}) \right] \prod_{n=1}^{N} \mathbb{P}(\vec{x}_n|\vec{z}_n).
 \label{produkt viterbi}
 \end{equation}
 
-Po zlogaritmování \eqref{produkt viterbi} můžeme vidět, že celková délka cesty odpovídající libovolného $\vec{Z}$ je 
+Po zlogaritmování \eqref{produkt viterbi} můžeme vidět, že celková délka cesty odpovídající libovolnému $\vec{Z}$ je 
 
 \begin{equation}
 -\ln{\mathbb{P}(\vec{Z},\vec{X})} = \left[\sum_{n=2}^{N} -\ln{\mathbb{P}(\vec{z}_{n}|\vec{z}_{n-1})} - \ln{\mathbb{P}(\vec{x}_n|\vec{z}_n)}\right]  -\ln{\mathbb{P}(\vec{z}_1)} - \ln{\mathbb{P}(\vec{x}_1|\vec{z}_1)}, 
@@ -441,9 +519,9 @@ kde $-\ln{\mathbb{P}(\vec{z}_{n}|\vec{z}_{n-1})} - \ln{\mathbb{P}(\vec{x}_n|\vec
 	\label{Viterbi}
 \end{figure}
 
-Ve chvíli, kdy jsme našli nejpravděpodobnější cestu a tím pádem i združené rozdělení $\mathbb{P}(\vec{Z}, \vec{X})$, potřebujeme už jen nalézt posloupnost stavů odpovídající této cestě pomocí rekurze.
+Ve chvíli, kdy jsme našli nejpravděpodobnější cestu, a tím pádem i združené rozdělení $\mathbb{P}(\vec{Z}, \vec{X})$, potřebujeme už jen nalézt posloupnost stavů odpovídající této cestě pomocí rekurze.
 
-Jednou z největších předností Viterbiho algoritmu je jeho efektivita. Jelikož počet možných cest roste exponenciálně s délkou řetěžce je pro většínu algouritm výpočt velice náročný a v některých případech i nemožný. To ovšem neplatí pro tento algoritmus, neboť výpočetní náročnost Viterbiho algoritmu roste pouze lineárně s délkou řetězce.
+Jednou z největších předností Viterbiho algoritmu je jeho efektivita. Jelikož počet možných cest roste exponenciálně s délkou řetězce, je tak pro většinu algoritmů výpočetně velice náročný a v některých případech i nemožný. To ovšem neplatí pro tento algoritmus, neboť výpočetní náročnost Viterbiho algoritmu roste pouze lineárně s délkou řetězce.
 
 \section{K-means Clustering}
 K-means clustering je typ strojového učení bez učitele, který se používá v případě, že chceme zpracovat neoznačená data, tzn. nemáme předem definované skupiny či kategorie. Právě hlavním cílem algoritmu je najít tyto skupiny.
@@ -541,7 +619,7 @@ Do rysů můžeme zahrnout například věk osoby, pohlaví, jméno, bydlení (b
 		\hline
 		\multicolumn{7}{c}{...}  \\
 	\end{tabular}
-	\caption{Vzorová tabulka rysů k demonstračnímu příkaldu}
+	\caption{Vzorová tabulka rysů k demonstračnímu příkladu}
 \end{table}
 
 
@@ -586,21 +664,21 @@ Namísto toho se musí počítat numericky, a to za použití centrální difere
 \label{vnější diference}
 \end{equation}
 
-Dalším použitým rysem je druhá derivace, kterou lze jesnáze získat použitím víše zmíněncým vzoruců \eqref{vnitřní diference} a \eqref{vnější diference} na již jednou zderivovaný signál.
+Dalším použitým rysem je druhá derivace, kterou lze je snáze získat použitím výše zmíněných vzorců \eqref{vnitřní diference} a \eqref{vnější diference} na již jednou zderivovaný signál.
 
 \subsection{Savitzky-Golay filtr}
-Na obrázku \ref{example1} v první kapitole bylo možné vidět, že naše data, získaná z detektoru, jsou zatížena velikým šumem. Proto není od věci pokusit se tento signál nějak vyhladit. Za tímto učelem byl mezi rysy vybrán Savitzky-Golay filtr, jež je digitálním filtrem dobře přizpůsobeným pro vyhlazování dat. S-G filtry byly zpočátku použity k zobrazení relatívních šířek a výšky spektrálních čar v zašuměných spektrometrických datech.
+Na obrázku \ref{example2} v první kapitole bylo možné vidět, že naše data získaná z detektoru, jsou zatížena velikým šumem. Proto není od věci pokusit se tento signál nějak vyhladit. Za tímto učelem byl mezi rysy vybrán Savitzky-Golay filtr, jež je digitálním filtrem dobře přizpůsobeným pro vyhlazování dat. S-G filtry byly zpočátku použity k zobrazení relativních šířek a výšky spektrálních čar v zašuměných spektrometrických datech.
 
-Digitální filtr aplikovaný na stejnoměrně rozložená data tzn. $f_i = f(t_i)$, kde $t_i = t_0 \cdot \Delta$,  $i \in \mathbb{Z}$ a $\Delta$ je konstanta, nahrazuje každou hodotu $f_i$ lineární kombinací $g_i$ nebo sama sebou a určitým počtem nejbližších sousedů,
+Digitální filtr aplikovaný na stejnoměrně rozložená data, tzn. $f_i = f(t_i)$, kde $t_i = t_0 \cdot \Delta$,  $i \in \mathbb{Z}$ a $\Delta$ je konstanta, nahrazuje každou hodotu $f_i$ lineární kombinací $g_i$ nebo sama sebe a určitým počtem nejbližších sousedů,
 \begin{equation}
 g_i = \sum_{n = -n_L}^{n_R} c_n f_{i+n} = (\vec{c}\otimes \vec{f})_j,
 \label{Digital filter}
 \end{equation} 
-kde $\vec{c}$ jsou tzv. konvoluční koeficienty, $n_L$ je počet použitých bodů vlevo a $n_R$ vpravo. Konkrétně S-G filtr používá konfiguraci $n_L=n_R$.
+kde $\vec{c}$ jsou tzv. konvoluční koeficienty, $n_L$ je počet použitých bodů vlevo a $n_R$ vpravo. %Konkrétně S-G filtr používá konfiguraci $n_L=n_R$.
 
-Hlavní myšlenou S-G filtru je nalezení koeficientů $c_n$ tak, aby se zachovávaly momenty vyššních řádů a aproximace funkce uvnitř pohybujíího se okna pomocí polynomu namísto konstanty. Pro každou hodnotu $f_i$ proložíme všech $n_L+n_R+1$ bodů, uvnitř pohyblivého okna, polynomem pomocí metody nejmenších čtverců a nastavíme $g_i$ na hodnotu polynomu na i-té pozici. Jelikož nevyužíváme hodnoty polynomu v jiných bodech, měli bychom tedy pro $f_{i+1}$ udělat celou procedůru znovu. Naštěstí, díky tomu, že metoda nejmenších čtverců pro výpočet využíva pouze lineární maticovou inverzi a koeficienty proloženého polynomu jsou sami o sobě také lineární, můžeme vešeré prokládání vypočítat dopředu a pomocí binárního vektoru lze pak vše dopočítat linerání kombinací.
+Hlavní myšlenou S-G filtru je nalezení koeficientů $c_n$ tak, aby se zachovávaly momenty vyšších řádů a aproximace funkce uvnitř pohybujícího se okna pomocí polynomu namísto konstanty. Pro každou hodnotu $f_i$ proložíme všech $n_L+n_R+1$ bodů, uvnitř pohyblivého okna, polynomem pomocí metody nejmenších čtverců a nastavíme $g_i$ na hodnotu polynomu na i-té pozici. Jelikož nevyužíváme hodnoty polynomu v jiných bodech, měli bychom tedy pro $f_{i+1}$ udělat celou proceduru znovu. Naštěstí díky tomu, že metoda nejmenších čtverců pro výpočet využívá pouze lineární maticovou inverzi a koeficienty proloženého polynomu jsou sami o sobě také lineární. Můžeme vešeré prokládání vypočítat dopředu a pomocí binárního vektoru lze pak vše dopočítat linerání kombinací.
 
-Potřebujume tedy proložit polynom řádu $M$ kontrétně $a_0 + a_1 i + ... + a_M i^M$ hodnotamy $f_{-n_L}, ..., f_{n_R}$. Matice pro nejmenší čtverce má tvar 
+Potřebujeme tedy proložit polynom řádu $M$ kontrétně $a_0 + a_1 i + ... + a_M i^M$ hodnotami $f_{-n_L}, ..., f_{n_R}$. Matice pro nejmenší čtverec má tvar 
 \begin{equation}
 A_{ij} = i^j \ \ \ \ \ i = -n_L ,..., n_R \ \ \ a \ \ \ j = 0,...,M
 \end{equation} 
@@ -615,7 +693,7 @@ Nakonec vypočítáme i koeficienty $\vec{c}$ pomocí
 \end{equation}
 a po dosazení zpět do \eqref{Digital filter} získáváme konečně vyhlazenou funkci $g_i$. 
 
-S-G filtr je pro řešení našeho problému výhodný také z důvodu, že po mírné úravě lze takoto počítat i vyhlazené derivace  signálu.
+S-G filtr je pro řešení našeho problému výhodný také z důvodu, že po mírné úpravě lze takto počítat i vyhlazené derivace  signálu.
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
@@ -655,10 +733,10 @@ předchozích datech. Důvod, proč využíváme jen konečně dlouhý úsek př
 
 
 \subsection{Exponenciální klouzavý průměr}
-Jíž dříve jsme se zmínili, že předpokládáme závislost na předchozích hodnotách. Nicméně je zřejmé, 
+Již dříve jsme se zmínili, že předpokládáme závislost na předchozích hodnotách. Nicméně je zřejmé, 
 %"Jak jsem se zmínil již dříve, předpoládám závislost na předchozích hodnotách. "Není však překvapením"
 že hodnoty naměřené s velkým časovým rozestupem %vzdálenější hodnoty 
-na sebe mají mnohem menší vliv, než ty jež jsou naměřeny bezprostředně zasebou. Proto dalším vybraným rysem je tedy exponenciální klouzavý průměr $S_t$. 
+na sebe mají mnohem menší vliv než ty, jež jsou naměřeny bezprostředně za sebou. Proto dalším vybraným rysem je tedy exponenciální klouzavý průměr $S_t$. 
 
 Nechť $\vec{X}=(x_1, x_2,...,x_n)$ je vektor naměřených hodnot, pak definuji váhový součet zleva pro $t \ \in \ 1,2,...,n$ jako
 \begin{equation}
@@ -797,22 +875,29 @@ kde $\tilde{ \omega } = min\{ \omega, t \}$, $w$ je opět délka úseku a $\wide
 
 Text závěru....
 \begin{thebibliography}{1}
-\bibitem{Bishop}C. M. Bishop, Pattern recognition and machine learning. Springer, New York, 2013.
+\bibitem{Bishop} C. M. Bishop, Pattern recognition and machine learning. Springer, New York, 2013.
 
-\bibitem{Kikuchi}M. Kikuchi,  K. Lackner, M. Q. Tran, Fusion physics. International Atomic Energy Agency, Vienna, 2012.
+\bibitem{Kikuchi} M. Kikuchi,  K. Lackner, M. Q. Tran, Fusion physics. International Atomic Energy Agency, Vienna, 2012.
 
-\bibitem{Rabiner}L. R. Rabiner, A tutorial on hidden Markov models and selected applications in speech recognition. Proceedings of the IEEE 77(2), 1989, 257-286.
+\bibitem{Rabiner} L. R. Rabiner, A tutorial on hidden Markov models and selected applications in speech recognition. Proceedings of the IEEE 77(2), 1989, 257-286.
 
-\bibitem{Markov Chain}N. Privault, Understanding Markov Chains: Examples and Applications. Springer, 2013.
+\bibitem{Markov Chain} N. Privault, Understanding Markov Chains: Examples and Applications. Springer, 2013.
 
-\bibitem{Viterbi}G. D. Forney, The Viterbi Algorithm. Proceedings of the IEEE 61(3) 1973, 268-278.
+\bibitem{Viterbi} G. D. Forney, The Viterbi Algorithm. Proceedings of the IEEE 61(3) 1973, 268-278.
 
 \bibitem{Machine learning in action}P. Harrington, Machine Learning in Action. Minning Publications Co. Greenwich, 2012.
 
-\bibitem{NumRec}W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.F. Flannery, Numerical Recepies in C: The Art of Scientific Computing (Second Edition).  New York: Cambridge University Press. IBSN 0-521-43108-5, 1992.
+\bibitem{NumRec} W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.F. Flannery, Numerical Recepies in C: The Art of Scientific Computing (Second Edition).  New York: Cambridge University Press. ISBN 0-521-43108-5, 1992.
+
+\bibitem{Plazma} R.J. Goldston, P.H. Rutherford. Introduction to Plasma Physics. Taylor and Francis. ISBN 978-0-7503-0183-1, 1995.
+
+\bibitem{COMPASS}{http://www.ipp.cas.cz/vedecka\_struktura\_ufp/tokamak/tokamak\_compass/index.html}
 
 \bibitem{kmeansviz}{http://stanford.edu/~cpiech/cs221/img/kmeansViz.png}
 
+%\bibitem{comp_foto}{http://www.veda.cz/dwn/5430/72392B\_tokamak-compass-dosahl-svetovych-parametru.jpg}
+
+\bibitem{comp_foto1}{https://www.researchgate.net/profile/Janos\_Egert/publication/283617947/figure/fig1/AS:314833057665024@1452073458382/View-of-the-COMPASS-tokamak-left-and-its-vacuum-chamber-with-diagnostic-ports-right.png}
 
 \end{thebibliography}
 
