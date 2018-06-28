@@ -1,6 +1,6 @@
 %% LyX 2.1.4 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-\documentclass[11pt,american,czech]{book}
+\documentclass[11pt,american,czech, oneside]{book}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper]{geometry}
@@ -358,9 +358,6 @@ a zároveň odpovídá desetině velikosti tokamaku ITER, v současnosti budovan
 	\label{obr_comp1}
 \end{figure}
 
-\section{Záření $H_\alpha$ (H-alpha)}
-Záření $H_\alpha$ je specifická červená spektrální čára vyzařovaná vodíkem s vlnovou délkou 656,28 nm. Na COMPASSu se toto záření měří pomocí spektrometru HR 2000+ \cite{mereni_H}. Spektrální čáry $H_\alpha$ udávají počet částic, které se neutralizovaly během interakcí plazmatu se stěnou (převzato z \cite{H-alpha}). 
-
 \section{Podrobnější popis problematiky}
 V předchozí podkapitole bylo zmíněno, že tokamak COMPASS slouží v současnosti ke studiu chování plazmatu a jeho udržení.
 Plazma se může uvnitř tokamaku nacházet ve čtyřech základních stavech. 
@@ -376,6 +373,9 @@ Posledním stavem je disrupce. Disrupce představuje fyzikální jev, během ně
 Aby bylo možné správně porozumět těmto jevům je zapotřebí velkého množství informací. Příkladem může být teplota během jednotlivých stavů atd. Bohužel většina detektorů a měřících přístrojů je limitovaná svou snímkovací frekvencí. Proto by bylo třeba vědět, v jakém stavu se zrovna plazma nachází, aby bylo možno měřit ve správnou chvíli. 
 
 V této práci se budeme snažit najít způsob/y, jak klasifikovat první tři výše zmíněné stavy plazmatu v reálném čase. Využívat k tomu budeme data naměřených hodnot záření $H_\alpha$ a metody strojového učení. 
+
+Záření $H_\alpha$ je specifická červená spektrální čára vyzařovaná vodíkem s vlnovou délkou 656,28 nm. Na COMPASSu se toto záření měří pomocí spektrometru HR 2000+ \cite{mereni_H}. Spektrální čáry $H_\alpha$ udávají počet částic, které se neutralizovaly během interakcí plazmatu se stěnou (převzato z \cite{H-alpha}). 
+
 Náhled ideálně vypadajícího signálu je možné vidět na Obr. \ref{example1}. Na tomto obrázku je možné přesně sledovat všechny tři stavy. Signál začíná v L-módu. Asi po $10$ milisekundách přechází do H-módu. Jelikož H-mód  je lépe udržitelný, nevyzařuje plazma tolik vodíku jako v L-módu. Jednotlivé peaky jsou pak ELMy. Ve vakuu, jako je uvnitř tokamaku, se všechny částice rozprostřou po stěnách komory. Když se pak vlivem nějakých nestabilit utrhne kus plazmatu a dotkne se stěny, částice, jež se na stěně nacházejí, se rozzáří a my vidíme ELM.
 V praxi však signály vypadají spíše jako na Obr. \ref{example2}, kde už některé stavy nejsou jednoznačně viditelné.
 \begin{figure} [H] 
@@ -725,7 +725,7 @@ S-G filtr je pro řešení našeho problému výhodný také z důvodu, že po m
 \begin{figure} [H]
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.6]{Obr/S_G1}
+	\includegraphics[scale=0.5]{Obr/S_G1}
 	\caption{Savitzky-Golay filtr aplikovaný na gaussovu křivu s délkou úseku 9 ($n_L + n_R + 1 = 9$). Na obrázcích je patrné, že posunutím bodu, v němž probíhá aproximace, balancujeme mezi zpožděním a velikostí šumu.  }
 	\label{S-G}
 \end{figure}
@@ -826,7 +826,7 @@ Nejprve je třeba vybrat testovací data, u kterých jsou nám známy výsledky.
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.4]{Obr/confusion_matrix}
+	\includegraphics[scale=0.3]{Obr/confusion_matrix}
 	\caption{Confusion matrix $\mathbb{C}$ pro případ 3 skupin. Diagonální prvky $C_{0,0}$, $C_{1,1}$ a $C_{2,2}$ udávají kolikrát byl konkrétní stav predikován správně. Prvek $C_{i,j}$, kde $ i, j \in {0,1,2} \wedge i\neq j $,  udává kolikrát byl predikován stav $i$ a ve skutečnosti se jednolo o stav $j$.}
 	\label{confusion_matrix}
 \end{figure}
