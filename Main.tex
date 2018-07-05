@@ -319,11 +319,11 @@ Následně je třeba prostudovat metody strojového učení schopné řešit ten
 
 V první kapitole je stručně zodpovězeno, co je to plazma. Následuje popis základní problematiky tokamaků. Dále je zde podrobněji představen problém, který tato práce řeší. Na konci kapitoly je vysvětleno strojové učení.
 
-V druhé kapitole jsou uvedeny dvě metody strojového učení. Nejprve je představen diskrétní Markovův model, který poté rozšíříme do skrytý Markovův model. Dále je vysvětlen Expectation–maximization algoritmus sloužící k v výpočtu parametrů tohoto modelu a Viterbiho algoritmus používaný k nalezení posloupnosti nejpravděpodobnějších stavů. Na konci této kapitoly prezentována shlukovací metoda K-means.
+V druhé kapitole jsou uvedeny dvě metody strojového učení. Nejprve je představen diskrétní Markovův model, který poté rozšíříme do skrytý Markovův model. Dále je vysvětlen Expectation–maximization algoritmus sloužící k výpočtu parametrů tohoto modelu a Viterbiho algoritmus používaný k nalezení posloupnosti nejpravděpodobnějších stavů. Na konci této kapitoly prezentována shlukovací metoda K-means.
 
 Ve třetí kapitole jsou postupně popsány příznaky používané při aplikaci obou metod. Následuje postupu práce, ve kterém jsou vysvětleny oba provedené experimenty. První z nich byl proveden na syntetických datech a při druhém jsme již použili skutečná data z tokamaku COPMASS.
 
-V poslední kapitoli je uvden seznam metrik, sloužících k vyhodnocení úspěšnosti výsledků a kvality metod. Díle je zde popsána technika křížové validace. Kapitola je zakončena výsledky z obou experimentů.
+V poslední kapitoly je uveden seznam metrik, sloužících k vyhodnocení úspěšnosti výsledků a kvality metod. Díle je zde popsána technika křížové validace. Kapitola je zakončena výsledky z obou experimentů.
 
 
 \chapter{Úvodní terminologie}
@@ -335,10 +335,10 @@ V této kapitole si nejdříve zodpovíme, co je to plazma. Dále se seznámíme
 %\section{"Co a proč to dělám"}
 
 \section{Plazma}
-Plazma je jedním ze čtyř základních skupenství. V podstatě se jedná o shluk ionizovaných částic a elektronů s unikátními vlastnostmi. Výměna nábojů mezi ionty a elektrony zapříčiňuje vznik elektrického pole a proudění nabitých částic vyvolává magnetické pole \cite{Plazma}.  % jehož atomy jsou rozděleny na pozitivní ionty a naegativní elektrony. %Je tvořená ionizovaným plynem s atomy rozděleným na pozitivní ionty a negativné elektrony. 
+Plazma je jedním ze čtyř základních skupenství. V podstatě se jedná o shluk ionizovaných částic a elektronů s unikátními vlastnostmi. Výměna nábojů mezi ionty a elektrony zapříčiňuje vznik elektrického pole a proudění nabitých částic vyvolává magnetické pole \cite{Plazma}.
 Na rozdíl od zbylých tří skupenství se volně, za normálních podmínek, na zemském povrchu nevyskytuje. Paradoxně však $99\% $ veškeré pozorovatelné hmoty ve vesmíru tvoří právě plazma. 
 
-V laboratoři se získává typicky zahříváním a ionizováním malého množství plynu pomocí elektrického proudu nebo radiových vln. Obykle tyto prostředky dodávají energii přímo volným elektronům uvnitř plazmatu. Poté se během srážek těchto elektronů s atomy uvolňují další elektrony a tento kaskádový proces postupuje, dokud plyn nedosáhne požadovaného stupně ionizace (převzato z \cite{Plazma}).  
+V laboratoři se získává typicky zahříváním a ionizováním malého množství plynu pomocí elektrického proudu nebo radiových vln. Obvykle tyto prostředky dodávají energii přímo volným elektronům uvnitř plazmatu. Poté se během srážek těchto elektronů s atomy uvolňují další elektrony a tento kaskádový proces postupuje, dokud plyn nedosáhne požadovaného stupně ionizace (převzato z \cite{Plazma}).  
 
 Rozdíl mezi velmi slabě ionizovaným plynem a plazmatem je do značné míry záležitostí terminologie a způsobu interpretace. V závislosti na okolní teplotě prostředí a hustotě dělíme plazmata na částečně ionizované a plně ionizované. Příkladem částečně ionizovaného plazmatu je třeba blesk nebo neonové světlo. Naproti tomu plně ionizované plazma lze nalézt uvnitř slunce nebo právě v tokamaku. 
 
