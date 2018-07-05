@@ -14,6 +14,7 @@
 \usepackage{graphicx}
 \usepackage{setspace}
 \usepackage{comment}
+\usepackage{relsize}
 \usepackage{float}
 \restylefloat{table}
 \usepackage{amssymb}
@@ -90,7 +91,7 @@
 
 \usepackage{babel}
 \begin{document}
-\def\documentdate{2. \v{c}ervence 2018}
+\def\documentdate{9. \v{c}ervence 2018}
 
 %%\def\documentdate{\today}
 
@@ -244,7 +245,7 @@ Za Slovankou 1782/3
 \bigskip{}
 
 
-\noindent \emph{Klíčová slova:} expectation-maximization algoritmus, K-means, plazma, skrytý Markovův model, strojové učení, tokamak COMPASS, Viterbiho algoritmus 
+\noindent \emph{Klíčová slova:} EM algoritmus, K-means, plazma, skrytý Markovův model, strojové učení, tokamak COMPASS, Viterbiho algoritmus 
 
 \vfill{}
 ~
@@ -269,7 +270,7 @@ Za Slovankou 1782/3
 \bigskip{}
 
 
-\noindent \emph{Key words:} COMPASS tokamak, expectation-maximization algorithm, hidden Markov model, K-means clustering, machine learning, plasma, Viterbi algorithm
+\noindent \emph{Key words:} COMPASS tokamak, EM algorithm, hidden Markov model, K-means clustering, machine learning, plasma, Viterbi algorithm
 by commas
 
 \selectlanguage{czech}%
@@ -294,7 +295,7 @@ Následně je třeba prostudovat metody strojového učení schopné řešit ten
 
 V první kapitole je stručně zodpovězeno, co je to plazma. Následuje popis základní problematiky tokamaků. Dále je zde podrobněji představen problém, který tato práce řeší. Na konci kapitoly je vysvětleno strojové učení.
 
-V druhé kapitole jsou uvedeny dvě metody strojového učení. Nejprve je představen diskrétní Markovův model, který poté rozšíříme do skrytý Markovův model. Dále je vysvětlen Expectation–maximization algoritmus sloužící k výpočtu parametrů tohoto modelu a Viterbiho algoritmus používaný k nalezení posloupnosti nejpravděpodobnějších stavů. Na konci této kapitoly prezentována shlukovací metoda K-means.
+V druhé kapitole jsou uvedeny dvě metody strojového učení. Nejprve je představen diskrétní Markovův model, který poté rozšíříme do skrytý Markovův model. Dále je vysvětlen EM algoritmus sloužící k výpočtu parametrů tohoto modelu a Viterbiho algoritmus používaný k nalezení posloupnosti nejpravděpodobnějších stavů. Na konci této kapitoly prezentována shlukovací metoda K-means.
 
 Ve třetí kapitole jsou postupně popsány příznaky používané při aplikaci obou metod. Následuje postupu práce, ve kterém jsou vysvětleny oba provedené experimenty. První z nich byl proveden na syntetických datech a při druhém jsme již použili skutečná data z tokamaku COPMASS.
 
@@ -395,7 +396,7 @@ Shlukování je naopak příkladem učení bez učitele, při kterém jsou zkoum
 
 \chapter{Teoretická část}
 \pagestyle{headings}
-V této kapitole se budeme zabývat teorií ohledně dvou námi použitých metod strojového učení. Nejprve si představíme diskrétní Markovův model. Dále se seznámíme se základními principy Skrytého Markovova modelu. Poté si přiblížíme Expectation–maximization algoritmus a Viterbiho algoritmus, které slouží k výpočtům již zmíněného modelu. Nakonec si představíme ryze shlukovací metodu K-means.
+V této kapitole se budeme zabývat teorií ohledně dvou námi použitých metod strojového učení. Nejprve si představíme diskrétní Markovův model. Dále se seznámíme se základními principy Skrytého Markovova modelu. Poté si přiblížíme EM algoritmus a Viterbiho algoritmus, které slouží k výpočtům již zmíněného modelu. Nakonec si představíme ryze shlukovací metodu K-means.
 
 \section{Diskrétní Markovův proces}
 Uvažujme systém, který může být popsán v každém čase pomocí jedné hodnoty z množiny $N$ diskrétních stavů. Tuto množinu budeme značit jako $\mathbb{S} = \{S_1, S_2, S_3,..., S_N\}$.% \cite{Rabiner}.
@@ -469,9 +470,9 @@ A^{\vec{z}_{n-1,i} \vec{z}_n,j}_{i,j}.
 	\label{tří stavý diagram}
 \end{figure}
 
-Tímto vzorcem můžeme vyjádřit všechny skryté stavy až na počáteční $\vec{z}_1$. Tento stav má pouze marginální rozdělení $\mathbb{P}(\vec{z}_1)$ reprezentované vektorem pravděpodobností $\pi$, který má tvar 
+Tímto vzorcem můžeme vyjádřit všechny skryté stavy až na počáteční $\vec{z}_1$. Tento stav má pouze marginální rozdělení $\mathbb{P}(\vec{z}_1)$ reprezentované vektorem pravděpodobností $\vec{\pi}$, který má tvar 
 \begin{equation}
-\pi \equiv \mathbb{P}(\vec{z}_{1,j} = 1)
+\pi_j \equiv \mathbb{P}(\vec{z}_{1,j} = 1)
 \end{equation}
 a tedy 
 \begin{equation}
@@ -482,15 +483,15 @@ kde $\sum_j \pi_j = 1$.
 Kdybychom chtěli matici $\mathbb{A}$ vysvětlit i jinak, mohli bychom toho docílit graficky pomocí diagramu na Obr. \ref{tří stavý diagram}. Když tento diagram dále rozvineme s průběhem času, získáme takzvaný mřížový diagram, který nám poskytuje alternativní reprezentaci přechodů mezi jednotlivými skrytými stavy. Pro případ skrytého Markovova modelu tento diagram nabývá tvaru Obr. \ref{HMM diagram}. 
 
 Abychom měli pravděpodobnostní model kompletní, je třeba ještě zavést %podmíněné rozdělení pozorovaných proměnných
-emisní pravděpodobnosti (emission probabilities) $\mathbb{P}(\vec{x}_n|\vec{z}_n, \Theta)$, kde $\Theta$ představuje soubor parametrů řídícího rozdělení. 
+emisní pravděpodobnosti (emission probabilities) $\mathbb{P}(\vec{x}_n|\vec{z}_n, \theta)$, kde $\theta$ představuje soubor parametrů řídícího rozdělení. 
 %Tyto pravděpodobnosti jsou známé jako emisní pravděpodobnosti (emission probabilities). 
 Pro pozorované proměnné $\vec{x}_n$ se 
 %Vzhledem k tomu, že $\vec{x}_n$ jsou pozorované,  tak se 
-rozdělení $\mathbb{P}(\vec{x}_n|\vec{z}_n, \Theta)$ skládá z $K$-dimenzionálního vektoru odpovídajícího $K$ potenciálním stavům $\vec{z}_n$. %, pro dané hodnoty $\Theta$. 
+rozdělení $\mathbb{P}(\vec{x}_n|\vec{z}_n, \theta)$ skládá z $K$-dimenzionálního vektoru odpovídajícího $K$ potenciálním stavům $\vec{z}_n$. %, pro dané hodnoty $\Theta$. 
 Emisní pravděpodobnosti můžeme pak zapsat jako 
 
 \begin{equation}
-\mathbb{P}(\vec{x}_n|\vec{z}_n,\Theta) = \prod_{j=1}^{K} \mathbb{P}(\vec{x}_n|\Theta_j) ^{\vec{z}_n,j},
+\mathbb{P}(\vec{x}_n|\vec{z}_n,\theta) = \prod_{j=1}^{K} \mathbb{P}(\vec{x}_n|\theta_j) ^{\vec{z}_n,j},
 \end{equation}
 
 přičemž mohou mít například tvar Gaussova ($R$-rozměrného) rozdělení
@@ -508,14 +509,15 @@ a $\vec{\Sigma}$ je kovarianční matice
 \Sigma = \bigg(Cov(X_i,X_j)\bigg)_{i,j} = \bigg(\mathbb{E}\big[(X_i-\mathbb{E}X_i)\cdot(X_j-\mathbb{E}X_j)\big]\bigg)_{i,j}.
 \end{equation}
 
-Nyní se zaměříme na homogenní modely, pro které všechna podmíněná rozdělení řídící skryté proměnné sdílí stejné parametry $\mathbb{A}$ a podobně všechna emisní rozdělení sdílí stejné parametry $\Theta$.
+Nyní se zaměříme na homogenní modely, pro které všechna podmíněná rozdělení řídící skryté proměnné sdílí stejné parametry $\mathbb{A}$ a podobně všechna emisní rozdělení sdílí stejné parametry $\theta$.
 
 Sdružené pravděpodobnostní rozdělení přes skryté i pozorované proměnné jsou pak dány vzorcem
 
 \begin{equation}
-\mathbb{P}(\vec{X},\vec{Z}|\widetilde{\vec{\Theta}}) = \mathbb{P}(\vec{z}_1|\pi) \prod_{n=2}^{N} \mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{A}) \prod_{m =1 }^{N} \mathbb{P}(\vec{x}_m|\vec{z}_m,\Theta),
+\mathbb{P}(\vec{X},\vec{Z}|\vec{\Theta}) = \mathbb{P}(\vec{z}_1|\pi) \prod_{n=2}^{N} \mathbb{P}(\vec{z}_n|\vec{z}_{n-1},\mathbb{A}) \prod_{m =1 }^{N} \mathbb{P}(\vec{x}_m|\vec{z}_m,\theta),
+\label{sdruzena distribuce}
 \end{equation}
-kde $\vec{X} = (\vec{x}_1,...,\vec{x}_N)$, $\vec{Z} = (\vec{z}_1,...,\vec{z}_N)$ a $\widetilde{\vec{\Theta}} =(\pi, \mathbb{A},\Theta)$ jsou parametry řídícího modelu.
+kde $\vec{X} = (\vec{x}_1,...,\vec{x}_N)$, $\vec{Z} = (\vec{z}_1,...,\vec{z}_N)$ a $\vec{\Theta} =(\pi, \mathbb{A},\theta)$ jsou parametry řídícího modelu.
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
@@ -525,7 +527,72 @@ kde $\vec{X} = (\vec{x}_1,...,\vec{x}_N)$, $\vec{Z} = (\vec{z}_1,...,\vec{z}_N)$
 	\label{HMM diagram}
 \end{figure}
 
-\subsection{Expectation–maximization algoritmus}
+%Expectation maximization algoritmus
+\subsection{EM algoritmus}
+Expectation maximization algoritmus je hlavní statistický postup k iterativnímu výpočtu maximálně věrohodnostního odhadu, kde pozorování mohou být nekompletní data. (Převzato z \cite{EM})
+Každá iterace algoritmu se skládá z očekávání (expectation) následovaného maximalizací (maximization). Odtud také plyne názvem EM algoritmus. 
+
+Nechť máme pozorání $\vec{X} = \{\vec{x}_1, \vec{x}_2, ..., \vec{x}_N\}$ a chceme určit parametry skrytého Markovova modelu pomocí maximální věrohodnosti. Pak věrohodnostní funkci získáme ze sdruženého rozdělení \eqref{sdruzena distribuce} marginalizací přes skryté proměnné $\vec{Z}$ jako 
+
+\begin{equation}
+\mathbb{P}(\vec{X}|\vec{\Theta}) = \sum_Z \mathbb{P}(\vec{X}, \vec{Z}| \vec{\Theta}),
+\label{verohodnostni fce}
+\end{equation}
+kde $\vec{\Theta}$ jsou parametry modelu. Takto vzniklou funkci nelze jednoduše spočítat, jelikož by bylo třeba explicitně sčítat $N$ proměnných, kde každá má $K$ stavů, což odpovídá $K^N$ prvků. Protože náročnost EM algoritmu roste pouze lineárně, je obecně používán k výpočtu parametrů tohoto modelu \cite{Bishop}. 
+
+Na začátku je třeba provést počáteční volbu parametrů, kterou označíme jako $\vec{\Theta}^{old}$. Následuje tzv. $E$ krok, kde vezmeme tyto parametry a vypočítáme posteriorní rozdělení skrytých proměnných $\mathbb{P}(\vec{Z}| \vec{X}, \vec{\Theta}^{old})$. Poté toto rozdělení souží k vyhodnocení očekávání logaritmu věrohodnostní funkce, jako funkce parametrů $\Theta$. Toto vzniklou funkci označíme jako $Q(\vec{\Theta}, \vec{\Theta}^{old})$ a definujeme jí vzorcem 
+
+\begin{equation}
+Q(\vec{\Theta}, \vec{\Theta}^{old}) = \sum_Z \mathbb{P}(\vec{Z}| \vec{X}, \vec{\Theta}^{old}) \ln \mathbb{P}(\vec{X}, \vec{Z}| \vec{\Theta}).
+\label{Q theta}
+\end{equation}   
+
+Pro následující postup je třeba si zavést ještě marginální posteriorní rozdělení skryté proměnné $\vec{z}_n$ jako $\gamma(\vec{z}_n)$, sdružené posteriorní rozdělení dvou úspěšných skrytých proměnných $\xi (\vec{z}_{n-1}, \vec{z}_n)$, podmíněnou pravděpodobnost $\gamma (z_{n,k})$ a nakonec ještě sdruženou podmíněnou pravděpodobnost $\xi ( z_{n-1, j}, z_{n,k})$.
+
+\begin{eqnarray}
+& \gamma (\vec{z}_n) = \mathbb{P}(\vec{z}_n| \vec{X}, \vec{\Theta}^{old}) & \\
+\label{gamma}
+& \xi (\vec{z}_{n-1}, \vec{z}_n) = \mathbb{P}(\vec{z}_{n-1}, \vec{z}_n| \vec{X}, \vec{\Theta}^{old}) & \\
+\label{xi}
+\end{eqnarray}
+
+Jelikož střední hodnota alternativní náhodné veličiny je rovna její pravděpodobnosti platí 
+
+\begin{eqnarray}
+\gamma (z_{n,k}) &=& \mathbb{E}  [z_{n,k}]   = \sum_{\vec{z}} \gamma (\vec{z}) \ z_{n,k}  \\
+\label{gamma1}
+\xi (z_{n-1, j}, z_{n,k}) &=& \mathbb{E} [ z_{n-1, j}, z_{n,k} ] = \sum_{\vec{z}} \gamma(\vec{z}) \ z_{n-1, j} z_{n,k}.
+\label{xi1}
+\end{eqnarray}
+
+Když nyní dosadíme \eqref{sdruzena distribuce} do \eqref{Q theta} a využijeme definic $\gamma$ a $\xi$, obdržíme 
+
+\begin{equation}
+Q(\vec{\Theta}, \vec{\Theta}^{old}) = \sum_{k=1}^{N} \gamma(z_{1,k}) \ \ln\pi_k \ + \ \sum_{n=2}^{N} \sum_{j = 1}^{K} \sum_{k=1}^{K} \xi(z_{n-1, j}, z_{n,k}) \ A_{j,k} \ + \ \sum_{n=1}^{N} \sum_{k = 1}^{K} \gamma(z_{n, k}) \ln \mathbb{P}(\vec{x}_n| \theta_k).
+\label{hruzna fce}
+\end{equation}
+
+Právě výpočet hodnot $\gamma (\vec{z}_n) \text{ a } \xi(\vec{z}_{n-1}, \vec{z}_n)$ je cílem prvního kroku algoritmu.
+
+V druhém kroce je zapotřebí maximalizovat funkci \eqref{hruzna fce} podle parametrů $\vec{\Theta} = \{\vec{\pi}, \mathbb{A}, \theta\}$, kde hodnoty $\gamma (\vec{z}_n) \text{ a } \xi(\vec{z}_{n-1}, \vec{z}_n)$ budeme pokládat za konstanty. Po několika úpravách dostáváme 
+
+\begin{eqnarray}
+\vec{\pi}_k &=& = \frac{\gamma(z_{1,k})}{\mathlarger{\sum}_{j = 1}^{K} \gamma(z_{1, j})} \\
+\label{parametr pi}
+A_{j,k} &=& \frac{\mathlarger{\sum}_{n=2}^{N} \xi(z_{n-1,j}, z_{n,k}) }{\mathlarger{\sum}_{l= 1}^{K} \mathlarger{\sum}_{n=2}^{N} \xi(z_{n-1,l}, z_{n,l})}.
+\label{parametr A}
+\end{eqnarray} 
+
+Pokud budeme uvažovat Gaussovy emisní pravděpodobnosti tzn. $\mathbb{P}(\vec{x}|\theta_k) = \mathcal{N}(\vec{x}|\vec{\mu}_k, \Sigma_k)$, pak tyto posledními parametry lze dopočítat jako 
+
+\begin{eqnarray}
+\vec{\mu}_k &=& \frac{\mathlarger{\sum}_{n=1}^{N}\gamma(z_{n,k})\ \vec{x}_n}{\mathlarger{\sum}_{n = 1}^{K} \gamma(z_{n, k})} \\
+\label{(mu)}
+\Sigma_k &=& \frac{\mathlarger{\sum}_{n=1}^{N}\gamma(z_{n,k})\ (\vec{x}_n - \vec{\mu}_k)(\vec{x}_n - \vec{\mu}_k)^T}{\mathlarger{\sum}_{n = 1}^{K} \gamma(z_{n, k})} .
+\end{eqnarray}
+Nyní, když jsme schopni vypočítat všechny parametry, můžeme přejít k hledání nejpravděpodobnější posloupnosti skrytých stavů.
+
+
 
 \subsection{Viterbiho algoritmus}
 
@@ -556,18 +623,21 @@ kde $-\ln{\mathbb{P}(\vec{z}_{n}|\vec{z}_{n-1})} - \ln{\mathbb{P}(\vec{x}_n|\vec
 
 Ve chvíli, kdy jsme našli nejpravděpodobnější cestu, a tím pádem i združené rozdělení $\mathbb{P}(\vec{Z}, \vec{X})$, potřebujeme už jen nalézt posloupnost stavů odpovídající této cestě pomocí rekurze.
 
+
+\begin{figure} [H] 
+	\renewcommand{\figurename}{Obr.}
+	\centering
+	\includegraphics[scale=0.53]{Obr/Vi}
+	\caption{(a) Mřížový diagram s délkami přechodů. k (počet kroků) = 5. (b) Rekurzivní hledání nejkratší cesty pomocí Viterbiho algoritmu.}
+	\label{Viterbi}
+\end{figure}
+
+
 Jednou z největších předností Viterbiho algoritmu je jeho efektivita. Jelikož počet možných cest roste exponenciálně s délkou procesu, je tak pro většinu algoritmů výpočetně velice náročný a v některých případech i nemožný. To ovšem neplatí pro tento algoritmus, neboť výpočetní náročnost Viterbiho algoritmu roste pouze lineárně s délkou procesu (viz str. $629$ v \cite{Bishop}).
 
 Nyní si předvedeme na příkladu, jak přesně algoritmus funguje. Uvažujme graf viz Obr. \ref{Viterbi}. Každý bod představuje jeden stav a každý sloupec reprezentuje jeden časový okamžik (přechod od jednoho sloupce do druhého je právě jeden krok procesu). 
 Šipky mezi stavy jsou možné přechody a čísla nad nimi značí délku cesty mezi stavy ($= -\ln{\mathbb{P}(\vec{z}_i| \vec{z}_{i-1})} - \ln{\mathbb{P}(\vec{x}_i|\vec{z}_i)}$). Potřebujeme najít nejkratší (nejpravděpodobnější) cestu grafem. Začneme v bodě úplně nalevo (1. sloupec), potřebujeme dojít do bodu úplně vpravo. Podíváme se do tedy druhého sloupce, v něm se nachází dva možné stavy. Hledáme nejkratší cestu do každého z nich, ale jelikož do obou z nich vede pouze jedna cesta, je také tou nejkratší. Přejdeme tedy k dalšímu kroku a podíváme se na třetí sloupec. V němž jsou čtyři stavy a opět do nich vede jen jedna cesta. Zajímavější případ nastává tedy až při třetím kroku ve čtvrtém sloupci. V němž jsou opět čtyři stavy, ale vede do nich i více cest. Podíváme se tedy na horní stav v tomto sloupci a hledáme nejkratší cestu, jež do něj vede. Je patrné, že je to cesta přes horní bod druhého sloupce s délkou $2 (= 1+1+0)$. Stejně to provedeme i u všech stavů v tomto sloupci. Finální cesty do těchto stavů jsou vyobrazeny na čtvrtém obrázku odshora. Tento postup poté opakujeme u dalších sloupců, až nakonec získáme nejkratší cestu mezi prvním a posledním sloupcem, viz poslední obrázek. Spolu s touto cestou jsme obdrželi také nejpravděpodobnější posloupnost stavů. 
 
-\begin{figure} [H] 
-	\renewcommand{\figurename}{Obr.}
-	\centering
-	\includegraphics[scale=0.6]{Obr/Vi}
-	\caption{(a) Mřížový diagram s délkami přechodů. k (počet kroků) = 5. (b) Rekurzivní hledání nejkratší cesty pomocí Viterbiho algoritmu.}
-	\label{Viterbi}
-\end{figure}
 
 
 \section{K-means Clustering}
@@ -1296,7 +1366,7 @@ Pro vylepšení modelu by se případně dalo uvažovat o jiných emisních prav
 
 V této práci jsme se zabývali klasifikací stavů plazmatu uvnitř tokamaku COMPASS. K tomu jsme využívali metody strojového učení, jmenovitě skrytý Markovův model a K-means clustering. %V teoretické části jsme představili oba tyto modely a podrobně jsme rozebrali jejich základní principy. 
 Nejdříve jsme se seznámili se zářením $H_\alpha$, tokamakem COMPASS a fyzikální podstatou jevů, které v něm při výbojích vznikají. %Nastínili jsme problematiku spojenou s těmito jevy. 
-Poté jsme zadefinovali diskrétní Markovův model, jež jsme později rozšířili do skrytého Markovova modelu a dále jsme popsali dva důležité algoritmy potřebné k jeho výpočtu, jimiž jsou expectation–maximization a Viterbiho algoritmus. Následně jsme představili shlukovou metodu K-means, kterou jsme pak sami implementovali v jazyce Python.
+Poté jsme zadefinovali diskrétní Markovův model, jež jsme později rozšířili do skrytého Markovova modelu a dále jsme popsali dva důležité algoritmy potřebné k jeho výpočtu, jimiž jsou EM a Viterbiho algoritmus. Následně jsme představili shlukovou metodu K-means, kterou jsme pak sami implementovali v jazyce Python.
 
 V praktické části jsme postupně zadefinovali derivaci, % počítanou pomocí centrální diference druhého řádu, 
 Savitzky-Golay filtr, klouzavý průměr, exponenciální klouzavý průměr a nakonec klouzavý rozptyl. Pak jsme naplánovali dva experimenty, na kterých byly později obě metody testovány. První experiment byl prováděn na syntetických datech zašuměných Gaussovským bílým šumem. Při tomto experimentu jsme ukázali, že vybrané metody lze využít ke klasifikaci takovýchto dat. Pro druhý experiment jsme z databáze vybrali dva datasety skládající se z deseti signálů a začali používat více délek úseků pro klouzavé průměry. Navíc byl zde poprvé uveden způsob modifikace skrytého Markovova modelu, ve kterém předpočítáváme některé parametry dopředu. 
@@ -1328,6 +1398,8 @@ Pokud bychom chtěli případně model nějak vylepšit, stálo by za úvahu pou
 \bibitem{Viterbi_original}A.J. Viterbi, \textit{Error bounds for convolutional codes a an asymptotically optimum decoding algorithm}. IEEE Transactions on Information Theory 13 (2),1967, 260–269.
 
 \bibitem{Machine learning in action}P. Harrington, \textit{Machine Learning in Action}. Minning Publications Co. Greenwich, 2012.
+
+\bibitem{EM} A.P. Dempster, N.M. Laird, D.B. Rubin, \textit{Maximum Likelihood from Incomplete Data via the EM Algorithm}. Journal of the Royal Statistical Society, Series B. 39: 1–38. JSTOR 2984875, 1977.
 
 \bibitem{NumRec} W.H. Press, S.A. Teukolsky, W.T. Vetterling, B.F. Flannery, \textit{Numerical Recepies in C: The Art of Scientific Computing} (Second Edition).  New York: Cambridge University Press. ISBN 0-521-43108-5, 1992.
 
