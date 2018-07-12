@@ -91,7 +91,7 @@
 
 \usepackage{babel}
 \begin{document}
-\def\documentdate{9. \v{c}ervence 2018}
+\def\documentdate{13. \v{c}ervence 2018}
 
 %%\def\documentdate{\today}
 
@@ -240,7 +240,7 @@ Za Slovankou 1782/3
 
 
 
-\noindent \emph{Abstrakt:} V této bakalářské práci se zabýváme metodami strojového učení, které využíváme ke klasifikaci stavů plazmatu v tokamaku COMPASS. Nejdříve jsme vysvětlili signál $H_\alpha$, pojem plazma a popsali stavy, ve kterých se může vyskytovat. V teoretické části jsme představili skrytý Markovův model a shlukovací algoritmus K-means. V další kapitole jsou prezentovány příznaky k oběma metodám a navrženy experimenty. První experiment využívá k trénování a testování syntetická data, zatímco při druhém experimentu jsou použity skutečná data z tokamaku. V poslední kapitole jsou obě experimenty vyhodnoceny pomocí zadefinovaných metrik. Výsledkem práce je nalezení nejlepší metody pro klasifikaci stavů plazmatu, která je schopna pracovat v reálném čase.
+\noindent \emph{Abstrakt:} V této bakalářské práci se zabýváme metodami strojového učení, které využíváme ke klasifikaci stavů plazmatu v tokamaku COMPASS. Nejdříve jsme vysvětlili signál $H_\alpha$, pojem plazma a popsali stavy, ve kterých se může vyskytovat. V teoretické části jsme představili skrytý Markovův model a shlukovací algoritmus K-means. V další kapitole jsou prezentovány příznaky k oběma metodám a navrženy experimenty. První experiment využívá k trénování a testování syntetická data, zatímco při druhém experimentu jsou použity skutečná data z tokamaku. V poslední kapitole jsou obě experimenty vyhodnoceny pomocí zadefinovaných metrik. Výsledkem práce je nalezení nejlepší metody pro klasifikaci stavů plazmatu.
 
 \bigskip{}
 
@@ -266,12 +266,11 @@ Za Slovankou 1782/3
 
 
 
-\noindent \emph{Abstract:} This thesis deals with methods of machine learning which will be applied for classification of plasma states in the COMPASS tokamak. Firstly, we explained $H_\alpha$ lines, a term plasma. Then we described states in which plasma can occur. Further we introduce hidden Markov model and K-means clustering in theoretical part. In next chapter, we presented features for both methods and proposed some experiments. First experiment uses synthetic data for training and testing, but second one applies real data from tokamak. In final chapter results of experiments are evaluated by defined metrics. The end results of this work is the best method for classifying states of plasma which is able to work in real time.
+\noindent \emph{Abstract:} This thesis deals with the methods of machine learning which will be applied for the classification of plasma states in the COMPASS tokamak. Firstly, the term plasma and $H\_alpha$ radiation is introduced. Then we described states in which plasma can occur. Then we introduce hidden Markov model and K-means clustering in the theoretical part. In the next chapter, we presented features to be analyzed by both methods and proposed some experiments. First experiment uses synthetic data for training and testing, but second one is applied to real data from the tokamak. In the final chapter the results of experiments are evaluated by defined metrics. The end result of this work is the best method for classifying plasma confinement regimes.% which is able to work in real time.
 \bigskip{}
 
 
 \noindent \emph{Key words:} COMPASS tokamak, EM algorithm, hidden Markov model, K-means clustering, machine learning, plasma, Viterbi algorithm
-by commas
 
 \selectlanguage{czech}%
 \newpage{}
@@ -288,16 +287,16 @@ by commas
 \chapter*{Úvod}
 
 \addcontentsline{toc}{chapter}{Úvod}
-V dnešní moderní společnosti funguje téměř vše na elektřinu a nároky na její výrobu stále rostou. Řešením by mohlo být ovládnutí termojaderné fúzní reakce. Abychom tento potenciál mohli naplno využít, potřebujeme tuto reakci udržet dlouhodoběji. Jedním z nejpokročilejších zařízeních sloužících k jejímu výzkumu jsou tokamaky. Znalost okamžitého režimu udržení plazmatu uvnitř tokamaku je tedy poměrně důležitá. Právě tímto problémem se bude tato práce zabývat.
+V dnešní moderní společnosti funguje téměř vše na elektřinu a nároky na její výrobu stále rostou. Řešením by mohlo být ovládnutí termojaderné fúzní reakce. Abychom její potenciál mohli naplno využít, potřebujeme tuto reakci dostatečně dlouho udržet. Jedním z nejpokročilejších zařízeních sloužících k jejímu výzkumu a udržení jsou tokamaky. Znalost okamžitého režimu udržení plazmatu uvnitř tokamaku je poměrně důležitá pro budoucí zařízení jako je ITER. Právě tímto problémem se bude tato práce zabývat.
 
-Cílem práce je nalézt způsob, jak určit tyto režimy v reálném čase za použití strojového učení. Nejdříve je potřeba seznámit se se základní fyzikální podstatou jevů, vyvstávajících při výbojích v tokamaku. 
+Cílem práce je nalézt způsob, jak určit tyto režimy za použití strojového učení. Nejdříve je potřeba seznámit se se základní fyzikální podstatou jevů, vyvstávajících při výbojích v tokamaku. 
 Následně je třeba prostudovat metody strojového učení, schopné řešit tento problém. Poté budou tyto algoritmy natrénovány na skutečných datech z tokamaku COMPASS a aplikovány na testovacím vzorku dat. Posledním úkolem je vyhodnotit výsledky a porovnat metody mezi sebou.
 
 V první kapitole je stručně zodpovězeno, co je to plazma. Následuje popis základní problematiky tokamaků. Dále je zde podrobněji představen problém, který tato práce řeší. Na konci kapitoly jsou vysvětleny základy strojového učení.
 
 V druhé kapitole jsou uvedeny dvě metody strojového učení. Nejprve je představen diskrétní Markovův model, který poté rozšíříme na skrytý Markovův model. Dále je vysvětlen EM algoritmus sloužící k výpočtu parametrů tohoto modelu a Viterbiho algoritmus používaný k nalezení posloupnosti nejpravděpodobnějších stavů. Na konci této kapitoly prezentována shlukovací metoda K-means.
 
-Ve třetí kapitole jsou postupně popsány příznaky, získané ze signálů měřených při provozu tokamaku, a pouzité při aplikaci obou metod. Následuje postupu práce, ve kterém jsou vysvětleny provedené experimenty. První z nich byl proveden na syntetických datech a při druhém jsme již použili skutečná data z tokamaku COPMASS.
+Ve třetí kapitole jsou postupně popsány příznaky, získané ze signálů měřených při provozu tokamaku, a pouzité při aplikaci obou metod. Následuje postupu práce, ve kterém jsou vysvětleny provedené výpočetní experimenty. První z nich byl proveden na syntetických datech a při druhém jsme již použili skutečná data z tokamaku COPMASS.
 
 V poslední kapitole je uveden seznam metrik, sloužících k vyhodnocení úspěšnosti výsledků a kvality metod. Dále je zde popsána technika křížové validace. Kapitola je zakončena výsledky z obou experimentů.
 
@@ -311,17 +310,17 @@ V této kapitole si nejdříve zodpovíme, co je to plazma. Dále se seznámíme
 %\section{"Co a proč to dělám"}
 
 \section{Plazma}
-Plazma je jedním ze čtyř základních skupenství. V podstatě se jedná o shluk ionizovaných částic a elektronů s unikátními vlastnostmi. Výměna nábojů mezi ionty a elektrony zapříčiňuje vznik elektrického pole a proudění nabitých částic vyvolává magnetické pole \cite{Plazma}.
+Plazma je jedním ze čtyř základních skupenství. V podstatě se jedná o shluk ionizovaných částic a elektronů. Přítomnost oddělených iontů a elektronů zapříčiňuje vznik elektrického pole a proudění nabitých částic vyvolává magnetické pole \cite{Plazma}.
 Na rozdíl od zbylých tří skupenství se volně, za normálních podmínek, na zemském povrchu vyskytuje pouze výjimečně. Paradoxně však $99\% $ veškeré pozorovatelné hmoty ve vesmíru tvoří právě plazma. 
 
 V laboratoři se získává typicky zahříváním a ionizováním malého množství plynu pomocí elektrického proudu nebo radiových vln. Obvykle tyto prostředky dodávají energii přímo volným elektronům uvnitř plazmatu. Poté se během srážek těchto elektronů s atomy uvolňují další elektrony a tento kaskádový proces postupuje, dokud plyn nedosáhne požadovaného stupně ionizace (převzato z \cite{Plazma}).  
 
-Rozdíl mezi velmi slabě ionizovaným plynem a plazmatem je do značné míry záležitostí terminologie a způsobu interpretace. V závislosti na okolní teplotě prostředí a hustotě dělíme plazmata na částečně ionizované a plně ionizované. Příkladem částečně ionizovaného plazmatu je třeba blesk nebo neonové světlo. Naproti tomu plně ionizované plazma lze nalézt uvnitř slunce nebo právě v tokamaku. 
+Rozdíl mezi velmi slabě ionizovaným plynem a plazmatem je do značné míry záležitostí terminologie a způsobu interpretace. V závislosti na teplotě a hustotě dělíme plazmata na částečně ionizované a plně ionizované. Příkladem částečně ionizovaného plazmatu je třeba blesk nebo neonové světlo. Naproti tomu plně ionizované plazma lze nalézt uvnitř slunce nebo právě v tokamaku. 
 
 \section{Tokamak COMPASS}
 Název tokamak je zkratkou půvoního ruského názvu \textit{toroidalnaja kamera s magnitnymi katuškami} (toroidní komora s magnetickými cívkami). Jedná se o experimentální zařízení využívné k tvorbě vysokoteplotního plazmatu a jeho následnému udržení pomocí magnetického pole. V současnosti jsou tokamaky považovány za jednu z nejnadějnějších cest k dosažení kontrolované jaderné fůze. Pokud by se podařilo fůzi efektivně a trvale udržet, mohlo by se pak přebytečné teplo převést, po vzoru tepelných elektráren, na elektřinu. Tímto způsobem bychom získali téměř nevyčerpatelný zdroj energie, který by byl současně šetrný k životnímu prostředí.
 
-Na rozdíl od klasických jaderných reaktorů, kde probíhá štěpení těžkých jader uranu $^{235}U$ na lehčí jádra, v tokamacích dochází ke slučování lehkých jader za účelem vzniku těžších jader. Při této termojaderné reakci se nejčastěji slučují jádra deuteria a tricia. Výsledkem reakce je hélium a neutron.
+Na rozdíl od klasických jaderných reaktorů, kde probíhá štěpení těžkých jader uranu $^{235}U$ na lehčí jádra, v tokamacích dochází ke slučování lehkých jader za účelem vzniku těžších jader. Při této termojaderné reakci se nejčastěji slučují jádra deuteria a tricia. Výsledkem reakce je hélium, neutron a uvolněná vazebná energie.
 Problém však tkví v tom, že pro udržení termojaderné fůze je zapotřebí velmi vysokých teplot a dostatečné doby trvání. Abychom toho docílili, musíme držet částice uprostřed toroidní komory, protože při vychýlení nebo kontaktu se stěnou dochází k velice rychlému ochlazování. Proto se využívá silné magnetické pole, produkované cívkami, k omezení pohybu nabitých částic plazmatu.
 
 
@@ -345,9 +344,9 @@ Prvním z nich je mód nízkého udržení zvaný L-mód (Low-confinement mode).
 Druhým stavem je již dříve zmíněný H-mód, který byl objeven německým vědcem Fritzem Wagnerem v roce 1982 \cite{h-mode}. V tomto stavu je možné lépe kontrolovat chování plazmatu a především jej udržet delší dobu.%jí držet v rovnováze po delší dobu. 
 Tento stav je také standartním referenčním režimem budoucího tokamaku ITER. 
 
-Třetím v řadě je ELM (edge-localized mode). ELMy jsou v podstatě narušující nestability, k nímž dochází na okraji plazmatu. ELMy se navíc mohou vyskytovat pouze během H-módu.
+Třetím v řadě je ELM (edge-localized mode). ELMy jsou nestability dočasně narušující H-mód, k nímž dochází na okraji plazmatu. ELMy se navíc mohou vyskytovat pouze během H-módu.
 
-Posledním stavem je disrupce. Disrupce představuje fyzikální jev, během něhož dochází k vyhasnutí nebo náhlé zrátě udžení a kontaktu plazmatu se stěnou.
+Posledním stavem je disrupce. Disrupce představuje fyzikální jev, během něhož dochází k vyhasnutí nebo náhlé zrátě udžení případně kontaktu plazmatu se stěnou.
 
 Aby bylo možné správně porozumět těmto jevům je zapotřebí velkého množství informací. Příkladem může být teplota během jednotlivých stavů atd. K měření teploty plazmatu uvnitř tokamaku se využívají lasery a právě tyto lasery jsou limitovány svou opakovací frekvencí.
 %Teplota plazmatu je měřena pomocí laserů, které jsou limitovány svou opakovací frekvencí.
@@ -355,15 +354,18 @@ Aby bylo možné správně porozumět těmto jevům je zapotřebí velkého mno�
 Proto by bylo třeba vědět, v jakém stavu se zrovna plazma nachází, aby bylo možno měřit ve správnou chvíli. Důležitější je však dodání informace o aktuálním režimu udržení zpětnovazebnému systému v reálném čase. Tento systém musí totiž v různých režimech odlišně reagovat např. v H-módu nemůže dodávat částice tak rychle jako v L-módu jinak by došlo k neudržitelnému nárůstu hustoty. 
 
 
-V této práci se budeme snažit najít způsob/y, jak klasifikovat první tři výše zmíněné stavy plazmatu v reálném čase. Využívat k tomu budeme data naměřených hodnot záření $H_\alpha$ a metody strojového učení. 
+V této práci se budeme snažit najít způsob/y, jak klasifikovat první tři výše zmíněné stavy plazmatu v reálném čase. Využívat k tomu budeme data naměřených hodnot signálu $H_\alpha$ a metody strojového učení. 
 
-Spektrální čáry $H_\alpha$ udávají počet částic, které se neutralizovaly během interakcí plazmatu se stěnou (převzato z \cite{H-alpha}). 
-%Záření $D_\alpha$ je specifická červená spektrální čára vyzařovaná vodíkem s vlnovou délkou 656,28 nm. 
-Na COMPASSu se toto záření měří buď pomocí spektrometru HR 2000+ \cite{mereni_H}, nebo fotonásobičem. Aby fotonásobič zaznamenával jen záření, které chceme, je zapotřebí správného filtru. V praxi se však používá $D_\alpha$ filtr nikoli $H_\alpha$. Jelokož jsou rozdíly ve vlnových délkách obou filtrů velmi malé, budeme naměřené signály považovat za signály $H_\alpha$.
+Převážná část experimentů probíhala v deuteriu, jehož vyzařování na spektrální čáře $D_\alpha$ se nepříliš liší od spektrální čáry $H_\alpha$ pro vodík.
+Záření $H_\alpha$ je specifická červená spektrální čára vyzařovaná vodíkem s vlnovou délkou 656,28 nm. 
+Spektrální čáry $D_\alpha$, jež vyzařuje deuterium, udávají počet částic, které se ionizovaly během interakcí plazmatu se stěnou (převzato z \cite{H-alpha}), nebo se jedná o vyzařování okrajového plazmatu. 
 
-Náhled ideálně vypadajícího signálu je možné vidět na Obr. \ref{example1}. Na tomto obrázku je možné přesně sledovat všechny tři stavy. Signál začíná v L-módu. Asi po $10$ milisekundách přechází do H-módu. Jelikož H-mód je lépe udržitelný, nedochází k tak velkému kontaktu unikajících částic se stěnou%nevyzařuje plazma tolik vodíku
+Na COMPASSu se toto záření měří buď pomocí spektrometru HR 2000+ \cite{mereni_H}, nebo fotonásobičem. Aby fotonásobič zaznamenával jen záření, které chceme, je zapotřebí správného filtru. V praxi se však používá  $H_\alpha$ filtr, který zaznamenává záření vodíku. Jelikož jsou rozdíly ve vlnových délkách obou spektrálních čar velmi malé, budeme tedy naměřené signály souhrně označovat jako $H_\alpha$.
+
+Náhled ideálně vypadajícího signálu je možné vidět na Obr. \ref{example1}. Na tomto obrázku je možné dobře sledovat všechny tři stavy. Signál začíná v L-módu. Asi po $10$ milisekundách přechází do H-módu. Jelikož H-mód je lépe udržitelný, nedochází k tak velkému kontaktu unikajících částic se stěnou%nevyzařuje plazma tolik vodíku
 jako v L-módu. Jednotlivé špyčky jsou pak ELMy. Ve vakuu, jako je uvnitř tokamaku, se velký počet částic rozprostře po stěně komory. Když se pak vlivem nějakých nestabilit utrhne kus plazmatu a dotkne se stěny, částice, jež se na stěně nacházejí, se rozzáří a my vidíme ELM.
 V praxi však signály vypadají spíše jako na Obr. \ref{example2}, kde už některé stavy nejsou jednoznačně identifikovatelné.
+
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
@@ -445,19 +447,20 @@ Tento stochastický proces bychom mohli nazývat pozorovatelný Markovův model,
 Skrytý Markovův model známý spíše pod svým anglickým názvem "Hidden Markov model" $ \ $je statistický model, který slouží k modelování Markovských procesů se skrytými stavy.
 Skrytý Markovův model je široce používán v rozpoznávání řeči (speech recognition), modelování přirozeného jazyka, rozpoznávání ručně psaného písma a analýze biologických sekvencí, jako například DNA a proteinů \cite{Bishop}.
 
-Jedná se o rozšíření diskrétního Markova modelu. Tyto modely se liší v jedné podstatné věci. Zatímco u standartního diskrétního Markovova modelu, kde je možné pozorovat jednotlivé stavy a jejich realizaci, u skrytého Markova modelu  tyto stavy přímo pozorovat nelze. %je tento proces skrytý stejně tak jako jeho stavy. 
-Nicméně i tento skrytý proces může být pozorován skrze jiné stochastické procesy, jež poskytují posloupnost pozorování.%, ze které mohou být skryté stavy zjištěny. 
+Jedná se o rozšíření diskrétního Markova modelu. Tyto modely se liší v jedné podstatné věci. Zatímco u standartního diskrétního Markovova modelu, kde je možné pozorovat jednotlivé stavy a jejich realizaci, u skrytého Markova modelu  tyto stavy $\vec{z}$ přímo pozorovat nelze. %je tento proces skrytý stejně tak jako jeho stavy. 
+Nicméně i tento skrytý proces může být pozorován skrze jiné stochastické procesy, jež poskytují posloupnost pozorování $\vec{x}$.%, ze které mohou být skryté stavy zjištěny. 
 
 %Pro lepší představu uvažujme systém uren a míčků vyobrazený na  "obrázek".
 Pro lepší představu si tento model ukážeme na příkladě uren a míčků. Předpokládejme, že v místnosti je $N$ velkých skleněných uren. V každé urně je velký počet barevných míčků. Předpokládejme, že máme $M$ odlišných barev míčků. Fyzikální proces pro získání pozorování je následující. Džin je v místnosti a on (nebo ona) podle nějakého náhodného procesu vybírá počáteční urnu. Z této urny vybere náhodně míček a jeho barva je uložena jako pozorování. Míček je pak nahrazen v urně, z níž byl vybrán. Další urna je vybrána procesem náhodného výběru spojeného se současnou urnou a výběr míčku je opakován. Celý proces generuje konečný počet pozorování posloupnosti barev, který bychom rádi modelovali jako pozorovaný výstup skrytého Markovova modelu (příklad převzat z \cite{Rabiner}).
 
-Dále se na tento model můžeme dívat
+%Dále se na tento model můžeme dívat
 %Na tento model se můžeme také dívat
- jako na specifický případ stavového prostorového modelu, kterým je např. model z předchozí podkapitoly, ve kterém jsou skryté proměnné diskrétní. 
-Nicméně, když prozkoumáme modelu v jednom časovém okamžiku ($n$), vidíme že odpovídá směsovému rozdělení (viz kapitola $9$ v \cite{Bishop}) s hustotou pravděpodobnosti danou  $\mathbb{P}(\vec{x}|\vec{z})$.
+ %jako na specifický případ stavového prostorového modelu, kterým je např. model z předchozí podkapitoly, ve kterém jsou skryté proměnné diskrétní. 
+%Nicméně, když prozkoumáme modelu 
+Prozkoumáme-li model v jednom časovém okamžiku ($n$), vidíme že odpovídá směsovému rozdělení (viz kapitola $9$ v \cite{Bishop}) s hustotou pravděpodobnosti danou  $\mathbb{P}(\vec{x_n}|\vec{z_n})$.
 Proto ho můžeme interpretovat jako rozšíření směsového modelu, kde výběr složky směsi, pro každé pozorování, není nezávislý, ale závisí na volbě složek z předchozího pozorování.
 
-Jako v případě tohoto standartního směsového modelu, skryté proměnné jsou diskrétní multinomické proměnné $\vec{z}_n$ popisující složku směsi, jež je zodpovědná za generování příslušného vektoru pozorování ($\vec{x}_n$). 
+Jako v případě tohoto standartního směsového modelu, skryté proměnné jsou diskrétní multinomické proměnné $\vec{z}_n$ popisující složku směsi, jež je zodpovědná za generování příslušného vektoru pozorování $\vec{x}_n$. 
 Od této chvíle budeme předpokládat, že skrytý proces je Markovův, tzn. splňuje Markovu vlastnost. Z tohoto předpokladu nyní plyne, že budoucí stav skryté proměnné $\vec{z}_n$ závisí pouze na předchozím stavu $\vec{z}_{n-1}$ skrze podmíněnou pravděpodobnost $\mathbb{P}(\vec{z}_n|\vec{z}_{n-1})$. Navíc ještě předpokládáme, že vektor $\vec{z}_n$ je binární vektor. Pak zavedeme matici přechodů $\mathbb{A}$, udávající pravděpodobnosti přechodu ze skrytého stavu $i$ do skrytého stavu $j$, dánu  předpisem  
 \begin{equation}
 A_{i,j} \equiv \mathbb{P}(\vec{z}_{n,j}|\vec{z}_{n-1,i} = 1),
@@ -583,9 +586,9 @@ Q(\vec{\Theta}, \vec{\Theta}^{old}) = \sum_{k=1}^{N} \gamma(z_{1,k}) \ \ln\pi_k 
 \label{hruzna fce}
 \end{equation}
 
-Hodnoty $\gamma (\vec{z}_n) \text{ a } \xi(\vec{z}_{n-1}, \vec{z}_n)$ lze spočítat Forward Backward algoritmem, viz kapitola $13.2.2$ v \cite{Bishop}. Cílem prvního kroku algoritmu nalezení právě těchto hodnota a sestavení \eqref{hruzna fce}.
+Hodnoty $\gamma (\vec{z}_n) \text{ a } \xi(\vec{z}_{n-1}, \vec{z}_n)$ lze spočítat Forward Backward algoritmem, viz kapitola $13.2.2$ v \cite{Bishop}. Cílem prvního kroku algoritmu je nalezení právě těchto hodnot a sestavení \eqref{hruzna fce}.
 
-V druhém kroce je zapotřebí maximalizovat funkci \eqref{hruzna fce} podle parametrů $\vec{\Theta} = \{\vec{\pi}, \mathbb{A}, \theta\}$, kde hodnoty $\gamma (\vec{z}_n) \text{ a } \xi(\vec{z}_{n-1}, \vec{z}_n)$ budeme pokládat za konstanty. Po několika úpravách dostáváme 
+V druhém kroce je zapotřebí maximalizovat funkci \eqref{hruzna fce} podle parametrů $\vec{\Theta} = \{\vec{\pi}, \mathbb{A}, \theta\}$, kde hodnoty $\gamma (\vec{z}_n) \text{ a } \xi(\vec{z}_{n-1}, \vec{z}_n)$ budeme pokládat za konstanty. S použitím lagrangeových multiplikátorů s vazbami $\sum_{j}\pi_j = 1, \sum_{j} A_{i,j} = 1$ pak dostaneme
 
 \begin{eqnarray}
 \vec{\pi}_k &=& = \frac{\gamma(z_{1,k})}{\mathlarger{\sum}_{j = 1}^{K} \gamma(z_{1, j})} \\
@@ -791,7 +794,7 @@ S-G filtr je pro řešení našeho problému výhodný také z důvodu, že po m
 	\renewcommand{\figurename}{Obr.}
 	\centering
 	\includegraphics[scale=0.5]{Obr/S_G1}
-	\caption{Savitzky-Golay filtr aplikovaný na gaussovu křivu s délkou úseku 9 ($n_L + n_R + 1 = 9$). Na obrázcích je patrné, že posunutím bodu, v němž probíhá aproximace, balancujeme mezi zpožděním a velikostí šumu.  }
+	\caption{Savitzky-Golay filtr aplikovaný na gaussovu křivu s délkou okna 9 ($n_L + n_R + 1 = 9$). Na obrázcích je patrné, že posunutím bodu, v němž probíhá aproximace, balancujeme mezi zpožděním a velikostí šumu.  }
 	\label{S-G}
 \end{figure}
 
@@ -834,7 +837,7 @@ Nechť $\vec{X}=(x_1, x_2,...,x_n)$ je vektor naměřených hodnot, pak definuji
 S_t = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} g_{t-k} \cdot x_k, 
 \label{exponenciální klouzavý průměr}
 \end{equation} 
-kde $\tilde{ \omega } = min\{ \omega, t \} $, $\omega$ je délka úseku a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. Pak vektor $\vec{S} = (S_1,S_2,..,S_n)$ je exponenciální klouzavý průměr vektoru $\vec{X}$. 
+kde $\tilde{ \omega } = min\{ \omega, t \} $, $\omega$ je délka okna a $g_m$ je váhová funkce tvaru $g_m = \gamma^m$, přičemž $\gamma \in (0,1)$. Pak vektor $\vec{S} = (S_1,S_2,..,S_n)$ je exponenciální klouzavý průměr vektoru $\vec{X}$. 
 Díky exponenciální váhové funkci $g_m$, jsme tedy schopni snížit důležitost více vzdálených dat, což byl náš záměr.  
 
 \subsection{Klouzavý rozptyl}
@@ -854,18 +857,18 @@ Bohužel, rozptyl nemůžeme jako příznak použít ze stejného důvodu jako a
 Proto zde využijeme místo aritmetického průměru již dříve definovaný klouzavý průměr a výslednou veličinu %jsem označil jako úsekový rozptyl. Úsekový rozptyl budu nadále značit jako $D_m$ a pro náhodné veličiny $X = (x_1, x_2, ...,x_n)$ ho definuji jako
 budu dále nazývat klouzavým rozptylem a značit $D_t$.
 
-Nechť $\vec{X} = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji úsekový rozptyl pro $t \in 1, 2, ..., n$ jako 
+Nechť $\vec{X} = (x_1, x_2, ...,x_n)$ je vektor naměřených hodnot, pak definuji klouzavý rozptyl pro $t \in 1, 2, ..., n$ jako 
 \begin{equation}
 D_m = \frac{1}{\tilde{\omega}} \sum_{k=t-\tilde{\omega}}^{t} (x_k - \widetilde{X}_t)^2,
 \label{klouzavý rozptyl}
 \end{equation}
-kde $\tilde{ \omega } = min\{ \omega, t \}$, $w$ je opět délka úseku a $\widetilde{X}_t$ je klouzavý průměr \eqref{klouzavý průměr}. Pak vektor $\vec{D} = (D_1, D_2, ..., D_n)$ je klouzavý rozptyl vektoru $\vec{X}$.
+kde $\tilde{ \omega } = min\{ \omega, t \}$, $w$ je opět délka okna a $\widetilde{X}_t$ je klouzavý průměr \eqref{klouzavý průměr}. Pak vektor $\vec{D} = (D_1, D_2, ..., D_n)$ je klouzavý rozptyl vektoru $\vec{X}$.
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
 	\includegraphics[scale=0.7]{Obr/obr3}
-	\caption{Rozdíl mezi úsekovým a normálním rozptylem aplikovaným na syntetická data}
+	\caption{Rozdíl mezi klouzavým a normálním rozptylem aplikovaným na syntetická data}
 	\label{obr3}
 \end{figure}
 
@@ -889,7 +892,7 @@ V případě metody K-means nejsou třeba žádné dodatečné předpoklady krom
 
 Pro tento experiment jsme vytvořili jednoduchý syntetický signál se třemi stavy Obr. \ref{syntet} a), na který aplikujeme Gaussovský bílý šum. Gaussovský bílý šum je statistický šum, který má hustotu pravděpodobnosti odpovídající normálnímu rozdělení $\mathcal{N}(0, 1)$ \cite{whitenoise}. Jelikož se velikost toho šumu ukázala pro naše data příliš vysoká, bylo třeba šum trochu zmenšit. Využívat budem tedy šum s rozptylem  $\sigma_1 = \frac{1}{20}$ a $\sigma_2 = \frac{1}{13}$ viz Obr. \ref{syntet}.
 
-Poté budeme na těchto datech testovat následující příznaky: první derivace, druhá derivace, klouzavý průměr, exponenciální klouzavý průměr a klouzavý rozptyl. Chtěli bychom najít nejlepší kombinaci těchto příznaků spolu s takovou délkou úseku ($\omega$), abychom měli co nevětší přesnost. 
+Poté budeme na těchto datech testovat následující příznaky: první derivace, druhá derivace, klouzavý průměr, exponenciální klouzavý průměr a klouzavý rozptyl. Chtěli bychom najít nejlepší kombinaci těchto příznaků spolu s takovou délkou okna ($\omega$), abychom měli co nevětší přesnost. 
 
 Během tohoto experimentu byla objevena jedna velká nevýhoda učení bez učitele. Problém vyvstal ve chvíli, kdy jsme chtěli porovnat výsledky obou metod se skutečným řešením. Metody pracující bez učitele si na počátku každého tréninku potřebují inicializovat skupiny, do nichž budou později rozdělovat data, a poněvadž jsou tyto skupiny voleny náhodně, tak jsou pokaždé očíslovány jinak. Předpokládejme, že ve skutečném řešení jsou stavy číslovány následovně L-mód = 1, H-mód = 0 a ELM = 2. Od výstupu metody bychom tedy očekávali, že nám bude tyto stavy číslovat stejně, ale to není možné. Jelikož metodě nesdělujeme do jaké skupiny který bod patří, tak šance, že budou tyto stavy očíslovány správně, je $1$ ku $6$. A to je právě zásadní problém při ověřování výsledků, protože se může stát, že body jsou roztříděny do skupin správně, ale přesnost je nulová. 
 Tento problém byl vyřešen pomocí funkce "srovnej", která vyzkouší všechny permutace, jež mohou nastat ($0,1,2; 1,0,2; ...$), a vrátí tu s největší přesností. 
@@ -908,7 +911,8 @@ Tento problém byl vyřešen pomocí funkce "srovnej", která vyzkouší všechn
 V tomto experimentu se budeme opět zabývat porovnáním našich dvou metod s tím rozdílem, že nyní je budeme trénovat a testovat na reálných datech z tokamaku COMPASS a k výpočtu první a druhé derivace bude použit Savitzky-Golay filtr. Skrytý Markovův model bude nejdříve použit bez učitele a později ho  modifikujeme %a %použijeme ho jako učení s učitelem. 
 k použití ve formě učení s učitelem. Algoritmus K-means bude použit totožným způsobem jako při předchozím experimentu.
 
-Nejprve je potřeba získat data z databáze. Používat budeme data zaznamenávána fotonásobičem. Tyto data jsou však měřena s příliš vysokou frekvencí a pro simulaci výpočtů v reálném čase je tedy třeba jejich podvzorkování. Poněvadž systém má $50 \ ms$ na jednotlivé výpočty, bude nám stačit vzít každý stý bod původního signálu. %Z tohoto důvodu jsme použili každy stý bod, což odpovídá právě frekvenci .....
+Nejprve je potřeba získat data z databáze. Používat budeme data zaznamenávána fotonásobičem. Tyto data jsou však měřena s příliš vysokou frekvencí a pro simulaci výpočtů v reálném čase je tedy třeba jejich podvzorkování (decimace). Poněvadž systém má pouze $50 \ \mu s$ na všechny potřebné operace, % jednotlivé výpočty, 
+bude nám stačit vzít každý stý bod původního signálu. %Z tohoto důvodu jsme použili každy stý bod, což odpovídá právě frekvenci .....
 Vybírali jsme pouze data, která byla ručně zkontrolována a byla v nich označeny stavy, ve kterých se plazma nacházelo (tj. H-mód, L-mód, ELM), abychom se vyhnuli špatně označeným signálům, jež by mohly ovlivnit výsledky. Poté byly vybrány dva datasety skládající se každý z signálů deseti výstřelů. První dataset je tvořen signály, na kterých jsou hlavně H-módy a ELMy (Obr. \ref{H-mody}). Druhý dataset obsahuje spíše obecnější data (Obr. \ref{Obecne}). 
 
 
@@ -928,9 +932,9 @@ Poslední důležitý krok, který je třeba s daty udělat, je normalizace, pro
 
 K normalizaci používáme velmi jednoduchý proces, při kterém spočítáme průměr několika prvních bodů a tímto průměrem pak vydělíme celý signál.
 
-Na rozdíl od předchozího experimentu použijeme více délek úseků, 
+Na rozdíl od předchozího experimentu použijeme více délek oken, 
 %Od předchozího experimentu se odlišujeme použítím více délek úseků
-na kterých bude možno počítat exponenciální klouzavý průměr a klouzavý průměr. Při testech se ukázalo, že tyto průměry počítané na kratších úsecích zlepšují detekci ELMů a naopak průměry delších úseků zase napomáhají hledání H-módů. Přidáním více délek se pokusíme vylepšit schopnost nalezení obou z nich. 
+na kterých bude možno počítat exponenciální klouzavý průměr a klouzavý průměr. Při testech se ukázalo, že tyto průměry počítané na kratších úsecích zlepšují detekci ELMů a naopak průměry delších oken zase napomáhají hledání H-módů. Přidáním více délek se pokusíme vylepšit schopnost nalezení obou z nich. 
 
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
@@ -970,8 +974,8 @@ Confusion matrix je ve strojovém učení velmi dobře známa. Jedná se o tabul
 Dává nám přehled o chybám, kterých se model dopouští a navíc i druh těchto chyb. Využívá se standartně při učení s učitelem, kde jsou k dispozici označená data. 
 
 Nejprve je třeba vybrat testovací data, u kterých jsou nám známé labely. Na tyto data je následně aplikován již natrénovaný model. Výstup je pak porovnán s těmito labely a zaznamenán právě do confusion matrix. Z ní jsme pak schopni vypočítat většinu výkonnostních metrik. 
-
-Nyní uvažujme proces se třemi stavy viz Obr. \ref{confusion_matrix}. Pak confusion matrix $\mathbb{C}$ má rozměry $3  \times  3$ a diagonální prvky $C_{0,0}$, $C_{1,1}$ a $C_{2,2}$ udávají kolikrát byl konkrétní stav predikován správně. Prvek $C_{i,j}$, kde $ i, j \in {0,1,2} \wedge i\neq j $, udává, kolikrát byl predikován stav $i$ a ve skutečnosti se jednalo o stav $j$.
+%Nyní uvažujme proces se třemi stavy viz Obr. \ref{confusion_matrix}. 
+Confusion matrix $\mathbb{C}$ má pro $K$ stavů rozměry $K  \times  K$ a diagonální prvky $C_{i,i}$, kde $i \in \{0, 1, 2, ..., K-1\}$, udávají kolikrát byl konkrétní stav predikován správně. Prvky $C_{i,j}$, kde $ i, j \in \{0,1,2, ..., K-1\} \wedge i\neq j $, udávají, kolikrát byl predikován stav $i$ a ve skutečnosti se jednalo o stav $j$. Pro případ se třemi stavy je tabulka vyobrazena na Obr. \ref{confusion_matrix}.
 
 
 \subsection{Přesnost }
@@ -1027,10 +1031,36 @@ Nyní probereme výsledky našeho prvního experimentu. Na syntetických datech 
 
 K-means si vedly o něco hůře, ale přesnost $93\%$ pro první šum je velice dobrá a průměrná F-míra je dokonce $95\%$. Stejně jako u předchozího modelu nám pro nalezení nejlepšího výsledku stačí pouze jeden příznak. V tomto případě se jím stal klouzavý průměr s délkou okna $5$. Nejlepšími příznaky pro větší šum se ukázala kombinace exponenciálního klouzavého průměru a normálního klouzavého průměru s přesností $88\%$ a průměrnou F-mírou $91\%$. 
 
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		\multicolumn{6}{c}{Skrytý Markovův model bez učitele}\\
+		\midrule
+		\multicolumn{6}{c}{šum s $\sigma = \frac{1}{20}$}\\
+		\midrule
+		Kombinace příznaků    &  (0, 0, 1, 0, 0) &  (0, 0, 0, 1, 0) &  (1, 0, 1, 0, 0) &  (0, 0, 1, 0, 0) &  (0, 1, 1, 0, 0) \\
+		Délka okna       &                5 &                5 &                5 &                6 &                5  \\
+		F míra průměrná   &         0.959 &         0.957 &         0.953 &         0.952 &         0.943 \\
+		\midrule
+		\multicolumn{6}{c}{šum s $\sigma = \frac{1}{13}$}\\
+		\midrule
+		Kombinace příznaků    &  (0, 1, 1, 0, 0) &  (0, 0, 1, 0, 0) &  (1, 1, 1, 0, 0) &  (0, 1, 0, 1, 0) &  (0, 1, 1, 0, 0) \\
+		Délka okna       &                5 &                5 &                5 &                5 &                6 \\
+		F míra průměrná   &         0.948 &         0.948 &         0.948 &          0.946 &         0.942 \\
+		\bottomrule
+	\end{tabular}
+	\caption{
+		Výsledky skrytého Markovova modelu aplikovaného na syntetická data.. Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. 
+		Uspořádaná pětice $(0,\ 1,\ 1,\ 0,\ 0)$ $\approx$ (první derivace, druhá derivace, exponenciální klouzavý průměr, klouzavý průměr, klouzavý rozptyl) udává, které příznaky byly použity (na jejich pozici je 1) a které ne (na jejich pozici je 0). Délka  ($\omega$) je při tomto experimentu pro všechny průměry a rozptyl stejná. Jelikož samotný signál $x_n$ jsme používali jako příznak vždy, tak není explicitně uveden v uspořádané pětici.}
+	\label{sumHMMun}
+\end{table}
 
 Důležitým poznatkem plynoucím z tohoto experimentu je, že obě metody lze využít k řešení problému, kterým se tato práce zabývá. A navíc je lze použít i v reálném čase, což byl další z požadavků. Dalším zjištěním je, že při větších šumech se první a druhá derivace stává spíše kontraproduktivní. Důvodem je způsob, kterým obě derivace počítáme. Pokud totiž použijeme centrální diference na signál s velkým šumem, pak výsledkem je signál s ještě větším. Při dalším experimentu proto nahradíme centrální diference Savitzky-Golay filtrem.
 
-
 \begin{table}[H]
 	%\small
 	\centering
@@ -1038,195 +1068,50 @@ Důležitým poznatkem plynoucím z tohoto experimentu je, že obě metody lze v
 	\renewcommand{\tablename}{Tab.}
 	\begin{tabular}{llllll}
 		\toprule
-		 index &               3  &               1  &               19 &               34 &               11 \\
-		 \midrule
-		Kombinace příznaků    &  (0, 0, 1, 0, 0) &  (0, 0, 0, 1, 0) &  (1, 0, 1, 0, 0) &  (0, 0, 1, 0, 0) &  (0, 1, 1, 0, 0) \\
-		Délka okna       &                5 &                5 &                5 &                6 &                5  \\
-		Accuracy          &         0.942 &             0.940 &         0.933 &         0.932 &         0.919 \\
-		F míra H-mód    &         0.946 &          0.945 &         0.938 &         0.937 &         0.924 \\
-		F míra L-mód    &         0.929 &         0.927 &         0.919 &         0.918 &         0.904 \\
-		F míra ELM    &                1.000 &                1.000 &                1.000&                1.000 &                1.000  \\
-		F míra průměrná   &         0.959 &         0.957 &         0.953 &         0.952 &         0.943 \\
+		\multicolumn{6}{c}{K-means}\\
 		\midrule
-		Precision H-mód &         0.998 &         0.998 &         0.998 &         0.998 &         0.998  \\
-		Precision L-mód &         0.870 &         0.866 &         0.853 &         0.851&         0.826  \\
-		Precision ELM &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
-		Recall H-mód    &              0.900 &         0.897 &            0.885 &         0.883 &             0.860 \\
-		Recall L-mód    &           0.998 &           0.998 &           0.998 &           0.998 &           0.998 \\
-		Recall ELM    &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
-	\bottomrule
-	\end{tabular}
-\caption{Výsledky skrytého Markovova modelu aplikovaného na syntetická data ($\sigma = \frac{1}{20}$). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. 
-Uspořádaná pětice $(0,\ 1,\ 1,\ 0,\ 0)$ $\approx$ (první derivace, druhá derivace, exponenciální klouzavý průměr, klouzavý průměr, klouzavý rozptyl) udává, které příznaky byly použity (na jejich pozici je 1) a které ne (na jejich pozici je 0). Délka  ($\omega$) je při tomto experimentu pro všechny průměry a rozptyl stejná. Jelikož samotný signál $x_n$ jsme používali jako příznak vždy, tak není explicitně uveden v uspořádané pětici.}
-\label{hmm synt dvacetina}
-\end{table}
-
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		 index &               11 &               3  &               27 &               9  &               42 \\
-		 \midrule
-		 Kombinace příznaků    &  (0, 1, 1, 0, 0) &  (0, 0, 1, 0, 0) &  (1, 1, 1, 0, 0) &  (0, 1, 0, 1, 0) &  (0, 1, 1, 0, 0) \\
-		 Délka okna       &                5 &                5 &                5 &                5 &                6 \\
-		 Accuracy          &         0.928 &         0.927 &         0.927 &          0.924 &         0.918 \\
-		 F míra H-mód    &         0.933 &          0.932 &          0.932 &         0.929 &         0.923 \\
-		 F míra L-mód    &         0.913 &         0.911 &         0.911 &         0.909 &         0.902 \\
-		 F míra ELM   &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
-		 F míra průměrná   &         0.948 &         0.948 &         0.948 &          0.946 &         0.942 \\
-		 \midrule
-		 Precision H-mód &         0.993 &         0.991&         0.991 &         0.993 &         0.992\\
-		 Precision L-mód &         0.847 &          0.847 &          0.847&         0.841 &         0.829 \\
-		 Precision ELM &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
-		 Recall H-mód    &             0.880 &             0.880 &             0.880 &         0.873 &         0.863 \\
-		 Recall L-mód    &             0.990 &           0.988 &           0.988 &             0.990 &             0.990 \\
-		 Recall ELM    &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
-		 \bottomrule
-	 \end{tabular}
-	 \caption{Výsledky skrytého Markovova modelu aplikovaného na syntetická data ($\sigma = \frac{1}{13}$ ). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
-	 \label{hmm synt trinactina}
-\end{table}
-
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index &               1  &               17 &               2  &               9  &               5  \\
+		\multicolumn{6}{c}{šum s $\sigma = \frac{1}{20}$}\\
 		\midrule
 		Kombinace příznaků &  (0, 0, 0, 1, 0) &  (1, 0, 0, 1, 0) &  (0, 0, 0, 1, 1) &  (0, 1, 0, 1, 0) &  (0, 0, 1, 1, 0) \\
 		Délka okna        &                5 &                5 &                5 &                5 &                5 \\
-		Accuracy           &            0.929 &            0.928 &            0.928 &            0.927 &            0.926 \\
-		F míra H-mód     &            0.936 &            0.936 &            0.936 &            0.935 &            0.934 \\
-		F míra L-mód     &            0.909 &            0.907 &            0.907 &            0.906 &            0.905 \\
-		F míra ELM     &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
 		F míra průměrná    &            0.948 &            0.948 &            0.948 &            0.947 &            0.946 \\
 		\midrule
-		Precision H-mód  &            0.956 &            0.956 &            0.954 &            0.954 &            0.952 \\
-		Precision L-mód  &            0.885 &            0.882 &            0.884 &            0.882 &            0.882 \\
-		Precision ELM  &                1.000&                1.000 &                1.000 &                1.000 &                1.000 \\
-		Recall H-mód     &            0.918 &            0.917 &            0.918 &            0.917 &            0.917 \\
-		Recall L-mód     &            0.935 &            0.935 &            0.932 &            0.932 &             0.930 \\
-		Recall ELM     &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
-		\bottomrule
-	\end{tabular}
-	 \caption{Výsledky algoritmu K-means aplikovaného na syntetická data ($\sigma = \frac{1}{20}$). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
-	\label{km synt dvacetina}
-\end{table}
-
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index &               5  &               6  &               13 &               21 &               36 \\
+		\multicolumn{6}{c}{šum s $\sigma = \frac{1}{13}$}\\
 		\midrule
 		Kombinace okna &  (0, 0, 1, 1, 0) &  (0, 0, 1, 1, 1) &  (0, 1, 1, 1, 0) &  (1, 0, 1, 1, 0) &  (0, 0, 1, 1, 0) \\
 		Délka okna        &                5 &                5 &                5 &                5 &                6 \\
-		Accuracy           &            0.884 &            0.884 &            0.882 &            0.882 &             0.880 \\
-		F míra H-mód     &            0.898 &            0.898 &            0.897 &            0.897 &            0.894 \\
-		F míra L-mód     &            0.849 &            0.849 &            0.847 &            0.846 &            0.846 \\
-		F míra ELM     &            0.989 &            0.989 &            0.989 &            0.989 &            0.989 \\
 		F míra průměrná    &            0.912 &            0.912 &            0.911 &            0.911 &             0.910 \\
-		\midrule
-		Precision H-mód  &            0.905 &            0.905 &            0.904 &            0.903 &            0.909 \\
-		Precision L-mód  &            0.839 &            0.839 &            0.837 &            0.838 &            0.826 \\
-		Precision ELM  &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
-		Recall H-mód     &            0.892 &            0.892 &             0.890 &            0.892 &             0.880 \\
-		Recall L-mód     &             0.860 &             0.860 &            0.858 &            0.855 &            0.868 \\
-		Recall ELM     &             0.980 &             0.980 &             0.980 &             0.980 &             0.980 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Výsledky algoritmu K-means aplikovaného na syntetická data ($\sigma = \frac{1}{13}$). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry.}
-	\label{km synt trinactina}
+	\caption{}
+	\label{sumKMun}
 \end{table}
+
+
+
 
 %Skrytý Markovův model vs K-means na reálných datech - výsledky
 \section{Výsledky experimentu na reálných datech}
 V této podkapitole vyhodnotíme výsledky z experimentu na reálných datech. Nejdříve zhodnotíme kvalitu skrytého Markovova modelu bez učitele, následovat bude jeho modifikovaná verze. Posledním v pořadí je algoritmus K-means. Nakonec všechny tři porovnáme mezi sebou. Výsledy v tabulkách byly získány technikou křížové validace a jedná se tedy o průměrné výsledky.
 
+\subsection{Skrytý Markovův model bez učitele}
+Stejně jako na syntetických datech, tak i na reálných si skrytý Markovův model bez učitele vedl velice dobře. V Tab. \ref{modif hmody unsup} jsou uvedeny výsledky modelu trénovaného na datech z Obr. \ref{H-mody} a v Tab. \ref{modif obecne unsup} jsou výsledky tréninku dat z Obr. \ref{Obecne}.
+
+Během testů jsme se rozhodli dát modelu možnost využít klouzavých průměrů na více oknech o různé délce tzn. spočítat třikrát klouzavý půrměr (normální, exponenciální nebo oba, podle nastavených příznaků) pokaždé s jinou délkou okna a pak všechny tři použít jako příznaky. Upořádaná čtveřice délky oken, jež je patrná ve všech následujících tabulkách, představuje tyto různá okna, kde na prvních třech pozicích jsou okna $\omega$, která mohou využívat ony průměry. Poslední hodnota udává délku okna, která je využita pro výpočet klouzavého rozptylu. 
+
+
+
+I přes tuto skutečnost shledáváme, že nejlepší výsledky z obou datasetů jsou s exponenciálním klouzavým průměrem počítaným pouze s jednou délkou okna. Liší se od sebe jen v délce tohoto okna. Nejlepší kombinace příznaků je pro oba datasety kombinace S-G filtru, který využíváme na $n_L + n_R + 1 = 9$, exponenciálního klouzavého průměru s $\omega_{ekp} = 16$ a klouzavým rozptylem s $\omega_{kr} =  14$ (resp. $11$). 
+
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.45]{Obr/modelvsreal}
+	\includegraphics[scale=0.5]{Obr/modelvsreal1}
 	\caption{Příklad klasifikace. Na obrázku $a)$ je vyobrazen signál $H_\alpha$ zaznamenaný fotonásobičem. Na obrázku $b)$ jsou barevně označeny stavy podle databáze a na obrázku $c)$ jsou stavy podle modifikovaného skrytého Markovova modelu. Fialová barva odpovídá L-módu, modrá H-módu a žlutá ELMu. (Číslo výstřelu: $15349$)}
 	\label{modelvsreal}
 \end{figure}
 
-\subsection{Skrytý Markovův model bez učitele}
-Stejně jako na syntetických datech, tak i na reálných si skrytý Markovův model bez učitele vedl velice dobře. V Tab. \ref{modif hmody unsup} jsou uvedeny výsledky modelu trénovaného na datech z Obr. \ref{H-mody} a v Tab. \ref{modif obecne unsup} jsou výsledky tréninku dat z Obr. \ref{Obecne}.
 
-Během testů jsme se rozhodli dát modelu možnost využít klouzavých průměrů na více úsecích o různé délce tzn. spočítat třikrát klouzavý půrměr (normální, exponenciální nebo oba, podle nastavených příznaků) pokaždé s jinou délkou úseku a pak všechny tři použít jako příznaky. Upořádaná čtveřice délky úseku, jež je patrná ve všech následujících tabulkách, představuje tyto různé úseky, kde na prvních třech pozicích jsou úseky $\omega$, kterých mohou využívat ony průměry. Poslední hodnota udává délku úseku, která je využita pro výpočet klouzavého rozptylu. 
-
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index  &             2843 &             2844 &             2831 &             2830 &             2832 \\
-		\midrule
-		Kombinace příznaků    &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) \\
-		Délky úseků       &   (0, 0, 16, 14) &   (0, 0, 16, 15) &   (0, 0, 14, 14) &   (0, 0, 14, 13) &   (0, 0, 14, 15) \\
-		Accuracy          &         0.833 &         0.832 &         0.831 &         0.832&         0.830 \\
-		F míra H-mód    &         0.901 &         0.900 &         0.901 &         0.903 &         0.899 \\
-		F míra L-mód    &         0.726 &         0.721&         0.727 &         0.732 &         0.719\\
-		F míra ELM    &         0.782 &         0.787 &         0.775 &         0.768 &         0.784 \\
-		F míra průměrná   &         0.803 &         0.803 &         0.801 &         0.801 &         0.801 \\
-		\midrule
-		Precision H-mód &         0.951 &         0.963 &         0.951 &         0.940 &         0.961 \\
-		Precision L-mód &         0.606 &         0.594 &         0.603 &         0.613 &         0.591 \\
-		Precision ELM &         0.843 &         0.843 &           0.841 &         0.843 &         0.844 \\
-		Recall H-mód    &         0.857 &         0.846 &          0.858 &         0.869 &         0.846 \\
-		Recall L-mód    &         0.911 &         0.921 &         0.919 &         0.912 &         0.923 \\
-		Recall ELM    &         0.732 &         0.741 &         0.722 &         0.709 &         0.735 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Výsledky skrytého Markovova modelu (bez učitele) aplikovaného na reálná data z Obr. \ref{H-mody}. Nejlepších pět kombinací příznaků a délek úseku seřazených podle průměrné F-míry. 
-	Uspořádaná pětice $(0,\ 1,\ 1,\ 0,\ 0)$ $\approx$ (první derivace, druhá derivace, exponenciální klouzavý průměr, klouzavý průměr, klouzavý rozptyl) udává, které příznaky byly použity (na jejich pozici je 1) a které ne (na jejich pozici je 0). }
-	\label{modif hmody unsup}
-\end{table}
-
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index &             2840 &             2828 &             2841 &             2827 &             2842 \\
-		\midrule
-		Kombinace příznaků    &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) \\
-		Délky úseku       &   (0, 0, 16, 11) &   (0, 0, 14, 11) &   (0, 0, 16, 12) &   (0, 0, 14, 10) &   (0, 0, 16, 13) \\
-		Accuracy          &            0.769 &            0.766 &            0.767 &            0.767 &            0.765 \\
-		F míra H-mód    &            0.807 &            0.806 &            0.804 &            0.807 &            0.802 \\
-		F míra L-mód    &             0.690 &            0.692 &            0.685 &            0.696 &            0.685 \\
-		F míra ELM    &            0.589 &            0.583 &            0.592 &            0.576 &            0.593 \\
-		F míra průměrná   &            0.695 &            0.694 &            0.694 &            0.693 &            0.693 \\
-		\midrule
-		Precision H-mód &            0.847 &            0.842 &            0.855 &            0.833 &            0.866 \\
-		Precision L-mód &            0.609 &            0.615 &            0.606 &            0.617 &            0.602 \\
-		Precision ELM &            0.672 &            0.669 &            0.672 &            0.667 &            0.676 \\
-		Recall H-mód    &             0.780 &            0.783 &             0.770 &            0.791 &            0.759 \\
-		Recall L-mód    &            0.852 &            0.848 &            0.848 &            0.851 &            0.858 \\
-		Recall ELM    &            0.592 &            0.587 &            0.599 &            0.571 &              0.600 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Výsledky skrytého Markovova modelu (bez učitele) aplikovaného na reálná data z Obr. \ref{Obecne}. Nejlepších pět kombinací příznaků a délek úseku seřazených podle průměrné F-míry. }
-	\label{modif obecne unsup}
-\end{table}
-
-
-
-I přes tuto skutečnost shledáváme, že nejlepší výsledky z obou datasetů jsou s exponenciálním klouzavým průměrem počítaným pouze s jednou délkou úseku. Liší se od sebe jen v délce tohoto úseku. Nejlepší kombinace příznaků je pro oba datasety kombinace S-G filtru, který využíváme na $n_L + n_R + 1 = 9$, exponenciálního klouzavého průměru s $\omega_{ekp} = 16$ a klouzavým rozptylem s $\omega_{kr} =  14$ (resp. $11$). 
 
 \subsection{Skrytý Markovův model modifikovaný}
 Další na řadě je skrytý Markovův model modifikovaný. Od standartní verze modelu bez učitele se liší větší přesností u obou datasetů. Je tedy zřejmé, že předpočítání parametrů má kladný dopad na kvalitu modelu. U datasetu z Obr. \ref{H-mody} se přesnost zvýšila o $3,5\%$ a průměrná F-míra vzrostla dokonce o $5,5\%$ viz. Tab. \ref{modif hmody}. Ona modifikace má i další výhody, např. už není třeba přerovnávat výsledky, protože skupiny potažmo stavy jsou určeny správně díky lepší inicializaci a dokonce se snížila i doba potřebná k tréninku z původních $1,92\ s \text{ na } 1,64\ s$ (v průměru). 
@@ -1245,133 +1130,21 @@ Jedním z důvodů tohoto zpřesnění je lepší schopnost rozpoznat ELM, což 
 Konkrétně detekce ELMů je onou příčinou, jež nejvíce snižuje kvalitu modelů. Děje se tak díky jeho specifickému průběhu. Když se podrobně podíváme na Obr. \ref{elm}, můžeme vidět, že konec ELMu odpovídá spíše charakteru H-módu, a právě v tom často modely chybují. Takto vzniklá chyba neovlivňuje příliš přesnost, protože v porovnání s ostatními stavy se jedná o zanedbatelný počet bodů, ale velice ovlivňuje jeho F-míru. Proto také hodnotíme kvalitu modelu hlavně podle F-míry. 
 
 
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index &             4118 &             4106 &             3950 &             2932 &             3998 \\
-		\midrule
-		Kombinace příznaků    &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) \\
-		Délky úseků       &  (6, 10, 16, 16) &  (6, 10, 14, 16) &   (4, 8, 12, 16) &  (4, 10, 14, 16) &  (4, 10, 14, 16) \\
-		Accuracy          &            0.868 &            0.867 &            0.866 &            0.867 &            0.866 \\
-		F míra H-mód    &            0.897 &            0.897 &            0.895 &            0.898 &            0.896 \\
-		F míra L-mód    &            0.851 &            0.851 &            0.855 &            0.848 &            0.849 \\
-		F míra ELM    &            0.826 &            0.823 &             0.820 &            0.823 &            0.823 \\
-		F míra průměrná   &            0.858 &            0.857 &            0.856 &            0.856 &            0.856 \\
-		\midrule
-		Precision H-mód &            0.922 &            0.919 &             0.910 &            0.922 &            0.919 \\
-		Precision L-mód &            0.895 &            0.902 &            0.893 &            0.893 &            0.884 \\
-		Precision ELM &            0.788 &            0.787 &            0.796 &            0.791 &            0.793 \\
-		Recall H-mód    &            0.875 &            0.877 &            0.881 &            0.877 &            0.876 \\
-		Recall L-mód    &            0.828 &            0.824 &            0.835 &            0.825 &            0.833 \\
-		Recall ELM    &            0.872 &            0.867 &            0.849 &            0.866 &            0.861 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Výsledky modifikovaného skrytého Markovova modelu aplikovaného na reálná data z Obr. \ref{H-mody}. Nejlepších pět kombinací příznaků a délek úseku seřazených podle průměrné F-míry. }
-	\label{modif hmody}
-\end{table}
 
-
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index &             2206 &             2557 &             2593 &             2314 &             2665 \\
-		\midrule
-		Kombinace příznaků    &  (1, 0, 0, 1, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 0, 1, 1) &  (1, 0, 1, 0, 1) \\
-		Délky úseků       &   (4, 8, 16, 16) &   (4, 8, 16, 16) &  (4, 10, 16, 16) &   (6, 8, 16, 16) &   (6, 8, 16, 16) \\
-		Accuracy          &            0.812 &            0.811 &            0.809 &            0.808 &             0.810 \\
-		F míra H-mód    &            0.793 &            0.793 &            0.791 &            0.791 &            0.793 \\
-		F míra L-mód    &            0.764 &            0.754 &            0.749 &            0.752 &            0.746 \\
-		F míra ELM   &            0.684 &            0.686 &            0.687 &            0.683 &            0.686 \\
-		F míra průměrná   &            0.747 &            0.744 &            0.743 &            0.742 &            0.742 \\
-		\midrule
-		Precision H-mód &            0.858 &            0.869 &            0.871 &            0.857 &            0.877 \\
-		Precision L-mód &            0.798 &            0.765 &            0.758 &            0.768 &            0.745 \\
-		Precision ELM &             0.640 &            0.637 &            0.639 &            0.641 &            0.638 \\
-		Recall H-mód    &            0.749 &             0.740 &            0.736 &            0.744 &            0.736 \\
-		Recall L-mód    &            0.779 &            0.782 &            0.781 &            0.779 &            0.784 \\
-		Recall ELM    &            0.771 &            0.776 &            0.779 &            0.769 &            0.776 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Výsledky modifikovaného skrytého Markovova modelu aplikovaného na reálná data z Obr. \ref{Obecne}. Nejlepších pět kombinací příznaků a délek úseku seřazených podle průměrné F-míry. }
-	\label{modif obecne}
-\end{table}
 
 
 \subsection{K-means}
 
-Poslední metoda, kterou je K-means, se projevila jako nehorší. Navzdory k tomu, že se jedná o poměrně jednoduchý algoritmus, tak i jeho přesnost není zase tak špatná. Nejvíce vypovídající, průměrná F-míra, je u prvního datasetu $64,6\%$ viz Tab. \ref{kmeans hmody}, ale u druhého datasetu je to sotva $54,6\%$ viz Tab. \ref{kmeans obecne}. Příčina toho se skrývá v opět detekci ELMu. 
+Poslední metoda, kterou je K-means, se projevila jako nehorší. Navzdory k tomu, že se jedná o poměrně jednoduchý algoritmus, tak i jeho přesnost není zase tak špatná. Nejvíce vypovídající, průměrná F-míra, je u prvního datasetu $64,6\%$ viz Tab. %\ref{kmeans hmody} 
+\ref{sumtab1}, ale u druhého datasetu je to sotva $54,6\%$ viz Tab. \ref{kmeans obecne}. Příčina toho se skrývá v opět detekci ELMu. 
 %ELMy jsou v porovnání s ostatními stavy nejméně časté, proto jejich chybným určením se přesnost o moc nezmění, ale F-míra rapidně klesne. 
 
 
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index &             2988 &             856  &             4054 &             2989 &             857  \\
-		\midrule
-		Kombinace příznaků    &  (1, 0, 1, 1, 1) &  (0, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (0, 0, 1, 1, 1) \\
-		Délky úseků       &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 13) &   (6, 8, 12, 13) \\
-		Accuracy          &            0.734 &            0.735 &            0.734 &            0.735 &            0.734 \\
-		F míra H-mód   &            0.859 &            0.859 &            0.859 &             0.860 &             0.860 \\
-		F míra L-mód    &            0.699 &            0.699 &            0.699 &            0.697 &            0.697 \\
-		F míra ELM    &            0.379 &            0.379 &            0.378 &            0.379 &            0.379 \\
-		F míra průměrná   &            0.646 &            0.645 &            0.645 &            0.645 &            0.645 \\
-		\midrule
-		Precision H-mód &            0.769 &            0.769 &            0.769 &            0.771 &            0.771 \\
-		Precision L-mód &            0.581 &            0.581 &            0.581 &            0.578 &            0.578 \\
-		Precision ELM &            0.949 &            0.949 &            0.949 &            0.947 &            0.946 \\
-		Recall H-mód    &            0.981 &            0.981 &            0.981 &            0.981 &            0.981 \\
-		Recall L-mód    &             0.890 &             0.890 &             0.890 &            0.891 &             0.890 \\
-		Recall ELM    &            0.241 &            0.241 &             0.240 &            0.241 &            0.241 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Výsledky algoritmu K-means aplikovaného reálná data z Obr. \ref{H-mody}. Nejlepších pět kombinací příznaků a délek úseku seřazených podle průměrné F-míry.}
-	\label{kmeans hmody}
-\end{table}
 
-\begin{table}[H]
-	%\small
-	\centering
-	\renewcommand{\arraystretch}{1}
-	\renewcommand{\tablename}{Tab.}
-	\begin{tabular}{llllll}
-		\toprule
-		index &             3134 &             4200 &             3135 &             4201 &             4202 \\
-		\midrule
-		Kombinace příznaků &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) \\
-		Délky úseků        &  (0, 10, 12, 14) &  (0, 10, 12, 14) &  (0, 10, 12, 15) &  (0, 10, 12, 15) &  (0, 10, 12, 16) \\
-		Accuracy           &            0.684 &            0.684 &            0.683 &            0.683 &            0.683 \\
-		F míra H-mód     &             0.750 &             0.750 &             0.750 &             0.750 &            0.751 \\
-		F míra L-mód     &            0.495 &            0.495 &            0.494 &            0.494 &            0.494 \\
-		F míra ELM     &            0.393 &            0.393 &            0.393 &            0.393 &            0.392 \\
-		F míra průměrná    &            0.546 &            0.546 &            0.546 &            0.546 &            0.545 \\
-		\midrule
-		Precision H-mód  &            0.664 &            0.664 &            0.665 &            0.665 &            0.666 \\
-		Precision L-mód  &            0.526 &            0.526 &            0.527 &            0.527 &            0.528 \\
-		Precision ELM  &            0.612 &            0.612 &            0.611 &            0.611 &             0.61 \\
-		Recall H-mód     &            0.875 &            0.875 &            0.875 &            0.875 &            0.874 \\
-		Recall L-mód     &            0.569 &            0.568 &            0.568 &            0.568 &            0.568 \\
-		Recall ELM     &            0.353 &            0.353 &            0.353 &            0.353 &            0.352 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Výsledky algoritmu K-means aplikovaného na reálná data z Obr. \ref{Obecne}. Nejlepších pět kombinací příznaků a délek úseku seřazených podle průměrné F-míry. }
-	\label{kmeans obecne}
-\end{table}
 
 \subsection{Zhodnocení obou metod}
 Nyní je třeba mezi sebou porovnat všechny tři metody. %Porovnávat se bude opět podle průměrné F-míry. 
-Po vynesení výsledků do jedné shrnující tabulky pro každý dataset(Tab. \ref{sumtab1} a Tab. \ref{sumtab2}) je zřejmé, že nejlépe rozpoznával stavy modifikovaný skrytý Markovův model, jehož průměrné F-míry jsou s přehledem nejvyšší ze všech a proto je také nejlepší model pro tento typ úlohy. 
+Po vynesení výsledků do jedné shrnující tabulky pro každý dataset (Tab. \ref{sumtab1} a Tab. \ref{sumtab2}) je zřejmé, že nejlépe rozpoznával stavy modifikovaný skrytý Markovův model, jehož průměrné F-míry jsou s přehledem nejvyšší ze všech, a proto je také nejlepší model pro tento typ úlohy. Doba potřebná k výpočtu všech příznaků a následké klasifikaci se pohybuje v řádech milisekund ($100$ bodů $\approx$ $3.9 \ ms$ a $1$ bod $\approx  1.5 \ ms$). V tuto chvíli model prozatím nelze využít pro výpočty v reálném čase, ale po optimalizaci kódu bychom měli tento čas ještě snížit.
 
 \begin{table}[H]
 	%\small
@@ -1383,19 +1156,19 @@ Po vynesení výsledků do jedné shrnující tabulky pro každý dataset(Tab. \
 		\multicolumn{6}{c}{Skrytý Markovův model bez učitele}\\
 		\midrule
 		Kombinace příznaků    &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) \\
-		Délky úseků       &   (0, 0, 16, 14) &   (0, 0, 16, 15) &   (0, 0, 14, 14) &   (0, 0, 14, 13) &   (0, 0, 14, 15) \\
+		Délky oken       &   (0, 0, 16, 14) &   (0, 0, 16, 15) &   (0, 0, 14, 14) &   (0, 0, 14, 13) &   (0, 0, 14, 15) \\
 		F míra průměrná   &         0.803 &         0.803 &         0.801 &         0.801 &         0.801 \\
 		\midrule
 		\multicolumn{6}{c}{Skrytý Markovův model modifikovaný}\\
 		\midrule
 		Kombinace příznaků    &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) \\
-		Délky úseků       &  (6, 10, 16, 16) &  (6, 10, 14, 16) &   (4, 8, 12, 16) &  (4, 10, 14, 16) &  (4, 10, 14, 16) \\
+		Délky oken       &  (6, 10, 16, 16) &  (6, 10, 14, 16) &   (4, 8, 12, 16) &  (4, 10, 14, 16) &  (4, 10, 14, 16) \\
 		F míra průměrná   &            0.858 &            0.857 &            0.856 &            0.856 &            0.856 \\
 		\midrule
 		\multicolumn{6}{c}{K-means}\\
 		\midrule
 		Kombinace příznaků    &  (1, 0, 1, 1, 1) &  (0, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (0, 0, 1, 1, 1) \\
-		Délky úseků       &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 13) &   (6, 8, 12, 13) \\
+		Délky oken       &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 13) &   (6, 8, 12, 13) \\
 		F míra průměrná   &            0.646 &            0.645 &            0.645 &            0.645 &            0.645 \\
 		\bottomrule
 	\end{tabular}
@@ -1413,19 +1186,19 @@ Po vynesení výsledků do jedné shrnující tabulky pro každý dataset(Tab. \
 		\multicolumn{6}{c}{Skrytý Markovův model bez učitele}\\
 		\midrule
 		Kombinace příznaků    &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) \\
-		Délky úseku       &   (0, 0, 16, 11) &   (0, 0, 14, 11) &   (0, 0, 16, 12) &   (0, 0, 14, 10) &   (0, 0, 16, 13) \\
+		Délky oken       &   (0, 0, 16, 11) &   (0, 0, 14, 11) &   (0, 0, 16, 12) &   (0, 0, 14, 10) &   (0, 0, 16, 13) \\
 		F míra průměrná   &            0.695 &            0.694 &            0.694 &            0.693 &            0.693 \\
 		\midrule
 		\multicolumn{6}{c}{Skrytý Markovův model modifikovaný}\\
 		\midrule
 		Kombinace příznaků    &  (1, 0, 0, 1, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 0, 1, 1) &  (1, 0, 1, 0, 1) \\
-		Délky úseků       &   (4, 8, 16, 16) &   (4, 8, 16, 16) &  (4, 10, 16, 16) &   (6, 8, 16, 16) &   (6, 8, 16, 16) \\
+		Délky oken       &   (4, 8, 16, 16) &   (4, 8, 16, 16) &  (4, 10, 16, 16) &   (6, 8, 16, 16) &   (6, 8, 16, 16) \\
 		F míra průměrná   &            0.747 &            0.744 &            0.743 &            0.742 &            0.742 \\
 		\midrule
 		\multicolumn{6}{c}{K-means}\\
 		\midrule
 		Kombinace příznaků &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) \\
-		Délky úseků        &  (0, 10, 12, 14) &  (0, 10, 12, 14) &  (0, 10, 12, 15) &  (0, 10, 12, 15) &  (0, 10, 12, 16) \\
+		Délky oken        &  (0, 10, 12, 14) &  (0, 10, 12, 14) &  (0, 10, 12, 15) &  (0, 10, 12, 15) &  (0, 10, 12, 16) \\
 		F míra průměrná    &            0.546 &            0.546 &            0.546 &            0.546 &            0.545 \\
 		\bottomrule
 	\end{tabular}
@@ -1438,10 +1211,11 @@ je především to, že příznaky nemají Gaussovo rozdělení. V předchodí k
 
 
 
+
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.5]{Obr/histogramy1}
+	\includegraphics[scale=0.5]{Obr/histogramy2}
 	\caption{Histogramy příznaků. První tři histogramy přdstavují naměřené hodnoty $H_\alpha$ roztříděny podle stavů. Na dalších histogramech jsou dva příznaky, kontrétně první derivace (Savitzky-Golay filtr) a exponenciální klouzavý průměr. Oranžové křivky jsou Gaussovy křivky, jež by měli odpovídat oněm příznakům. (Číslo výstřelu: $15311$)}
 	\label{histogram}
 \end{figure}
@@ -1453,7 +1227,7 @@ Pro vylepšení modelu by se případně dalo uvažovat o jiných emisních prav
 \begin{figure} [H] 
 	\renewcommand{\figurename}{Obr.}
 	\centering
-	\includegraphics[scale=0.5]{Obr/normalita2}
+	\includegraphics[scale=0.5]{Obr/normalita3}
 	\caption{Gaussovy křivky příznaků. Střední hodnoty a rozptyly byly vypočítány na základě labelů z databáze. (Číslo výstřelu: $15311$)}
 	\label{gaussovky}
 \end{figure}
@@ -1473,11 +1247,11 @@ Nejdříve jsme se seznámili se zářením $H_\alpha$, tokamakem COMPASS a fyzi
 Poté jsme zadefinovali diskrétní Markovův model, jež jsme později rozšířili do skrytého Markovova modelu a dále jsme popsali dva důležité algoritmy potřebné k jeho výpočtu, jimiž jsou EM a Viterbiho algoritmus. Následně jsme představili shlukovou metodu K-means, kterou jsme pak sami implementovali v jazyce Python.
 
 V praktické části jsme postupně zadefinovali derivaci, % počítanou pomocí centrální diference druhého řádu, 
-Savitzky-Golay filtr, klouzavý průměr, exponenciální klouzavý průměr a nakonec klouzavý rozptyl. Pak jsme naplánovali dva experimenty, na kterých byly později obě metody testovány. První experiment byl prováděn na syntetických datech zašuměných Gaussovským bílým šumem. Při tomto experimentu jsme ukázali, že vybrané metody lze využít ke klasifikaci takovýchto dat. Pro druhý experiment jsme z databáze vybrali dva datasety skládající se z deseti signálů a začali používat více délek úseků pro klouzavé průměry. Navíc byl zde poprvé uveden způsob modifikace skrytého Markovova modelu, ve kterém předpočítáváme některé parametry dopředu. 
+Savitzky-Golay filtr, klouzavý průměr, exponenciální klouzavý průměr a nakonec klouzavý rozptyl. Pak jsme naplánovali dva experimenty, na kterých byly později obě metody testovány. První experiment byl prováděn na syntetických datech zašuměných Gaussovským bílým šumem. Při tomto experimentu jsme ukázali, že vybrané metody lze využít ke klasifikaci takovýchto dat. Pro druhý experiment jsme z databáze vybrali dva datasety skládající se z deseti signálů a začali používat více délek oken pro klouzavé průměry. Navíc byl zde poprvé uveden způsob modifikace skrytého Markovova modelu, ve kterém předpočítáváme některé parametry dopředu. 
 
-V poslední kapitole jsme představili způsoby, které jsme poté používali při vyhodnocování kvality modelů. Abychom se vyhnuli případnému overfittingu, rozhodli jsme se pro techniku křížové validace, kde trénování a testování probíhalo v poměru 9:1. Při prvním experimentu jsme zjistili, že nejdůležitějším příznakem se stal exponenciální klouzavý průměr počítaný na úseku délky $5$, který se pro obě velikosti šumu umístil nejlépe. V obou případech tato kombinace dosáhla více než $92,7\%$ přesnosti a $94,8\%$ průměrné F míry (viz Tab. \ref{hmm synt dvacetina} a \ref{hmm synt trinactina}). K-means dopadli o něco hůře, přičemž kombinace exponenciálního klouzavého průměru a klouzavého průměru na úseku délky $5$ překročili $91,2\%$ F-míry (viz Tab. \ref{km synt dvacetina} a \ref{km synt trinactina}). 
+V poslední kapitole jsme představili způsoby, které jsme poté používali při vyhodnocování kvality modelů. Abychom se vyhnuli případnému overfittingu, rozhodli jsme se pro techniku křížové validace, kde trénování a testování probíhalo v poměru 9:1. Při prvním experimentu jsme zjistili, že nejdůležitějším příznakem se stal exponenciální klouzavý průměr počítaný na okně délky $5$, který se pro obě velikosti šumu umístil nejlépe. V obou případech tato kombinace dosáhla více než $92,7\%$ přesnosti a $94,8\%$ průměrné F míry (viz Tab. \ref{hmm synt dvacetina} a \ref{hmm synt trinactina}). K-means dopadli o něco hůře, přičemž kombinace exponenciálního klouzavého průměru a klouzavého průměru na okně délky $5$ překročili $91,2\%$ F-míry (viz Tab. \ref{km synt dvacetina} a \ref{km synt trinactina}). 
 
-Při druhém experimentu se opět potvrdila převaha skrytého Markovova modelu, který si v obou formách, standartní bez učitele a modifikované s učitelem, vedl mnohem lépe, než K-means. Skrytý Markovův model dosáhl u prvního datasetu nejlepší přesnosti $83\%$ a F-míry $80\%$ (viz Tab. \ref{modif hmody unsup}), zatímco u druhého datasetu přesnost i F-míra výrazně klesly (viz Tab. \ref{modif obecne unsup}). Modifikovaná verze tohoto modelu si ovšem vedla o něco lépe. U prvního (resp. druhého) datasetu jsme dosáhli zlepšení o $3,5\%$ (resp. $4,3\%$) v přesnosti a $5,5\%$ (resp. $15,3\%$) v průměrné F-míře (viz Tab. \ref{modif hmody} a \ref{modif obecne}). Na základě výsledků je možné tento model prohlásit za nejlepší způsob klasifikace stavů plazmatu ze všech, které jsme otestovali v této práci.
+Při druhém experimentu se opět potvrdila převaha skrytého Markovova modelu, který si v obou formách, standartní bez učitele a modifikované s učitelem, vedl mnohem lépe, než K-means. Skrytý Markovův model dosáhl u prvního datasetu nejlepší přesnosti $83\%$ a F-míry $80\%$ (viz Tab. \ref{modif hmody unsup}), zatímco u druhého datasetu přesnost i F-míra výrazně klesly (viz Tab. \ref{modif obecne unsup}). Modifikovaná verze tohoto modelu si ovšem vedla o něco lépe. U prvního (resp. druhého) datasetu jsme dosáhli zlepšení o $3,5\%$ (resp. $4,3\%$) v přesnosti a $5,5\%$ (resp. $15,3\%$) v průměrné F-míře (viz Tab. \ref{modif hmody} a \ref{modif obecne}). Na základě výsledků je možné tento model prohlásit za nejlepší způsob klasifikace stavů plazmatu ze všech, které jsme otestovali v této práci. Rychlost klasifikace spolu s výpočtem všech příznaků se při tomto modelu pohybuje kolem $1,5 \ ms$ pro jeden bod, což zatím na využití v reálném čase nestačí. 
 
 Největším problémem bránícím lepším výsledkům je skutečnost, že naše příznaky nemají Gaussovo rozdělení, které předpokládáme při výpočtu skrytého Markovova modelu. Za důkaz tohoto tvrzení lze považovat Obr \ref{histogram}, kde je odchýlení histogramů od předpovídaného rozdělení nejlépe patrné u ELMu. 
 Pokud bychom chtěli případně model nějak vylepšit, stálo by za úvahu použití  třídy GMMHMM (Gaussian Mixture Model Hidden Markov Model), ve které rozdělení příznaků vznikne smíšením několika Gaussových rodělení dohromady. Další možností je rozlišovat ELM na dva samostatné stavy, nebo nalezení skutečného rozdělení příznaků a implementace vlastní knihovny, která bude odhadovat parametry negaussovských emisních pravděpodobností. 
@@ -1521,7 +1295,7 @@ CiteSeerX 10.1.1.48.529, 1995.
 
 \bibitem{H-alpha}T. Van Laer.: \textit{Probe measurements on the COMPASS tokamak}.[Online][Citace: 15. Červen 2018.] <http://doks.xios.be/doks/do/files/FiSe8ae680b43c26317b013c953679dd020b/200800040\_12.pdf?\newline recordId=Sxhl8ae680b43c26317b013c953679dd020a>.
 
-\bibitem{NumRec} W. H. Press, S.A. Teukolsky, W.T. Vetterling, B.F. Flannery.: \textit{Numerical Recepies in C: The Art of Scientific Computing} (Second Edition).  New York: Cambridge University Press. ISBN 0-521-43108-5, 1992.
+\bibitem{NumRec} PRESS, William H. \textit{Numerical recipes in C: the art of scientific computing}. 2nd ed. New York: Cambridge University Press, 1992. ISBN isbn0-521-43108-5.
 
 
 
@@ -1540,5 +1314,304 @@ CiteSeerX 10.1.1.48.529, 1995.
 \bibitem{comp_foto1}[Online][Citace: 15. Červen 2018.]<https://www.researchgate.net/profile/Janos\_Egert/publication/\newline 283617947/figure/fig1/AS:314833057665024@1452073458382/View-of-the-COMPASS-tokamak-left-and-its-vacuum-chamber-with-diagnostic-ports-right.png>.
 
 \end{thebibliography}
+
+\appendix 
+\addcontentsline{toc}{chapter}{Přílohy}
+
+\chapter{Tabulky výsledků}
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &               3  &               1  &               19 &               34 &               11 \\
+		\midrule
+		Kombinace příznaků    &  (0, 0, 1, 0, 0) &  (0, 0, 0, 1, 0) &  (1, 0, 1, 0, 0) &  (0, 0, 1, 0, 0) &  (0, 1, 1, 0, 0) \\
+		Délka okna       &                5 &                5 &                5 &                6 &                5  \\
+		Accuracy          &         0.942 &             0.940 &         0.933 &         0.932 &         0.919 \\
+		F míra H-mód    &         0.946 &          0.945 &         0.938 &         0.937 &         0.924 \\
+		F míra L-mód    &         0.929 &         0.927 &         0.919 &         0.918 &         0.904 \\
+		F míra ELM    &                1.000 &                1.000 &                1.000&                1.000 &                1.000  \\
+		F míra průměrná   &         0.959 &         0.957 &         0.953 &         0.952 &         0.943 \\
+		\midrule
+		Precision H-mód &         0.998 &         0.998 &         0.998 &         0.998 &         0.998  \\
+		Precision L-mód &         0.870 &         0.866 &         0.853 &         0.851&         0.826  \\
+		Precision ELM &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		Recall H-mód    &              0.900 &         0.897 &            0.885 &         0.883 &             0.860 \\
+		Recall L-mód    &           0.998 &           0.998 &           0.998 &           0.998 &           0.998 \\
+		Recall ELM    &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky skrytého Markovova modelu aplikovaného na syntetická data ($\sigma = \frac{1}{20}$). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. 
+		Uspořádaná pětice $(0,\ 1,\ 1,\ 0,\ 0)$ $\approx$ (první derivace, druhá derivace, exponenciální klouzavý průměr, klouzavý průměr, klouzavý rozptyl) udává, které příznaky byly použity (na jejich pozici je 1) a které ne (na jejich pozici je 0). Délka  ($\omega$) je při tomto experimentu pro všechny průměry a rozptyl stejná. Jelikož samotný signál $x_n$ jsme používali jako příznak vždy, tak není explicitně uveden v uspořádané pětici.}
+	\label{hmm synt dvacetina}
+\end{table}
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &               11 &               3  &               27 &               9  &               42 \\
+		\midrule
+		Kombinace příznaků    &  (0, 1, 1, 0, 0) &  (0, 0, 1, 0, 0) &  (1, 1, 1, 0, 0) &  (0, 1, 0, 1, 0) &  (0, 1, 1, 0, 0) \\
+		Délka okna       &                5 &                5 &                5 &                5 &                6 \\
+		Accuracy          &         0.928 &         0.927 &         0.927 &          0.924 &         0.918 \\
+		F míra H-mód    &         0.933 &          0.932 &          0.932 &         0.929 &         0.923 \\
+		F míra L-mód    &         0.913 &         0.911 &         0.911 &         0.909 &         0.902 \\
+		F míra ELM   &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		F míra průměrná   &         0.948 &         0.948 &         0.948 &          0.946 &         0.942 \\
+		\midrule
+		Precision H-mód &         0.993 &         0.991&         0.991 &         0.993 &         0.992\\
+		Precision L-mód &         0.847 &          0.847 &          0.847&         0.841 &         0.829 \\
+		Precision ELM &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		Recall H-mód    &             0.880 &             0.880 &             0.880 &         0.873 &         0.863 \\
+		Recall L-mód    &             0.990 &           0.988 &           0.988 &             0.990 &             0.990 \\
+		Recall ELM    &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky skrytého Markovova modelu aplikovaného na syntetická data ($\sigma = \frac{1}{13}$ ). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
+	\label{hmm synt trinactina}
+\end{table}
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &               1  &               17 &               2  &               9  &               5  \\
+		\midrule
+		Kombinace příznaků &  (0, 0, 0, 1, 0) &  (1, 0, 0, 1, 0) &  (0, 0, 0, 1, 1) &  (0, 1, 0, 1, 0) &  (0, 0, 1, 1, 0) \\
+		Délka okna        &                5 &                5 &                5 &                5 &                5 \\
+		Accuracy           &            0.929 &            0.928 &            0.928 &            0.927 &            0.926 \\
+		F míra H-mód     &            0.936 &            0.936 &            0.936 &            0.935 &            0.934 \\
+		F míra L-mód     &            0.909 &            0.907 &            0.907 &            0.906 &            0.905 \\
+		F míra ELM     &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		F míra průměrná    &            0.948 &            0.948 &            0.948 &            0.947 &            0.946 \\
+		\midrule
+		Precision H-mód  &            0.956 &            0.956 &            0.954 &            0.954 &            0.952 \\
+		Precision L-mód  &            0.885 &            0.882 &            0.884 &            0.882 &            0.882 \\
+		Precision ELM  &                1.000&                1.000 &                1.000 &                1.000 &                1.000 \\
+		Recall H-mód     &            0.918 &            0.917 &            0.918 &            0.917 &            0.917 \\
+		Recall L-mód     &            0.935 &            0.935 &            0.932 &            0.932 &             0.930 \\
+		Recall ELM     &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky algoritmu K-means aplikovaného na syntetická data ($\sigma = \frac{1}{20}$). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
+	\label{km synt dvacetina}
+\end{table}
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &               5  &               6  &               13 &               21 &               36 \\
+		\midrule
+		Kombinace okna &  (0, 0, 1, 1, 0) &  (0, 0, 1, 1, 1) &  (0, 1, 1, 1, 0) &  (1, 0, 1, 1, 0) &  (0, 0, 1, 1, 0) \\
+		Délka okna        &                5 &                5 &                5 &                5 &                6 \\
+		Accuracy           &            0.884 &            0.884 &            0.882 &            0.882 &             0.880 \\
+		F míra H-mód     &            0.898 &            0.898 &            0.897 &            0.897 &            0.894 \\
+		F míra L-mód     &            0.849 &            0.849 &            0.847 &            0.846 &            0.846 \\
+		F míra ELM     &            0.989 &            0.989 &            0.989 &            0.989 &            0.989 \\
+		F míra průměrná    &            0.912 &            0.912 &            0.911 &            0.911 &             0.910 \\
+		\midrule
+		Precision H-mód  &            0.905 &            0.905 &            0.904 &            0.903 &            0.909 \\
+		Precision L-mód  &            0.839 &            0.839 &            0.837 &            0.838 &            0.826 \\
+		Precision ELM  &                1.000 &                1.000 &                1.000 &                1.000 &                1.000 \\
+		Recall H-mód     &            0.892 &            0.892 &             0.890 &            0.892 &             0.880 \\
+		Recall L-mód     &             0.860 &             0.860 &            0.858 &            0.855 &            0.868 \\
+		Recall ELM     &             0.980 &             0.980 &             0.980 &             0.980 &             0.980 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky algoritmu K-means aplikovaného na syntetická data ($\sigma = \frac{1}{13}$). Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry.}
+	\label{km synt trinactina}
+\end{table}
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index  &             2843 &             2844 &             2831 &             2830 &             2832 \\
+		\midrule
+		Kombinace příznaků    &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) \\
+		Délky oken       &   (0, 0, 16, 14) &   (0, 0, 16, 15) &   (0, 0, 14, 14) &   (0, 0, 14, 13) &   (0, 0, 14, 15) \\
+		Accuracy          &         0.833 &         0.832 &         0.831 &         0.832&         0.830 \\
+		F míra H-mód    &         0.901 &         0.900 &         0.901 &         0.903 &         0.899 \\
+		F míra L-mód    &         0.726 &         0.721&         0.727 &         0.732 &         0.719\\
+		F míra ELM    &         0.782 &         0.787 &         0.775 &         0.768 &         0.784 \\
+		F míra průměrná   &         0.803 &         0.803 &         0.801 &         0.801 &         0.801 \\
+		\midrule
+		Precision H-mód &         0.951 &         0.963 &         0.951 &         0.940 &         0.961 \\
+		Precision L-mód &         0.606 &         0.594 &         0.603 &         0.613 &         0.591 \\
+		Precision ELM &         0.843 &         0.843 &           0.841 &         0.843 &         0.844 \\
+		Recall H-mód    &         0.857 &         0.846 &          0.858 &         0.869 &         0.846 \\
+		Recall L-mód    &         0.911 &         0.921 &         0.919 &         0.912 &         0.923 \\
+		Recall ELM    &         0.732 &         0.741 &         0.722 &         0.709 &         0.735 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky skrytého Markovova modelu (bez učitele) aplikovaného na reálná data z Obr. \ref{H-mody}. Nejlepších pět kombinací příznaků a délek oekn seřazených podle průměrné F-míry. 
+	Uspořádaná pětice $(0,\ 1,\ 1,\ 0,\ 0)$ $\approx$ (první derivace, druhá derivace, exponenciální klouzavý průměr, klouzavý průměr, klouzavý rozptyl) udává, které příznaky byly použity (na jejich pozici je 1) a které ne (na jejich pozici je 0). }
+	\label{modif hmody unsup}
+\end{table}
+
+
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &             2840 &             2828 &             2841 &             2827 &             2842 \\
+		\midrule
+		Kombinace příznaků    &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) \\
+		Délky oken       &   (0, 0, 16, 11) &   (0, 0, 14, 11) &   (0, 0, 16, 12) &   (0, 0, 14, 10) &   (0, 0, 16, 13) \\
+		Accuracy          &            0.769 &            0.766 &            0.767 &            0.767 &            0.765 \\
+		F míra H-mód    &            0.807 &            0.806 &            0.804 &            0.807 &            0.802 \\
+		F míra L-mód    &             0.690 &            0.692 &            0.685 &            0.696 &            0.685 \\
+		F míra ELM    &            0.589 &            0.583 &            0.592 &            0.576 &            0.593 \\
+		F míra průměrná   &            0.695 &            0.694 &            0.694 &            0.693 &            0.693 \\
+		\midrule
+		Precision H-mód &            0.847 &            0.842 &            0.855 &            0.833 &            0.866 \\
+		Precision L-mód &            0.609 &            0.615 &            0.606 &            0.617 &            0.602 \\
+		Precision ELM &            0.672 &            0.669 &            0.672 &            0.667 &            0.676 \\
+		Recall H-mód    &             0.780 &            0.783 &             0.770 &            0.791 &            0.759 \\
+		Recall L-mód    &            0.852 &            0.848 &            0.848 &            0.851 &            0.858 \\
+		Recall ELM    &            0.592 &            0.587 &            0.599 &            0.571 &              0.600 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky skrytého Markovova modelu (bez učitele) aplikovaného na reálná data z Obr. \ref{Obecne}. Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
+	\label{modif obecne unsup}
+\end{table}
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &             4118 &             4106 &             3950 &             2932 &             3998 \\
+		\midrule
+		Kombinace příznaků    &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) \\
+		Délky oken       &  (6, 10, 16, 16) &  (6, 10, 14, 16) &   (4, 8, 12, 16) &  (4, 10, 14, 16) &  (4, 10, 14, 16) \\
+		Accuracy          &            0.868 &            0.867 &            0.866 &            0.867 &            0.866 \\
+		F míra H-mód    &            0.897 &            0.897 &            0.895 &            0.898 &            0.896 \\
+		F míra L-mód    &            0.851 &            0.851 &            0.855 &            0.848 &            0.849 \\
+		F míra ELM    &            0.826 &            0.823 &             0.820 &            0.823 &            0.823 \\
+		F míra průměrná   &            0.858 &            0.857 &            0.856 &            0.856 &            0.856 \\
+		\midrule
+		Precision H-mód &            0.922 &            0.919 &             0.910 &            0.922 &            0.919 \\
+		Precision L-mód &            0.895 &            0.902 &            0.893 &            0.893 &            0.884 \\
+		Precision ELM &            0.788 &            0.787 &            0.796 &            0.791 &            0.793 \\
+		Recall H-mód    &            0.875 &            0.877 &            0.881 &            0.877 &            0.876 \\
+		Recall L-mód    &            0.828 &            0.824 &            0.835 &            0.825 &            0.833 \\
+		Recall ELM    &            0.872 &            0.867 &            0.849 &            0.866 &            0.861 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky modifikovaného skrytého Markovova modelu aplikovaného na reálná data z Obr. \ref{H-mody}. Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
+	\label{modif hmody}
+\end{table}
+
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &             2206 &             2557 &             2593 &             2314 &             2665 \\
+		\midrule
+		Kombinace příznaků    &  (1, 0, 0, 1, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 1, 0, 1) &  (1, 0, 0, 1, 1) &  (1, 0, 1, 0, 1) \\
+		Délky oken       &   (4, 8, 16, 16) &   (4, 8, 16, 16) &  (4, 10, 16, 16) &   (6, 8, 16, 16) &   (6, 8, 16, 16) \\
+		Accuracy          &            0.812 &            0.811 &            0.809 &            0.808 &             0.810 \\
+		F míra H-mód    &            0.793 &            0.793 &            0.791 &            0.791 &            0.793 \\
+		F míra L-mód    &            0.764 &            0.754 &            0.749 &            0.752 &            0.746 \\
+		F míra ELM   &            0.684 &            0.686 &            0.687 &            0.683 &            0.686 \\
+		F míra průměrná   &            0.747 &            0.744 &            0.743 &            0.742 &            0.742 \\
+		\midrule
+		Precision H-mód &            0.858 &            0.869 &            0.871 &            0.857 &            0.877 \\
+		Precision L-mód &            0.798 &            0.765 &            0.758 &            0.768 &            0.745 \\
+		Precision ELM &             0.640 &            0.637 &            0.639 &            0.641 &            0.638 \\
+		Recall H-mód    &            0.749 &             0.740 &            0.736 &            0.744 &            0.736 \\
+		Recall L-mód    &            0.779 &            0.782 &            0.781 &            0.779 &            0.784 \\
+		Recall ELM    &            0.771 &            0.776 &            0.779 &            0.769 &            0.776 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky modifikovaného skrytého Markovova modelu aplikovaného na reálná data z Obr. \ref{Obecne}. Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
+	\label{modif obecne}
+\end{table}
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &             2988 &             856  &             4054 &             2989 &             857  \\
+		\midrule
+		Kombinace příznaků    &  (1, 0, 1, 1, 1) &  (0, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (0, 0, 1, 1, 1) \\
+		Délky oken       &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 12) &   (6, 8, 12, 13) &   (6, 8, 12, 13) \\
+		Accuracy          &            0.734 &            0.735 &            0.734 &            0.735 &            0.734 \\
+		F míra H-mód   &            0.859 &            0.859 &            0.859 &             0.860 &             0.860 \\
+		F míra L-mód    &            0.699 &            0.699 &            0.699 &            0.697 &            0.697 \\
+		F míra ELM    &            0.379 &            0.379 &            0.378 &            0.379 &            0.379 \\
+		F míra průměrná   &            0.646 &            0.645 &            0.645 &            0.645 &            0.645 \\
+		\midrule
+		Precision H-mód &            0.769 &            0.769 &            0.769 &            0.771 &            0.771 \\
+		Precision L-mód &            0.581 &            0.581 &            0.581 &            0.578 &            0.578 \\
+		Precision ELM &            0.949 &            0.949 &            0.949 &            0.947 &            0.946 \\
+		Recall H-mód    &            0.981 &            0.981 &            0.981 &            0.981 &            0.981 \\
+		Recall L-mód    &             0.890 &             0.890 &             0.890 &            0.891 &             0.890 \\
+		Recall ELM    &            0.241 &            0.241 &             0.240 &            0.241 &            0.241 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky algoritmu K-means aplikovaného reálná data z Obr. \ref{H-mody}. Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry.}
+	\label{kmeans hmody}
+\end{table}
+
+\begin{table}[H]
+	%\small
+	\centering
+	\renewcommand{\arraystretch}{1}
+	\renewcommand{\tablename}{Tab.}
+	\begin{tabular}{llllll}
+		\toprule
+		index &             3134 &             4200 &             3135 &             4201 &             4202 \\
+		\midrule
+		Kombinace příznaků &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 0, 1, 1, 1) &  (1, 1, 1, 1, 1) &  (1, 1, 1, 1, 1) \\
+		Délky oken        &  (0, 10, 12, 14) &  (0, 10, 12, 14) &  (0, 10, 12, 15) &  (0, 10, 12, 15) &  (0, 10, 12, 16) \\
+		Accuracy           &            0.684 &            0.684 &            0.683 &            0.683 &            0.683 \\
+		F míra H-mód     &             0.750 &             0.750 &             0.750 &             0.750 &            0.751 \\
+		F míra L-mód     &            0.495 &            0.495 &            0.494 &            0.494 &            0.494 \\
+		F míra ELM     &            0.393 &            0.393 &            0.393 &            0.393 &            0.392 \\
+		F míra průměrná    &            0.546 &            0.546 &            0.546 &            0.546 &            0.545 \\
+		\midrule
+		Precision H-mód  &            0.664 &            0.664 &            0.665 &            0.665 &            0.666 \\
+		Precision L-mód  &            0.526 &            0.526 &            0.527 &            0.527 &            0.528 \\
+		Precision ELM  &            0.612 &            0.612 &            0.611 &            0.611 &             0.61 \\
+		Recall H-mód     &            0.875 &            0.875 &            0.875 &            0.875 &            0.874 \\
+		Recall L-mód     &            0.569 &            0.568 &            0.568 &            0.568 &            0.568 \\
+		Recall ELM     &            0.353 &            0.353 &            0.353 &            0.353 &            0.352 \\
+		\bottomrule
+	\end{tabular}
+	\caption{Výsledky algoritmu K-means aplikovaného na reálná data z Obr. \ref{Obecne}. Nejlepších pět kombinací příznaků a délek oken seřazených podle průměrné F-míry. }
+	\label{kmeans obecne}
+\end{table}
 
 \end{document}
